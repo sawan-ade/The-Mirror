@@ -40,6 +40,10 @@ class GalaxyCanvas {
     this.highlightedNodes = new Set();
     this.highlightedEdges = new Set();
 
+    // Enhancements: Painting atmosphere & Timeline evolution
+    this.paintingMood = false;
+    this.timelineFilterDate = null;
+
     this.resize();
     this.initParticles();
     this.initEvents();
@@ -200,27 +204,59 @@ class GalaxyCanvas {
 
   clusterColor(clusterId) {
     const colorMap = {
-      career:     '#9D7FEA',
-      technology: '#60A5FA',
-      philosophy: '#22D3EE',
-      creativity: '#F472B6',
-      health:     '#34D399',
-      default:    '#A78BFA'
+      career:     '#A8FF3E', // Acid lime green
+      technology: '#64D8CB', // Teal
+      philosophy: '#22D3EE', // Sky
+      creativity: '#FF6B6B', // Coral
+      health:     '#F5A623', // Amber
+      default:    '#A8FF3E'
     };
     return colorMap[clusterId] || colorMap.default;
   }
 
   clusterColorByKey(colorKey) {
     const map = {
-      violet:  '#9D7FEA',
-      blue:    '#60A5FA',
-      cyan:    '#22D3EE',
-      rose:    '#F472B6',
-      amber:   '#FBB040',
-      emerald: '#34D399',
-      orange:  '#FB923C'
+      violet:  '#A8FF3E', // Lime green
+      blue:    '#64D8CB', // Teal
+      cyan:    '#22D3EE', // Cyan
+      rose:    '#FF6B6B', // Coral
+      amber:   '#F5A623', // Amber
+      emerald: '#A8FF3E', // Green
+      orange:  '#FF9A3C'  // Orange
     };
-    return map[colorKey] || '#9D7FEA';
+    return map[colorKey] || '#A8FF3E';
+  }
+
+  setPaintingMood(enabled) {
+    this.paintingMood = !!enabled;
+  }
+
+  setTimelineFilter(dateStr) {
+    this.timelineFilterDate = dateStr;
+  }
+
+  isNodeBornByDate(node, targetDateStr) {
+    if (!targetDateStr) return true;
+    const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const parseToScore = (str) => {
+      if (!str) return 0;
+      const lower = str.toLowerCase();
+      const yrMatch = lower.match(/\b(20\d\d)\b/);
+      const yr = yrMatch ? parseInt(yrMatch[1], 10) : 2024;
+      let mo = 1;
+      for (let i = 0; i < months.length; i++) {
+        if (lower.includes(months[i])) { mo = i + 1; break; }
+      }
+      return yr * 12 + mo;
+    };
+
+    const nodeScore = parseToScore(node.firstSeen || 'March 2024');
+    const targetScore = parseToScore(targetDateStr);
+    return nodeScore <= targetScore;
+  }
+
+  getSnapshotDataURL() {
+    return this.canvas.toDataURL('image/png');
   }
 
   // ─────────────────────────────────────────────
@@ -352,10 +388,16 @@ class GalaxyCanvas {
 
     // Background
     ctx.clearRect(0, 0, W, H);
-    const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.7);
-    bg.addColorStop(0, '#07071A');
-    bg.addColorStop(0.5, '#040410');
-    bg.addColorStop(1, '#030308');
+    const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.75);
+    if (this.paintingMood) {
+      bg.addColorStop(0, '#1c150c');
+      bg.addColorStop(0.5, '#120d09');
+      bg.addColorStop(1, '#070605');
+    } else {
+      bg.addColorStop(0, '#111111');
+      bg.addColorStop(0.5, '#0B0B0B');
+      bg.addColorStop(1, '#050505');
+    }
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -386,7 +428,9 @@ class GalaxyCanvas {
       const alpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
+      ctx.fillStyle = this.paintingMood
+        ? `rgba(245, 166, 35, ${alpha * 0.85})`
+        : `rgba(168, 255, 62, ${alpha * 0.7})`;
       ctx.fill();
     });
   }
@@ -498,6 +542,8 @@ class GalaxyCanvas {
       const isHighlighted = this.highlightedNodes.has(node.id);
       const isFaded = this.highlightMode && !isHighlighted && !isSelected;
 
+      const isBorn = this.isNodeBornByDate(node, this.timelineFilterDate);
+
       const pulse = Math.sin(this.time * 1.2 + node.pulsePhase) * 0.12 + 1;
       const r = node.radius * (isHovered ? 1.25 : isSelected ? 1.35 : 1) * pulse;
       const color = node.color;
@@ -508,12 +554,13 @@ class GalaxyCanvas {
 
       let alpha = isFaded ? 0.15 : 1;
       if (isHighlighted) alpha = 1;
+      if (!isBorn) alpha *= 0.12;
 
       ctx.save();
       ctx.globalAlpha = alpha;
 
       // Outer glow
-      if (!isFaded) {
+      if (!isFaded && isBorn) {
         const glowR = r * 2.5;
         const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowR);
         const glowAlpha = isSelected ? 0.35 : isHovered ? 0.25 : 0.12;
@@ -556,28 +603,48 @@ class GalaxyCanvas {
         if (isSelected || isHighlighted) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.5)`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.6)`;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
         }
       }
 
       // Emerging node: outer pulse ring
-      if (node.status === 'emerging') {
+      if (node.status === 'emerging' && isBorn) {
         const ringR = r + 6 + Math.sin(this.time * 2 + node.pulsePhase) * 4;
         ctx.beginPath();
         ctx.arc(node.x, node.y, ringR, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.3)`;
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = `rgba(168,255,62,0.45)`;
+        ctx.lineWidth = 1.5;
         ctx.stroke();
       }
 
+      // ─── Visual Memory Badge (📸) ───
+      if (node.photos && node.photos.length > 0 && isBorn) {
+        const badgeR = 7;
+        const bx = node.x + r * 0.72;
+        const by = node.y - r * 0.72;
+        ctx.beginPath();
+        ctx.arc(bx, by, badgeR, 0, Math.PI * 2);
+        ctx.fillStyle = '#0A0A0A';
+        ctx.fill();
+        ctx.strokeStyle = '#A8FF3E';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.font = '8px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#A8FF3E';
+        ctx.fillText('📸', bx, by + 0.5);
+      }
+
       // Node label
-      const labelAlpha = isHovered || isSelected ? 1 : (isFaded ? 0 : (node.weight > 0.6 ? 0.7 : 0.3));
-      if (labelAlpha > 0.1) {
+      const labelAlpha = isHovered || isSelected ? 1 : (isFaded ? 0 : (node.weight > 0.6 ? 0.75 : 0.35));
+      if (labelAlpha > 0.1 && isBorn) {
         ctx.globalAlpha = alpha * labelAlpha;
-        ctx.font = `${isSelected ? 500 : 400} ${Math.max(10, Math.min(14, node.radius * 0.9))}px 'Space Grotesk', sans-serif`;
-        ctx.fillStyle = '#E8E8F0';
+        ctx.font = `${isSelected ? 600 : 400} ${Math.max(10, Math.min(13, node.radius * 0.9))}px 'Inter', sans-serif`;
+        ctx.fillStyle = isSelected ? '#A8FF3E' : '#F5F0E8';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillText(node.label, node.x, node.y + r + 5);

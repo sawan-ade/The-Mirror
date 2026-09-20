@@ -4,75 +4,391 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE MIRROR — Your thoughts, reflected back to you.</title>
-  <meta name="description" content="THE MIRROR transforms your unstructured thoughts, notes, and ideas into a living constellation of your intellectual world." />
+  <meta name="description" content="AI-powered thought visualization. Transform your notes, journals, and ideas into a living constellation of your intellectual world." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/landing.css" />
-</head>
-<body class="landing-body">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Particle canvas background -->
-  <canvas id="landing-canvas"></canvas>
-
-  <!-- Central content -->
-  <main class="landing-main">
-    <div class="landing-glow"></div>
-
-    <div class="landing-content" id="landing-content">
-      <!-- Eyebrow -->
-      <span class="landing-eyebrow">AN AI THOUGHT MIRROR</span>
-
-      <!-- Title -->
-      <h1 class="landing-title">
-        <span class="title-the">THE</span>
-        <span class="title-mirror">MIRROR</span>
-      </h1>
-
-      <!-- Tagline -->
-      <p class="landing-tagline">Your thoughts, reflected back to you.</p>
-
-      <!-- Description -->
-      <p class="landing-description">
-        Give the Mirror your notes, ideas, and journal entries.<br />
-        Discover the patterns, connections, and forgotten thoughts<br />
-        hidden within your own mind.
-      </p>
-
-      <!-- Enter button -->
-      <button class="enter-btn" id="enter-btn" onclick="enterMirror()">
-        <span class="enter-btn-text">Enter the Mirror</span>
-        <span class="enter-btn-glow"></span>
-      </button>
-
-      <!-- Subtle feature hints -->
-      <div class="feature-hints">
-        <span class="hint">● Concept Galaxy</span>
-        <span class="hint">● Hidden Connections</span>
-        <span class="hint">● Ask the Mirror</span>
-        <span class="hint">● Forgotten Ideas</span>
-      </div>
-    </div>
-  </main>
-
-  <script src="js/landing-particles.js"></script>
-  <script>
-    function enterMirror() {
-      const content = document.getElementById('landing-content');
-      const btn = document.getElementById('enter-btn');
-      btn.classList.add('enter-btn--activated');
-      content.classList.add('content--exit');
-      setTimeout(() => {
-        document.body.classList.add('body--flash');
-        setTimeout(() => {
-          window.location.href = '/mirror.html';
-        }, 600);
-      }, 800);
+    :root {
+      --black:       #0A0A0A;
+      --card-bg:     #111111;
+      --green:       #A8FF3E;
+      --green-dark:  #7ACC1F;
+      --amber:       #F5A623;
+      --warm-white:  #F5F0E8;
+      --muted:       rgba(245,240,232,0.55);
+      --border:      rgba(245,240,232,0.12);
+      --painting-gold: #D4A853;
     }
 
-    // Initialize landing particles
-    initLandingParticles(document.getElementById('landing-canvas'));
+    html, body {
+      height: 100%;
+      background: var(--black);
+      color: var(--warm-white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── Painting Background ─────────────────── */
+    .painting-bg {
+      position: fixed;
+      inset: 0;
+      background: url('img/painting-bg.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+    .painting-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.15) 0%,
+        rgba(10,10,10,0.05) 30%,
+        rgba(10,10,10,0.10) 60%,
+        rgba(10,10,10,0.40) 100%
+      );
+      z-index: 1;
+    }
+
+    /* ─── Nav ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px 40px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--warm-white);
+      letter-spacing: 0.04em;
+    }
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 1; }
+
+    /* ─── Hero ────────────────────────────────── */
+    .hero {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+    }
+
+    .hero-card {
+      background: var(--black);
+      border-radius: 20px;
+      padding: 56px 64px 52px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+      animation: cardIn 0.8s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes cardIn {
+      from { opacity:0; transform:translateY(30px) scale(0.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .logo-dot {
+      width: 10px; height: 10px;
+      background: var(--green);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(52px, 8vw, 80px);
+      line-height: 1.05;
+      color: var(--warm-white);
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: #0A0A0A;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 36px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      text-decoration: none;
+      margin-bottom: 28px;
+    }
+    .btn-primary:hover {
+      background: #BBFF52;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(168,255,62,0.35);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .hero-meta {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .hero-meta strong {
+      color: var(--warm-white);
+      font-weight: 600;
+    }
+
+    /* ─── Features Strip ──────────────────────── */
+    .features-strip {
+      position: relative;
+      z-index: 10;
+      padding: 0 20px 100px;
+      display: flex;
+      justify-content: center;
+    }
+    .features-inner {
+      max-width: 900px;
+      width: 100%;
+    }
+    .features-heading {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--warm-white);
+      margin-bottom: 40px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: rgba(17,17,17,0.92);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(168,255,62,0.25);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .feature-new {
+      display: inline-block;
+      background: var(--green);
+      color: #0A0A0A;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      letter-spacing: 0.06em;
+      vertical-align: middle;
+    }
+
+    /* ─── Painting accent strip ───────────────── */
+    .painting-strip {
+      position: relative;
+      z-index: 10;
+      height: 220px;
+      background: url('img/painting-bg.jpg') center 40%/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 80px;
+    }
+    .painting-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.7), rgba(10,10,10,0.2), rgba(10,10,10,0.7));
+    }
+    .painting-quote {
+      position: relative;
+      z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(20px, 3vw, 28px);
+      color: var(--warm-white);
+      text-align: center;
+      max-width: 700px;
+      padding: 0 40px;
+      line-height: 1.5;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+    }
+
+    /* ─── Footer ──────────────────────────────── */
+    .footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px 20px 60px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer a { color: var(--green); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="painting-bg"></div>
+  <div class="painting-overlay"></div>
+
+  <nav>
+    <a href="#features">Features</a>
+    <a href="mirror.html">Galaxy</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-logo">
+        <span>THE MIRROR</span>
+        <span class="logo-dot"></span>
+      </div>
+      <div class="hero-badge">AI Thought Visualization</div>
+      <h1 class="hero-title">The Mirror</h1>
+      <p class="hero-sub">
+        Give it a pile of messy notes, journals, or ideas.<br/>
+        It shows you the shape of how you think.
+      </p>
+      <a href="mirror.html" class="btn-primary" id="enter-btn">Enter the Mirror →</a>
+      <div class="hero-meta">
+        Built with <strong>Claude Sonnet</strong> · Anthropic Hackathon 2026
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Painting Quote Strip ─────────────── -->
+  <div class="painting-strip">
+    <p class="painting-quote">
+      "A pile of messy thoughts — and it showed me something I couldn't see myself."
+    </p>
+  </div>
+
+  <!-- ─── Features ─────────────────────────── -->
+  <section class="features-strip" id="features">
+    <div class="features-inner">
+      <h2 class="features-heading">What the Mirror does</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🌌</span>
+          <div class="feature-name">Galaxy Map</div>
+          <div class="feature-desc">Interactive constellation — your concepts as stars, relationships as light threads between them.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📸</span>
+          <div class="feature-name">Photo Memory <span class="feature-new">NEW</span></div>
+          <div class="feature-desc">Attach images to any concept node. Visual memories anchored to your ideas.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🎙️</span>
+          <div class="feature-name">Voice Notes <span class="feature-new">NEW</span></div>
+          <div class="feature-desc">Record a voice note for any concept. Hear your thoughts back in your own voice.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📅</span>
+          <div class="feature-name">Timeline View <span class="feature-new">NEW</span></div>
+          <div class="feature-desc">Scroll through the evolution of your thinking over time. See ideas grow, fade, and transform.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◈</span>
+          <div class="feature-name">Hidden Connections</div>
+          <div class="feature-desc">The AI reveals non-obvious bridges between concepts you never consciously connected.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🖼️</span>
+          <div class="feature-name">Share Card <span class="feature-new">NEW</span></div>
+          <div class="feature-desc">Export a beautiful poster of your thought galaxy to share with the world.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◎</span>
+          <div class="feature-name">Forgotten Ideas</div>
+          <div class="feature-desc">Highlights concepts that burned bright then quietly vanished from your writing.</div>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">✦</span>
+          <div class="feature-name">Ask the Mirror</div>
+          <div class="feature-desc">Ask natural-language questions. Get answers grounded in your own words as evidence.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="about">
+    Built for the <strong>Anthropic Claude Hackathon 2026</strong> ·
+    <a href="https://github.com/sawan-ade/The-Mirror" target="_blank">GitHub</a> ·
+    Powered by Claude Sonnet
+  </footer>
+
+  <script>
+    document.getElementById('enter-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.body.style.transition = 'opacity 0.5s';
+      document.body.style.opacity = '0';
+      setTimeout(() => window.location.href = 'mirror.html', 500);
+    });
   </script>
 </body>
 </html>

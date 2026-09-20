@@ -49,7 +49,7 @@ class AskPanel {
     const shuffled = [...this.suggestions].sort(() => 0.5 - Math.random()).slice(0, 4);
     shuffled.forEach(s => {
       const btn = document.createElement('button');
-      btn.className = 'ask-suggestion';
+      btn.className = 'suggestion-btn';
       btn.textContent = s;
       btn.addEventListener('click', () => {
         this.inputEl.value = s;
@@ -60,11 +60,13 @@ class AskPanel {
   }
 
   open() {
+    this.panel.classList.add('open');
     this.panel.classList.add('ask-panel--open');
     setTimeout(() => this.inputEl.focus(), 400);
   }
 
   close() {
+    this.panel.classList.remove('open');
     this.panel.classList.remove('ask-panel--open');
   }
 

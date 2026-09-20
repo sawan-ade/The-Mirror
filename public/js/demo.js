@@ -31,6 +31,23 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_dw1",
+          url: "img/memory-deep-work.jpg",
+          caption: "6:15 AM sunrise focus block. Hot coffee, quiet house, no Slack — the golden four hours.",
+          date: "March 2024"
+        }
+      ],
+      voiceNotes: [
+        {
+          id: "v_dw1",
+          title: "Early Morning Silence",
+          date: "March 2024",
+          duration: "0:24",
+          text: "I keep coming back to this: my best code is written when everything is quiet and nobody is asking for status updates."
+        }
+      ],
       sourceExcerpts: [
         "I keep coming back to this idea that my best code is written in silence, early morning, before the world starts asking things of me.",
         "Cal Newport's Deep Work changed how I think about attention. Real creative work needs four-hour uninterrupted blocks, not ninety-minute ones.",
@@ -47,6 +64,23 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "April 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_su1",
+          url: "img/memory-startup.jpg",
+          caption: "Whiteboard architecture pass for the product concept. Drawing out the event streams at midnight.",
+          date: "April 2024"
+        }
+      ],
+      voiceNotes: [
+        {
+          id: "v_su1",
+          title: "Betting on Myself",
+          date: "April 2024",
+          duration: "0:32",
+          text: "What if I just build it? The fear isn't failing; it's looking back in ten years and realizing I was too comfortable to try."
+        }
+      ],
       sourceExcerpts: [
         "What if I just quit and build the thing? I've been saying 'maybe next year' for three years.",
         "The startup idea isn't just a startup idea anymore. It feels like the answer to a question I've been living with.",
@@ -63,6 +97,15 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "June 2024",
       lastSeen: "August 2025",
+      voiceNotes: [
+        {
+          id: "v_bo1",
+          title: "Running on Fumes",
+          date: "June 2024",
+          duration: "0:28",
+          text: "Stared at the screen for two hours today. It's when the thing you used to love most starts to feel like the thing you dread most."
+        }
+      ],
       sourceExcerpts: [
         "I stared at the screen for two hours and wrote nothing. Not even a comment. This has happened four times this week.",
         "Burnout isn't tiredness. It's when the thing you loved most starts to feel like the thing you dread most.",
@@ -95,6 +138,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "May 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_med1",
+          url: "img/memory-meditation.jpg",
+          caption: "Morning zafu corner and green tea. Sitting still for twenty minutes before the mind starts spinning.",
+          date: "May 2024"
+        }
+      ],
       sourceExcerpts: [
         "Twenty minutes of sitting still in the morning does more for my output than any productivity system.",
         "I notice I skip meditation during the weeks when I need it most. That's the paradox.",
@@ -127,6 +178,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_rd1",
+          url: "img/memory-reading.jpg",
+          caption: "The Heidegger and design theory stack. Underlining sentences that re-wire how I think about systems.",
+          date: "March 2024"
+        }
+      ],
       sourceExcerpts: [
         "I finished three books in March. None in April. Reading is a canary in the coal mine — I can tell how I'm doing by whether I'm reading.",
         "The ideas that stick are the ones I read slowly, underline, argue with.",
