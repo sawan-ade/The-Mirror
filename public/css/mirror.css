@@ -4,28 +4,29 @@
    Oil painting + jet black + lime green + warm serif
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 /* ─── Tokens ────────────────────────────────────────────── */
 :root {
-  --black:          #0A0A0A;
-  --surface:        #111111;
-  --surface-2:      #181818;
-  --surface-3:      #202020;
+  --black:          #080808;
+  --surface:        #101010;
+  --surface-2:      #161616;
+  --surface-3:      #1F1F1F;
   --green:          #A8FF3E;
   --green-dim:      rgba(168,255,62,0.15);
-  --green-glow:     rgba(168,255,62,0.25);
+  --green-glow:     rgba(168,255,62,0.30);
   --amber:          #F5A623;
   --amber-dim:      rgba(245,166,35,0.15);
-  --warm-white:     #F5F0E8;
-  --text-primary:   #F5F0E8;
-  --text-secondary: rgba(245,240,232,0.55);
-  --text-muted:     rgba(245,240,232,0.30);
-  --border:         rgba(245,240,232,0.10);
-  --border-hover:   rgba(168,255,62,0.20);
-  --panel-bg:       rgba(11,11,11,0.97);
-  --radius:         14px;
-  --radius-sm:      8px;
+  --warm-white:     #F7F4EE;
+  --paper-cream:    #F1ECE1;
+  --text-primary:   #F7F4EE;
+  --text-secondary: rgba(247,244,238,0.65);
+  --text-muted:     rgba(247,244,238,0.35);
+  --border:         rgba(247,244,238,0.12);
+  --border-hover:   rgba(168,255,62,0.30);
+  --panel-bg:       rgba(14,14,14,0.96);
+  --radius:         16px;
+  --radius-sm:      10px;
   /* cluster colors — warm palette */
   --c0: #A8FF3E;   /* lime green */
   --c1: #F5A623;   /* amber */
@@ -42,11 +43,12 @@
 .mirror-body {
   background: var(--black);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
   position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ─── Canvas ────────────────────────────────────────────── */
@@ -62,9 +64,9 @@
   position: fixed;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.18;
-  background: url('img/painting-bg.jpg') center/cover;
-  filter: saturate(1.4);
+  opacity: 0.22;
+  background: url('../img/cosmic-oil-canvas.jpg') center/cover;
+  filter: saturate(1.3) contrast(1.1);
 }
 .painting-corner--tl {
   top: 0; left: 0;
@@ -1227,14 +1229,14 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: url('../img/painting-bg.jpg') center/cover no-repeat;
+  background: url('../img/cosmic-oil-canvas.jpg') center/cover no-repeat;
   opacity: 0;
   mix-blend-mode: soft-light;
   filter: contrast(1.15) brightness(0.9);
   transition: opacity 0.6s ease;
 }
 .painting-canvas-overlay.active {
-  opacity: 0.28;
+  opacity: 0.32;
 }
 
 /* ─── Aliases for Panel Open States ──────────────────────── */
@@ -1425,7 +1427,8 @@
   gap: 8px;
   margin-bottom: 8px;
   transition: all 0.15s;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
 }
 .why-btn:hover {
   border-color: rgba(168,255,62,0.3);
@@ -1435,21 +1438,27 @@
 .excerpt-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 .excerpt-item {
-  background: var(--surface-2);
-  border-left: 2px solid var(--border);
-  padding: 8px 12px;
-  font-size: 12px;
-  color: var(--text-secondary);
+  background: linear-gradient(135deg, rgba(247, 244, 238, 0.06), rgba(247, 244, 238, 0.02)), #131313;
+  border: 1px solid rgba(247, 244, 238, 0.10);
+  border-left: 3px solid var(--green);
+  padding: 12px 16px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 16px;
+  color: var(--paper-cream);
   font-style: italic;
   line-height: 1.6;
-  border-radius: 0 6px 6px 0;
-  transition: border-left-color 0.15s;
+  border-radius: 0 8px 8px 0;
+  transition: all 0.18s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
 }
 .excerpt-item:hover {
-  border-left-color: var(--green);
+  border-left-color: #BBFF52;
+  transform: translateX(3px);
+  border-color: rgba(168,255,62,0.25);
 }
+
 

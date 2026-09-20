@@ -3,391 +3,570 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>THE MIRROR — Your thoughts, reflected back to you.</title>
-  <meta name="description" content="AI-powered thought visualization. Transform your notes, journals, and ideas into a living constellation of your intellectual world." />
+  <title>THE MIRROR — Your Thoughts, Reflected.</title>
+  <meta name="description" content="An interactive planetarium for your mind. Transforms messy notes, journals, and raw ideas into a living constellation of your intellectual world." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:       #0A0A0A;
-      --card-bg:     #111111;
-      --green:       #A8FF3E;
-      --green-dark:  #7ACC1F;
-      --amber:       #F5A623;
-      --warm-white:  #F5F0E8;
-      --muted:       rgba(245,240,232,0.55);
-      --border:      rgba(245,240,232,0.12);
-      --painting-gold: #D4A853;
+      --black:          #080808;
+      --card-bg:        #101010;
+      --card-paper:     rgba(20, 20, 20, 0.94);
+      --green:          #A8FF3E;
+      --green-glow:     rgba(168, 255, 62, 0.35);
+      --amber:          #F5A623;
+      --warm-white:     #F7F4EE;
+      --paper-cream:    #F1ECE1;
+      --muted:          rgba(247, 244, 238, 0.60);
+      --border:         rgba(247, 244, 238, 0.12);
+      --border-accent:  rgba(168, 255, 62, 0.30);
     }
 
     html, body {
-      height: 100%;
+      min-height: 100%;
       background: var(--black);
       color: var(--warm-white);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── Painting Background ─────────────────── */
-    .painting-bg {
+    /* ─── Ambient Cosmic Canvas Background ─────── */
+    .cosmic-canvas-bg {
       position: fixed;
       inset: 0;
-      background: url('img/painting-bg.jpg') center/cover no-repeat;
+      background: url('img/cosmic-oil-canvas.jpg') center 25%/cover no-repeat;
+      opacity: 0.35;
+      filter: saturate(1.2) contrast(1.1);
       z-index: 0;
+      pointer-events: none;
     }
-    .painting-overlay {
+    .cosmic-vignette {
       position: fixed;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(10,10,10,0.15) 0%,
-        rgba(10,10,10,0.05) 30%,
-        rgba(10,10,10,0.10) 60%,
-        rgba(10,10,10,0.40) 100%
-      );
+      background: radial-gradient(circle at 50% 30%, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.85) 70%, #080808 100%);
       z-index: 1;
+      pointer-events: none;
     }
 
-    /* ─── Nav ─────────────────────────────────── */
-    nav {
+    /* ─── Header Navigation ───────────────────── */
+    header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 20px 40px;
-      font-size: 14px;
-      font-weight: 400;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      backdrop-filter: blur(20px);
+      background: rgba(8, 8, 8, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
       color: var(--warm-white);
+    }
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+    }
+    .brand-dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--green);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 13px;
+      font-weight: 500;
       letter-spacing: 0.04em;
     }
-    nav a {
-      color: inherit;
+    .nav-links a {
+      color: var(--muted);
       text-decoration: none;
-      opacity: 0.85;
-      transition: opacity 0.2s;
+      transition: color 0.2s;
     }
-    nav a:hover { opacity: 1; }
+    .nav-links a:hover { color: var(--warm-white); }
+    .nav-cta {
+      background: var(--green);
+      color: #080808 !important;
+      font-weight: 700 !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: transform 0.15s, box-shadow 0.15s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--green-glow);
+    }
 
-    /* ─── Hero ────────────────────────────────── */
+    /* ─── Hero Section ────────────────────────── */
     .hero {
       position: relative;
       z-index: 10;
-      min-height: 100vh;
+      min-height: 90vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 20px;
+      padding: 120px 24px 60px;
     }
-
     .hero-card {
-      background: var(--black);
-      border-radius: 20px;
-      padding: 56px 64px 52px;
-      max-width: 600px;
+      background: radial-gradient(circle at 50% 0%, rgba(247,244,238,0.06), transparent 70%), var(--card-paper);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px 60px 54px;
+      max-width: 680px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
-      animation: cardIn 0.8s cubic-bezier(0.22,1,0.36,1) both;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.04);
+      animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes cardIn {
-      from { opacity:0; transform:translateY(30px) scale(0.97); }
-      to   { opacity:1; transform:translateY(0) scale(1); }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-
-    .hero-badge {
-      display: inline-block;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 16px;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    .hero-logo {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--warm-white);
-      margin-bottom: 8px;
-      display: flex;
+    .hero-pill {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 6px;
+      background: rgba(168, 255, 62, 0.08);
+      border: 1px solid rgba(168, 255, 62, 0.25);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 28px;
     }
-    .logo-dot {
-      width: 10px; height: 10px;
-      background: var(--green);
-      border-radius: 2px;
-      display: inline-block;
-    }
-
     .hero-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(52px, 8vw, 80px);
+      font-size: clamp(46px, 7vw, 76px);
       line-height: 1.05;
       color: var(--warm-white);
       margin-bottom: 20px;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
-
+    .hero-title span {
+      font-style: normal;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
     .hero-sub {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 36px;
-      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 480px;
       margin-left: auto;
       margin-right: auto;
+      font-weight: 400;
     }
-
-    .btn-primary {
-      display: inline-block;
+    .btn-enter {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: var(--green);
-      color: #0A0A0A;
+      color: #080808;
       font-weight: 700;
       font-size: 15px;
-      padding: 14px 36px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      padding: 16px 40px;
+      border-radius: 12px;
       text-decoration: none;
-      margin-bottom: 28px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 24px var(--green-glow);
     }
-    .btn-primary:hover {
+    .btn-enter:hover {
       background: #BBFF52;
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(168,255,62,0.35);
+      box-shadow: 0 8px 36px rgba(168, 255, 62, 0.5);
     }
-    .btn-primary:active { transform: translateY(0); }
-
     .hero-meta {
+      margin-top: 36px;
       font-size: 12px;
       color: var(--muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
     .hero-meta strong {
       color: var(--warm-white);
-      font-weight: 600;
     }
 
-    /* ─── Features Strip ──────────────────────── */
-    .features-strip {
+    /* ─── Paper Manuscript Showcase Strip ─────── */
+    .paper-showcase {
       position: relative;
       z-index: 10;
-      padding: 0 20px 100px;
-      display: flex;
-      justify-content: center;
+      max-width: 1080px;
+      margin: 0 auto 100px;
+      padding: 0 24px;
     }
-    .features-inner {
-      max-width: 900px;
+    .paper-card-container {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      background: #0E0E0E;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    @media (max-width: 800px) {
+      .paper-card-container { grid-template-columns: 1fr; }
+    }
+    .paper-card-media {
+      position: relative;
+      height: 100%;
+      min-height: 380px;
+      overflow: hidden;
+    }
+    .paper-card-media img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.05);
+      transition: transform 0.6s ease;
     }
-    .features-heading {
-      text-align: center;
+    .paper-card-container:hover .paper-card-media img {
+      transform: scale(1.03);
+    }
+    .paper-card-content {
+      padding: 48px 40px 48px 10px;
+    }
+    .paper-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .paper-heading {
       font-family: 'Playfair Display', serif;
+      font-style: italic;
       font-size: 32px;
       color: var(--warm-white);
-      margin-bottom: 40px;
+      line-height: 1.25;
+      margin-bottom: 18px;
+    }
+    .paper-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .paper-quote-slip {
+      background: rgba(247, 244, 238, 0.04);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 18px;
+      color: var(--paper-cream);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ─── Visual Memories Gallery Showcase ───── */
+    .memories-showcase {
+      position: relative;
+      z-index: 10;
+      max-width: 1080px;
+      margin: 0 auto 100px;
+      padding: 0 24px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--warm-white);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: #111111;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .gallery-item-desc {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .gallery-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--warm-white);
+      font-weight: 600;
+    }
+    .gallery-item-caption {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ─── Features Grid ───────────────────────── */
+    .features-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1080px;
+      margin: 0 auto 120px;
+      padding: 0 24px;
     }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
-    .feature-card {
-      background: rgba(17,17,17,0.92);
+    .feature-box {
+      background: rgba(16, 16, 16, 0.9);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 24px;
-      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 32px 28px;
+      backdrop-filter: blur(14px);
       transition: border-color 0.2s, transform 0.2s;
     }
-    .feature-card:hover {
-      border-color: rgba(168,255,62,0.25);
-      transform: translateY(-3px);
+    .feature-box:hover {
+      border-color: rgba(168, 255, 62, 0.3);
+      transform: translateY(-4px);
     }
     .feature-icon {
       font-size: 28px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: block;
     }
-    .feature-name {
-      font-weight: 600;
-      font-size: 15px;
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
       color: var(--warm-white);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-    .feature-desc {
+    .feature-text {
       font-size: 13px;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
-    .feature-new {
+    .tag-new {
       display: inline-block;
       background: var(--green);
-      color: #0A0A0A;
+      color: #080808;
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       padding: 2px 8px;
       border-radius: 4px;
-      margin-left: 8px;
-      letter-spacing: 0.06em;
-      vertical-align: middle;
-    }
-
-    /* ─── Painting accent strip ───────────────── */
-    .painting-strip {
-      position: relative;
-      z-index: 10;
-      height: 220px;
-      background: url('img/painting-bg.jpg') center 40%/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
-    .painting-strip::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(10,10,10,0.7), rgba(10,10,10,0.2), rgba(10,10,10,0.7));
-    }
-    .painting-quote {
-      position: relative;
-      z-index: 1;
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(20px, 3vw, 28px);
-      color: var(--warm-white);
-      text-align: center;
-      max-width: 700px;
-      padding: 0 40px;
-      line-height: 1.5;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      margin-left: 6px;
+      letter-spacing: 0.05em;
     }
 
     /* ─── Footer ──────────────────────────────── */
-    .footer {
+    footer {
       position: relative;
       z-index: 10;
       text-align: center;
-      padding: 40px 20px 60px;
+      padding: 60px 20px;
+      border-top: 1px solid var(--border);
       font-size: 13px;
       color: var(--muted);
     }
-    .footer a { color: var(--green); text-decoration: none; }
+    footer a { color: var(--green); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
 
-  <div class="painting-bg"></div>
-  <div class="painting-overlay"></div>
+  <!-- Cosmic Painting & Vignette Backdrop -->
+  <div class="cosmic-canvas-bg"></div>
+  <div class="cosmic-vignette"></div>
 
-  <nav>
-    <a href="#features">Features</a>
-    <a href="mirror.html">Galaxy</a>
-    <a href="#about">About</a>
-  </nav>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="brand">
+      <span class="brand-title">THE MIRROR</span>
+      <span class="brand-dot"></span>
+    </a>
+    <div class="nav-links">
+      <a href="#paper">Artisanal Paper</a>
+      <a href="#memories">Memories</a>
+      <a href="#features">Features</a>
+      <a href="mirror.html" class="nav-cta">Launch Galaxy →</a>
+    </div>
+  </header>
 
-  <!-- ─── Hero ─────────────────────────────── -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-card">
-      <div class="hero-logo">
-        <span>THE MIRROR</span>
-        <span class="logo-dot"></span>
-      </div>
-      <div class="hero-badge">AI Thought Visualization</div>
-      <h1 class="hero-title">The Mirror</h1>
+      <div class="hero-pill">✦ AI Thought Planetarium & Visual Memories</div>
+      <h1 class="hero-title">The <span>Mirror</span></h1>
       <p class="hero-sub">
-        Give it a pile of messy notes, journals, or ideas.<br/>
-        It shows you the shape of how you think.
+        Give it a messy collection of notes, journals, or reflections.<br/>
+        It reveals the living architecture of how you think.
       </p>
-      <a href="mirror.html" class="btn-primary" id="enter-btn">Enter the Mirror →</a>
+      <a href="mirror.html" class="btn-enter" id="btn-enter-universe">
+        <span>Enter the Thought Galaxy</span>
+        <span>→</span>
+      </a>
       <div class="hero-meta">
-        Built with <strong>Claude Sonnet</strong> · Anthropic Hackathon 2026
+        Built with <strong>Claude Sonnet</strong> · Anthropic & HackerRank Orchestrate 2026
       </div>
     </div>
   </section>
 
-  <!-- ─── Painting Quote Strip ─────────────── -->
-  <div class="painting-strip">
-    <p class="painting-quote">
-      "A pile of messy thoughts — and it showed me something I couldn't see myself."
-    </p>
-  </div>
-
-  <!-- ─── Features ─────────────────────────── -->
-  <section class="features-strip" id="features">
-    <div class="features-inner">
-      <h2 class="features-heading">What the Mirror does</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <span class="feature-icon">🌌</span>
-          <div class="feature-name">Galaxy Map</div>
-          <div class="feature-desc">Interactive constellation — your concepts as stars, relationships as light threads between them.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">📸</span>
-          <div class="feature-name">Photo Memory <span class="feature-new">NEW</span></div>
-          <div class="feature-desc">Attach images to any concept node. Visual memories anchored to your ideas.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🎙️</span>
-          <div class="feature-name">Voice Notes <span class="feature-new">NEW</span></div>
-          <div class="feature-desc">Record a voice note for any concept. Hear your thoughts back in your own voice.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">📅</span>
-          <div class="feature-name">Timeline View <span class="feature-new">NEW</span></div>
-          <div class="feature-desc">Scroll through the evolution of your thinking over time. See ideas grow, fade, and transform.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">◈</span>
-          <div class="feature-name">Hidden Connections</div>
-          <div class="feature-desc">The AI reveals non-obvious bridges between concepts you never consciously connected.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🖼️</span>
-          <div class="feature-name">Share Card <span class="feature-new">NEW</span></div>
-          <div class="feature-desc">Export a beautiful poster of your thought galaxy to share with the world.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">◎</span>
-          <div class="feature-name">Forgotten Ideas</div>
-          <div class="feature-desc">Highlights concepts that burned bright then quietly vanished from your writing.</div>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">✦</span>
-          <div class="feature-name">Ask the Mirror</div>
-          <div class="feature-desc">Ask natural-language questions. Get answers grounded in your own words as evidence.</div>
+  <!-- Artisanal Paper & Manuscript Showcase Strip -->
+  <section class="paper-showcase" id="paper">
+    <div class="paper-card-container">
+      <div class="paper-card-media">
+        <img src="img/paper-journal.jpg" alt="Artisanal deckled cotton paper notebook and fountain pen" />
+      </div>
+      <div class="paper-card-content">
+        <span class="paper-tag">THE TACTILE JOURNAL</span>
+        <h2 class="paper-heading">The Weight of Thought on Paper</h2>
+        <p class="paper-body">
+          Thoughts shouldn't be trapped in cold rectangular data tables. The Mirror pairs high-velocity AI concept clustering with the timeless tactile intimacy of handmade paper, fountain pen reflections, and personal memories.
+        </p>
+        <div class="paper-quote-slip">
+          "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge."
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer" id="about">
-    Built for the <strong>Anthropic Claude Hackathon 2026</strong> ·
-    <a href="https://github.com/sawan-ade/The-Mirror" target="_blank">GitHub</a> ·
-    Powered by Claude Sonnet
+  <!-- Visual Memories Gallery Showcase -->
+  <section class="memories-showcase" id="memories">
+    <div class="section-header">
+      <span class="section-eyebrow">PHOTOGRAPHIC MEMORY ANCHORS</span>
+      <h2 class="section-title">Memories Anchored to Ideas</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="img/memory-deep-work.jpg" alt="Sunrise desk focus block" />
+        <div class="gallery-item-desc">
+          <div class="gallery-item-title">Deep Work</div>
+          <div class="gallery-item-caption">"6:15 AM sunrise focus block with hot coffee and zero meetings."</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/memory-studio.jpg" alt="Creative studio workspace" />
+        <div class="gallery-item-desc">
+          <div class="gallery-item-title">Side Project → Product</div>
+          <div class="gallery-item-caption">"First 100 users logged in while the studio was silent at midnight."</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/memory-solitude.jpg" alt="Rainy cafe window solitude" />
+        <div class="gallery-item-desc">
+          <div class="gallery-item-title">Solitude & City</div>
+          <div class="gallery-item-caption">"Rainy evening coffee alone — the tension between focus and human connection."</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/memory-reading.jpg" alt="Stack of hardcover books with ink notes" />
+        <div class="gallery-item-desc">
+          <div class="gallery-item-title">Reading Stack</div>
+          <div class="gallery-item-caption">"Philosophy & design theory books that re-wire how I think about systems."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <span class="section-eyebrow">INTELLIGENCE SUITE</span>
+      <h2 class="section-title">A Living Planetarium for Your Mind</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-box">
+        <span class="feature-icon">🌌</span>
+        <div class="feature-title">Celestial Constellation</div>
+        <div class="feature-text">Interactive 2D galaxy where thoughts form glowing star clusters connected by luminous bezier threads.</div>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">📸</span>
+        <div class="feature-title">Photo Memory Anchors <span class="tag-new">NEW</span></div>
+        <div class="feature-text">Attach personal photos to any thought node. Preview on hover, expand in lightbox, and browse the gallery.</div>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">🎙️</span>
+        <div class="feature-title">Voice Reflections <span class="tag-new">NEW</span></div>
+        <div class="feature-text">Record voice notes for your thoughts and listen to speech reflections with animated waveform audio.</div>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">📅</span>
+        <div class="feature-title">Timeline Evolution Scrubber <span class="tag-new">NEW</span></div>
+        <div class="feature-text">Scrub through months of thoughts or press Play to watch your cognitive landscape grow like a film.</div>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">🎨</span>
+        <div class="feature-title">Renaissance Painting Mood <span class="tag-new">NEW</span></div>
+        <div class="feature-text">Switch into an oil-painted chiaroscuro atmosphere with impasto textures inspired by fine art masterpieces.</div>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">◈</span>
+        <div class="feature-title">Hidden Cross-Connections</div>
+        <div class="feature-text">The AI spots non-obvious bridges between disparate concepts you never consciously linked.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Built with <strong>Claude Sonnet</strong> for the <strong>Anthropic & HackerRank Hackathon 2026</strong> ·
+    <a href="https://github.com/sawan-ade/The-Mirror" target="_blank">GitHub Repository</a>
   </footer>
 
   <script>
-    document.getElementById('enter-btn').addEventListener('click', function(e) {
+    document.getElementById('btn-enter-universe').addEventListener('click', function(e) {
       e.preventDefault();
-      document.body.style.transition = 'opacity 0.5s';
+      document.body.style.transition = 'opacity 0.4s ease';
       document.body.style.opacity = '0';
-      setTimeout(() => window.location.href = 'mirror.html', 500);
+      setTimeout(() => { window.location.href = 'mirror.html'; }, 400);
     });
   </script>
 </body>

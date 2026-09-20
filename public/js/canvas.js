@@ -643,8 +643,8 @@ class GalaxyCanvas {
       const labelAlpha = isHovered || isSelected ? 1 : (isFaded ? 0 : (node.weight > 0.6 ? 0.75 : 0.35));
       if (labelAlpha > 0.1 && isBorn) {
         ctx.globalAlpha = alpha * labelAlpha;
-        ctx.font = `${isSelected ? 600 : 400} ${Math.max(10, Math.min(13, node.radius * 0.9))}px 'Inter', sans-serif`;
-        ctx.fillStyle = isSelected ? '#A8FF3E' : '#F5F0E8';
+        ctx.font = `${isSelected ? 700 : 500} ${Math.max(10, Math.min(13, node.radius * 0.9))}px 'Plus Jakarta Sans', sans-serif`;
+        ctx.fillStyle = isSelected ? '#A8FF3E' : '#F7F4EE';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillText(node.label, node.x, node.y + r + 5);

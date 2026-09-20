@@ -218,6 +218,14 @@ window.DEMO_DATA = {
       status: "emerging",
       firstSeen: "April 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_sp1",
+          url: "img/memory-studio.jpg",
+          caption: "Midnight studio desk. First 100 users logged in while the world was asleep.",
+          date: "April 2024"
+        }
+      ],
       sourceExcerpts: [
         "April 2024: Started a side project. Mostly for fun. A tool for my own workflow.",
         "August 2024: People keep asking me about the tool. Maybe there's something here.",
@@ -267,6 +275,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "July 2024",
       lastSeen: "July 2025",
+      photos: [
+        {
+          id: "p_lone1",
+          url: "img/memory-solitude.jpg",
+          caption: "Rainy evening coffee alone in the city. The contradiction between craving deep solitude and needing human presence.",
+          date: "July 2024"
+        }
+      ],
       sourceExcerpts: [
         "The remote work freedom I wanted feels like isolation I didn't ask for.",
         "I went to a conference and talked to more people in two days than I had in two months.",
@@ -299,6 +315,14 @@ window.DEMO_DATA = {
       status: "emerging",
       firstSeen: "August 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_wri1",
+          url: "img/paper-journal.jpg",
+          caption: "Handmade deckled paper journal & fountain pen. Finding what I believe by putting ink on textured paper.",
+          date: "August 2024"
+        }
+      ],
       sourceExcerpts: [
         "Writing is thinking. I don't know what I believe about something until I've tried to write it.",
         "After the podcast idea died, I started writing instead. It feels more honest.",
