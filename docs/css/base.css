@@ -1,0 +1,136 @@
+/* ============================================
+   THE MIRROR — Base Design Tokens & Reset
+   ============================================ */
+
+:root {
+  /* Core palette */
+  --bg-void: #030308;
+  --bg-deep: #070712;
+  --bg-surface: #0d0d1a;
+  --bg-panel: rgba(10, 10, 22, 0.85);
+  --bg-panel-border: rgba(100, 80, 255, 0.12);
+
+  /* Text */
+  --text-primary: #E8E8F0;
+  --text-secondary: #7A7A96;
+  --text-dim: #3D3D55;
+  --text-accent: #A78BFA;
+
+  /* Accent colors */
+  --violet:  #7C3AED;
+  --violet-bright: #A78BFA;
+  --violet-glow: rgba(124, 58, 237, 0.3);
+  --blue:    #3B82F6;
+  --blue-bright: #93C5FD;
+  --cyan:    #06B6D4;
+  --rose:    #EC4899;
+  --amber:   #F59E0B;
+  --emerald: #10B981;
+  --orange:  #F97316;
+
+  /* Cluster colors */
+  --cluster-violet:  #9D7FEA;
+  --cluster-blue:    #60A5FA;
+  --cluster-cyan:    #22D3EE;
+  --cluster-rose:    #F472B6;
+  --cluster-amber:   #FBB040;
+  --cluster-emerald: #34D399;
+  --cluster-orange:  #FB923C;
+
+  /* Glow effects */
+  --glow-violet: 0 0 40px rgba(124, 58, 237, 0.4);
+  --glow-blue:   0 0 40px rgba(59, 130, 246, 0.4);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* Timing */
+  --t-fast: 150ms;
+  --t-base: 300ms;
+  --t-slow: 600ms;
+  --t-xslow: 1000ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Spacing */
+  --panel-width: 380px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollable panels only */
+.scrollable {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-panel-border) transparent;
+}
+.scrollable::-webkit-scrollbar { width: 4px; }
+.scrollable::-webkit-scrollbar-track { background: transparent; }
+.scrollable::-webkit-scrollbar-thumb { background: var(--bg-panel-border); border-radius: 2px; }
+
+/* ─────────────────────────────────────────────
+   Shared utility classes
+   ───────────────────────────────────────────── */
+
+.mono { font-family: var(--font-mono); }
+
+.glow-text-violet {
+  text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.badge--active   { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+.badge--recurring{ background: rgba(124, 58, 237, 0.15); color: var(--violet-bright); }
+.badge--emerging { background: rgba(59, 130, 246, 0.15);  color: var(--blue-bright); }
+.badge--abandoned{ background: rgba(100, 100, 120, 0.15); color: var(--text-secondary); }
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--bg-panel-border);
+  margin: 16px 0;
+}
+
+/* Panel backdrop */
+.panel-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(3, 3, 8, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-base);
+}
+.panel-backdrop--visible {
+  opacity: 1;
+  pointer-events: all;
+}

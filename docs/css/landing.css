@@ -1,0 +1,236 @@
+/* ============================================
+   THE MIRROR — Landing Page Styles
+   ============================================ */
+
+.landing-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-void);
+}
+
+/* Particle canvas behind everything */
+#landing-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Main layout
+   ───────────────────────────────────────────── */
+.landing-main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Radial glow behind the title */
+.landing-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(124, 58, 237, 0.18) 0%,
+    rgba(59, 130, 246, 0.08) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: glow-breathe 6s ease-in-out infinite;
+}
+
+@keyframes glow-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────
+   Content
+   ───────────────────────────────────────────── */
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: content-rise 1.4s var(--ease-out) both;
+}
+
+@keyframes content-rise {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.content--exit {
+  animation: content-exit 0.8s var(--ease-out) both;
+}
+
+@keyframes content-exit {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.04); }
+}
+
+.body--flash {
+  animation: body-flash 0.6s ease-in both;
+}
+
+@keyframes body-flash {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; background: #A78BFA; }
+  100% { opacity: 0; }
+}
+
+/* Eyebrow */
+.landing-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--violet-bright);
+  opacity: 0.7;
+  margin-bottom: 28px;
+  animation: content-rise 1.4s 0.1s var(--ease-out) both;
+}
+
+/* Title */
+.landing-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.85;
+  margin-bottom: 28px;
+  animation: content-rise 1.4s 0.2s var(--ease-out) both;
+}
+
+.title-the {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 300;
+  letter-spacing: 0.6em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.title-mirror {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 16vw, 160px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    135deg,
+    #E8E8F8 0%,
+    #C4B5FD 30%,
+    #818CF8 60%,
+    #A78BFA 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 60px rgba(167, 139, 250, 0.35));
+}
+
+/* Tagline */
+.landing-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 300;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+  animation: content-rise 1.4s 0.35s var(--ease-out) both;
+}
+
+/* Description */
+.landing-description {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  animation: content-rise 1.4s 0.5s var(--ease-out) both;
+}
+
+/* ─────────────────────────────────────────────
+   Enter Button
+   ───────────────────────────────────────────── */
+.enter-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 48px;
+  background: transparent;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 48px;
+  transition: all var(--t-base) var(--ease-out);
+  animation: content-rise 1.4s 0.65s var(--ease-out) both;
+}
+
+.enter-btn:hover {
+  border-color: rgba(167, 139, 250, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.3), 0 0 80px rgba(124, 58, 237, 0.1);
+}
+
+.enter-btn:hover .enter-btn-glow {
+  opacity: 1;
+}
+
+.enter-btn--activated {
+  animation: btn-activate 0.4s var(--ease-out) both;
+}
+
+@keyframes btn-activate {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.97); }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+
+.enter-btn-text {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--violet-bright);
+  position: relative;
+  z-index: 1;
+}
+
+.enter-btn-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--t-base);
+}
+
+/* ─────────────────────────────────────────────
+   Feature hints
+   ───────────────────────────────────────────── */
+.feature-hints {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  animation: content-rise 1.4s 0.8s var(--ease-out) both;
+}
+
+.hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  white-space: nowrap;
+}

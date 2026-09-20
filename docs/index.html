@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE MIRROR — Your thoughts, reflected back to you.</title>
+  <meta name="description" content="THE MIRROR transforms your unstructured thoughts, notes, and ideas into a living constellation of your intellectual world." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body class="landing-body">
+
+  <!-- Particle canvas background -->
+  <canvas id="landing-canvas"></canvas>
+
+  <!-- Central content -->
+  <main class="landing-main">
+    <div class="landing-glow"></div>
+
+    <div class="landing-content" id="landing-content">
+      <!-- Eyebrow -->
+      <span class="landing-eyebrow">AN AI THOUGHT MIRROR</span>
+
+      <!-- Title -->
+      <h1 class="landing-title">
+        <span class="title-the">THE</span>
+        <span class="title-mirror">MIRROR</span>
+      </h1>
+
+      <!-- Tagline -->
+      <p class="landing-tagline">Your thoughts, reflected back to you.</p>
+
+      <!-- Description -->
+      <p class="landing-description">
+        Give the Mirror your notes, ideas, and journal entries.<br />
+        Discover the patterns, connections, and forgotten thoughts<br />
+        hidden within your own mind.
+      </p>
+
+      <!-- Enter button -->
+      <button class="enter-btn" id="enter-btn" onclick="enterMirror()">
+        <span class="enter-btn-text">Enter the Mirror</span>
+        <span class="enter-btn-glow"></span>
+      </button>
+
+      <!-- Subtle feature hints -->
+      <div class="feature-hints">
+        <span class="hint">● Concept Galaxy</span>
+        <span class="hint">● Hidden Connections</span>
+        <span class="hint">● Ask the Mirror</span>
+        <span class="hint">● Forgotten Ideas</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/landing-particles.js"></script>
+  <script>
+    function enterMirror() {
+      const content = document.getElementById('landing-content');
+      const btn = document.getElementById('enter-btn');
+      btn.classList.add('enter-btn--activated');
+      content.classList.add('content--exit');
+      setTimeout(() => {
+        document.body.classList.add('body--flash');
+        setTimeout(() => {
+          window.location.href = 'mirror.html';
+        }, 600);
+      }, 800);
+    }
+
+    // Initialize landing particles
+    initLandingParticles(document.getElementById('landing-canvas'));
+  </script>
+</body>
+</html>
