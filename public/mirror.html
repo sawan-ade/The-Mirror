@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE MIRROR — Your thought universe</title>
+  <meta name="description" content="THE MIRROR — An interactive visualization of your intellectual world." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/mirror.css" />
+</head>
+<body class="mirror-body">
+
+  <!-- ─────────────────────────────────────────
+       Galaxy Canvas
+       ───────────────────────────────────────── -->
+  <canvas id="mirror-canvas"></canvas>
+
+  <!-- ─────────────────────────────────────────
+       Top Navigation
+       ───────────────────────────────────────── -->
+  <nav class="mirror-nav">
+    <a href="/" class="mirror-nav__logo">
+      <span class="mirror-nav__logo-the">THE</span>
+      <span class="mirror-nav__logo-mirror">MIRROR</span>
+    </a>
+
+    <div class="mirror-nav__actions">
+      <button class="nav-btn" id="btn-forgotten" title="Reveal forgotten ideas">
+        <span class="icon">◎</span> Forgotten
+      </button>
+      <button class="nav-btn" id="btn-hidden" title="Reveal hidden connections">
+        <span class="icon">◈</span> Hidden
+      </button>
+      <button class="nav-btn" id="btn-ask" title="Ask the Mirror">
+        <span class="icon">✦</span> Ask Mirror
+      </button>
+      <button class="nav-btn" id="btn-demo" title="Load demo data">
+        Demo
+      </button>
+      <button class="nav-btn nav-btn--primary" id="btn-add-thoughts" title="Add your thoughts">
+        + Add Thoughts
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       Mode Indicator
+       ───────────────────────────────────────── -->
+  <div class="mode-indicator" id="mode-indicator">
+    <span id="mode-label">Mode</span>
+    <span class="mode-indicator__exit" id="mode-exit" title="Exit mode">✕</span>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Bottom Stats Bar
+       ───────────────────────────────────────── -->
+  <div class="mirror-bottom">
+    <div class="cluster-legend" id="cluster-legend"></div>
+    <div class="mirror-stats">
+      <span class="mirror-stat"><span id="stat-nodes">0</span> concepts</span>
+      <span class="mirror-stat"><span id="stat-edges">0</span> connections</span>
+      <span class="mirror-stat"><span id="stat-clusters">0</span> clusters</span>
+      <span class="mirror-stat" id="stat-range-container" style="display:none;"><span id="stat-range"></span></span>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Node Tooltip
+       ───────────────────────────────────────── -->
+  <div class="node-tooltip" id="node-tooltip">
+    <div class="node-tooltip__label"></div>
+    <div class="node-tooltip__meta"></div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Inspector Panel (Right)
+       ───────────────────────────────────────── -->
+  <aside class="slide-panel inspector-panel" id="inspector-panel" aria-label="Concept Inspector">
+    <div class="panel-header">
+      <span class="panel-header__title">Concept Inspector</span>
+      <button class="panel-close-btn" id="inspector-close" title="Close">✕</button>
+    </div>
+    <div class="panel-body scrollable" id="inspector-body">
+      <!-- Populated by inspector.js -->
+    </div>
+  </aside>
+
+  <!-- ─────────────────────────────────────────
+       Ask Mirror Panel (Left)
+       ───────────────────────────────────────── -->
+  <aside class="slide-panel ask-panel" id="ask-panel" aria-label="Ask the Mirror">
+    <div class="panel-header">
+      <span class="panel-header__title">✦ Ask the Mirror</span>
+      <button class="panel-close-btn" id="ask-close" title="Close">✕</button>
+    </div>
+
+    <div class="panel-body scrollable" style="display:flex; flex-direction:column; gap:0; padding-bottom:0; flex:1; overflow:hidden;">
+      <!-- Intro text -->
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:16px; flex-shrink:0;">
+        Ask the Mirror anything about your intellectual landscape. It will answer using only evidence from your own thoughts.
+      </p>
+
+      <!-- Suggestions -->
+      <div class="section-heading">Suggested Questions</div>
+      <div class="ask-prompt-suggestions" id="ask-suggestions">
+        <!-- Populated by chat.js -->
+      </div>
+
+      <div class="divider" style="flex-shrink:0;"></div>
+
+      <!-- Chat history -->
+      <div class="chat-history scrollable" id="chat-history" style="flex:1; min-height:0;">
+        <!-- Messages appear here -->
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="ask-input-area">
+      <div class="ask-input-form">
+        <textarea
+          id="ask-input"
+          class="ask-input"
+          placeholder="Ask the Mirror anything…"
+          rows="1"
+        ></textarea>
+        <button class="ask-submit-btn" id="ask-submit" title="Send">
+          ➤
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─────────────────────────────────────────
+       Insight Toast Container
+       ───────────────────────────────────────── -->
+  <div class="insight-toast-container" id="insight-toast-container"></div>
+
+  <!-- ─────────────────────────────────────────
+       Processing Overlay
+       ───────────────────────────────────────── -->
+  <div class="processing-overlay" id="processing-overlay">
+    <div class="processing-orb"></div>
+    <div class="processing-text" id="processing-text-main">Extracting concepts…</div>
+    <div class="processing-sub" id="processing-sub">Reading your thoughts</div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Input / Add Thoughts Modal
+       ───────────────────────────────────────── -->
+  <div class="modal-overlay" id="input-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Add Your Thoughts</div>
+          <div class="modal-subtitle">
+            Paste your notes, journal entries, ideas — anything unstructured.
+            The Mirror will find the patterns.
+          </div>
+        </div>
+        <button class="panel-close-btn" onclick="document.getElementById('input-modal').classList.remove('modal-overlay--open')">✕</button>
+      </div>
+      <div class="modal-body">
+        <textarea
+          id="user-text-input"
+          class="modal-textarea"
+          placeholder="Paste your thoughts here…
+
+Examples:
+• Journal entries from the past year
+• A dump of sticky notes and ideas
+• Notes from your Obsidian / Notion
+• Meeting notes, shower thoughts, anything
+
+The Mirror works best with 500–5000 words of your own writing."
+        ></textarea>
+
+        <div style="padding:12px 14px; background:rgba(124,58,237,0.06); border:1px solid rgba(124,58,237,0.15); border-radius:2px;">
+          <p style="font-size:12px; color:var(--text-secondary); line-height:1.6; margin:0;">
+            ◈ <strong style="color:var(--violet-bright);">Privacy:</strong>
+            Your text is sent to Claude via your own API key to extract patterns.
+            Nothing is stored beyond your browser session.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn--secondary" id="btn-use-demo">Use Demo Data</button>
+        <button class="modal-btn modal-btn--secondary" id="btn-cancel-extract">Cancel</button>
+        <button class="modal-btn modal-btn--primary" id="btn-extract">
+          ✦ Reveal the Mirror
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Hidden Connection Modal
+       ───────────────────────────────────────── -->
+  <div class="modal-overlay" id="hidden-modal-overlay">
+    <div class="modal" id="hidden-modal-content">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Scripts
+       ───────────────────────────────────────── -->
+  <script src="js/demo.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/inspector.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

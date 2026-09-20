@@ -1,0 +1,16 @@
+{
+  "name": "the-mirror-server",
+  "version": "1.0.0",
+  "description": "THE MIRROR - AI Thought Visualization Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
