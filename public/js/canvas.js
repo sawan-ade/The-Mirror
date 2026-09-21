@@ -670,10 +670,26 @@ class GalaxyCanvas {
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.font = '9px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('📸', bx, by + 0.5);
+        // Vector camera glyph for high-DPI clarity
+        const camColor = isLight ? '#7C3AED' : '#A8FF3E';
+        const innerColor = isLight ? '#FFFFFF' : '#0A0A0A';
+        ctx.fillStyle = camColor;
+        // Camera body
+        const cw = 7, ch = 4.8;
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(bx - cw/2, by - ch/2 + 0.7, cw, ch, 1);
+          ctx.fill();
+        } else {
+          ctx.fillRect(bx - cw/2, by - ch/2 + 0.7, cw, ch);
+        }
+        // Camera top bump
+        ctx.fillRect(bx - 1.5, by - ch/2 - 0.2, 3, 1);
+        // Lens
+        ctx.fillStyle = innerColor;
+        ctx.beginPath();
+        ctx.arc(bx, by + 0.7, 1.2, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       // Node label

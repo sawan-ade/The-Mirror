@@ -189,25 +189,36 @@ body.dark-mode {
   font-size: 12px;
   font-weight: 600;
   padding: 6px 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   letter-spacing: 0.02em;
-  transition: all 0.18s;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-xs);
+  user-select: none;
 }
 .nav-btn:hover {
   border-color: var(--border-hover);
   color: var(--text-primary);
   background: var(--primary-dim);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.nav-btn:active {
+  transform: scale(0.96) !important;
+}
+.nav-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 .nav-btn.active {
   background: var(--primary-dim);
   border-color: var(--primary);
   color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
 }
 .nav-btn--primary {
   background: var(--primary);
@@ -234,27 +245,55 @@ body.dark-mode .nav-btn--primary:hover {
   border-color: #BBFF52;
   color: #0A0A0A !important;
 }
-.nav-btn .icon { font-size: 13px; }
+.nav-btn svg, .companion-toggle-btn svg, .panel-close-btn svg, .why-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+  fill: none;
+  stroke: currentColor;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.nav-btn .icon { font-size: 13px; line-height: 1; }
 
 /* Theme and Cat Companion Pills */
 .companion-toggle-btn {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text-primary);
-  border-radius: 20px;
-  padding: 5px 12px;
+  border-radius: 999px;
+  padding: 5px 13px;
   font-size: 12px;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.18s;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-xs);
+  user-select: none;
 }
 .companion-toggle-btn:hover {
   background: var(--surface-2);
   border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+.companion-toggle-btn:active {
+  transform: scale(0.96) !important;
+}
+.companion-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ─── Mode Indicator ────────────────────────────────────── */
