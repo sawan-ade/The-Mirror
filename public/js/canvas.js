@@ -458,6 +458,18 @@ class GalaxyCanvas {
           : `rgba(168, 255, 62, ${alpha * 0.7})`;
       }
       ctx.fill();
+
+      // Subtle 4-point twinkle starlight for larger particles
+      if (p.r > 2 && Math.sin(p.pulse) > 0.7) {
+        ctx.beginPath();
+        ctx.moveTo(p.x - p.r * 2.2, p.y);
+        ctx.lineTo(p.x + p.r * 2.2, p.y);
+        ctx.moveTo(p.x, p.y - p.r * 2.2);
+        ctx.lineTo(p.x, p.y + p.r * 2.2);
+        ctx.strokeStyle = isLight ? `rgba(124, 58, 237, ${alpha * 0.4})` : `rgba(255, 255, 255, ${alpha * 0.6})`;
+        ctx.lineWidth = 0.75;
+        ctx.stroke();
+      }
     });
   }
 
@@ -491,6 +503,15 @@ class GalaxyCanvas {
       ctx.arc(cx, cy, maxDist, 0, Math.PI * 2);
       ctx.fillStyle = grad;
       ctx.fill();
+
+      // Orbital dashed guide ring for cluster
+      ctx.beginPath();
+      ctx.arc(cx, cy, maxDist * 0.75, 0, Math.PI * 2);
+      ctx.strokeStyle = isLight ? `rgba(${r}, ${g}, ${b}, 0.08)` : `rgba(${r}, ${g}, ${b}, 0.06)`;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 14]);
+      ctx.stroke();
+      ctx.setLineDash([]);
     });
   }
 
@@ -559,6 +580,24 @@ class GalaxyCanvas {
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.restore();
+      }
+
+      // ─── Traveling Synaptic Energy Pulse Along Bezier Edge ───
+      if (isSelected || isHighlighted || (Math.sin(this.time * 2 + (edge.id ? edge.id.charCodeAt(0) : 1)) > 0.5 && !isFaded)) {
+        const pulseT = ((this.time * 0.35 + (edge.strength * 1.5)) % 1);
+        const p1x = mx + perpX;
+        const p1y = my + perpY;
+        const omt = 1 - pulseT;
+        const px = omt * omt * src.x + 2 * omt * pulseT * p1x + pulseT * pulseT * tgt.x;
+        const py = omt * omt * src.y + 2 * omt * pulseT * p1y + pulseT * pulseT * tgt.y;
+
+        ctx.beginPath();
+        ctx.arc(px, py, isLight ? 2.5 : 2, 0, Math.PI * 2);
+        ctx.fillStyle = isLight ? `rgba(${r},${g},${b},0.95)` : '#FFFFFF';
+        ctx.shadowColor = `rgba(${r},${g},${b},0.85)`;
+        ctx.shadowBlur = isLight ? 5 : 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
       }
     });
   }
@@ -637,13 +676,26 @@ class GalaxyCanvas {
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Border ring for selected
+        // Border ring & orbiting photon for selected
         if (isSelected || isHighlighted) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = isLight ? '#0F172A' : `rgba(${cr},${cg},${cb},0.6)`;
+          ctx.strokeStyle = isLight ? '#0F172A' : `rgba(${cr},${cg},${cb},0.7)`;
           ctx.lineWidth = isLight ? 2 : 1.5;
           ctx.stroke();
+
+          // Orbiting photon bead
+          const orbAngle = this.time * 3 + node.pulsePhase;
+          const orbR = r + 4;
+          const ox = node.x + Math.cos(orbAngle) * orbR;
+          const oy = node.y + Math.sin(orbAngle) * orbR;
+          ctx.beginPath();
+          ctx.arc(ox, oy, 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = isLight ? '#7C3AED' : '#A8FF3E';
+          ctx.shadowColor = ctx.fillStyle;
+          ctx.shadowBlur = 6;
+          ctx.fill();
+          ctx.shadowBlur = 0;
         }
       }
 

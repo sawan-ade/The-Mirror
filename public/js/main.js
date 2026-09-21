@@ -710,15 +710,32 @@ class MirrorApp {
       });
     }
 
-    // 🐱 Cat Companion Toggle
+    // 🐱 Cat Companion Toggle (Navbar + Floating Pod)
     const btnCat = document.getElementById('btn-toggle-cat');
     const catLabel = document.getElementById('cat-toggle-label');
+    const catPod = document.getElementById('galaxy-cat-pod');
+    const catPodStatus = document.getElementById('galaxy-cat-status');
+
+    const syncCatState = (active) => {
+      if (catLabel) catLabel.textContent = active ? 'Cat' : 'No Cat';
+      if (btnCat) btnCat.style.opacity = active ? '1' : '0.6';
+      if (catPodStatus) catPodStatus.textContent = active ? 'Hunting cursor' : 'Sleeping';
+      if (catPod) catPod.style.opacity = active ? '1' : '0.6';
+    };
+
     if (btnCat) {
       btnCat.addEventListener('click', () => {
         if (typeof window.toggleOneko === 'function') {
           const active = window.toggleOneko();
-          if (catLabel) catLabel.textContent = active ? 'Cat' : 'No Cat';
-          btnCat.style.opacity = active ? '1' : '0.6';
+          syncCatState(active);
+        }
+      });
+    }
+    if (catPod) {
+      catPod.addEventListener('click', () => {
+        if (typeof window.toggleOneko === 'function') {
+          const active = window.toggleOneko();
+          syncCatState(active);
         }
       });
     }

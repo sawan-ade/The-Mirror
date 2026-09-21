@@ -8,37 +8,43 @@
 
 /* ─── Tokens ────────────────────────────────────────────── */
 :root {
-  --black:          #F8FAFC;
-  --bg:             #F8FAFC;
+  --black:          #FDFBF7;
+  --bg:             #FDFBF7;   /* Warm Alabaster Champagne */
   --surface:        #FFFFFF;
-  --surface-2:      #F1F5F9;
-  --surface-3:      #E2E8F0;
+  --surface-2:      #F7F4EC;
+  --surface-3:      #EFEADF;
   --surface-card:   #FFFFFF;
   --primary:        #7C3AED;   /* Royal violet */
+  --primary-hover:  #6D28D9;
   --primary-dim:    rgba(124, 58, 237, 0.08);
-  --primary-glow:   rgba(124, 58, 237, 0.22);
+  --primary-glow:   rgba(124, 58, 237, 0.24);
   --green:          #7C3AED;   /* Accent primary */
   --green-dim:      rgba(124, 58, 237, 0.08);
-  --green-glow:     rgba(124, 58, 237, 0.22);
+  --green-glow:     rgba(124, 58, 237, 0.24);
   --amber:          #D97706;
   --amber-dim:      rgba(217, 119, 6, 0.12);
   --warm-white:     #0F172A;
-  --paper-cream:    #FAF8F5;
+  --paper-cream:    #FAF5EB;
   --text-primary:   #0F172A;
   --text-secondary: #475569;
   --text-muted:     #64748B;
-  --border:         rgba(15, 23, 42, 0.09);
+  --border:         rgba(15, 23, 42, 0.08);
   --border-hover:   rgba(124, 58, 237, 0.40);
-  --panel-bg:       rgba(255, 255, 255, 0.95);
-  --nav-bg:         rgba(255, 255, 255, 0.90);
-  --bottom-bg:      rgba(255, 255, 255, 0.90);
-  --shadow-sm:      0 2px 8px rgba(15, 23, 42, 0.05);
-  --shadow-md:      0 16px 36px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --border-accent:  rgba(124, 58, 237, 0.35);
+  --panel-bg:       rgba(255, 255, 255, 0.94);
+  --nav-bg:         rgba(253, 251, 247, 0.88);
+  --bottom-bg:      rgba(253, 251, 247, 0.90);
+  --shadow-xs:      0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm:      0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-md:      0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-lg:      0 24px 48px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-xl:      0 36px 80px -16px rgba(15, 23, 42, 0.16);
   --modal-bg:       #FFFFFF;
-  --modal-overlay:  rgba(15, 23, 42, 0.45);
+  --modal-overlay:  rgba(15, 23, 42, 0.50);
   --radius:         16px;
   --radius-sm:      10px;
-  /* Cluster colors — bright jewel palette */
+  --radius-full:    9999px;
+  /* Cluster colors — saturated jewel tones */
   --c0: #7C3AED;   /* Electric purple */
   --c1: #D97706;   /* Radiant amber */
   --c2: #E11D48;   /* Coral rose */
@@ -49,34 +55,39 @@
 }
 
 body.dark-mode {
-  --black:          #080808;
-  --bg:             #080808;
-  --surface:        #101010;
-  --surface-2:      #161616;
-  --surface-3:      #1F1F1F;
-  --surface-card:   #141414;
-  --primary:        #A8FF3E;
-  --primary-dim:    rgba(168, 255, 62, 0.15);
-  --primary-glow:   rgba(168, 255, 62, 0.30);
+  --black:          #08080A;
+  --bg:             #08080A;   /* Deep Cosmic Abyss */
+  --surface:        #101114;
+  --surface-2:      #16181D;
+  --surface-3:      #1F2229;
+  --surface-card:   #131418;
+  --primary:        #A8FF3E;   /* Neon Lime */
+  --primary-hover:  #BBFF52;
+  --primary-dim:    rgba(168, 255, 62, 0.14);
+  --primary-glow:   rgba(168, 255, 62, 0.32);
   --green:          #A8FF3E;
-  --green-dim:      rgba(168, 255, 62, 0.15);
-  --green-glow:     rgba(168, 255, 62, 0.30);
+  --green-dim:      rgba(168, 255, 62, 0.14);
+  --green-glow:     rgba(168, 255, 62, 0.32);
   --amber:          #F5A623;
   --amber-dim:      rgba(245, 166, 35, 0.15);
   --warm-white:     #F7F4EE;
-  --paper-cream:    #F1ECE1;
+  --paper-cream:    #16171B;
   --text-primary:   #F7F4EE;
-  --text-secondary: rgba(247, 244, 238, 0.65);
-  --text-muted:     rgba(247, 244, 238, 0.40);
+  --text-secondary: rgba(247, 244, 238, 0.70);
+  --text-muted:     rgba(247, 244, 238, 0.42);
   --border:         rgba(247, 244, 238, 0.12);
-  --border-hover:   rgba(168, 255, 62, 0.35);
-  --panel-bg:       rgba(14, 14, 14, 0.96);
-  --nav-bg:         rgba(10, 10, 10, 0.88);
-  --bottom-bg:      rgba(10, 10, 10, 0.88);
+  --border-hover:   rgba(168, 255, 62, 0.38);
+  --border-accent:  rgba(168, 255, 62, 0.35);
+  --panel-bg:       rgba(14, 15, 18, 0.95);
+  --nav-bg:         rgba(8, 8, 10, 0.86);
+  --bottom-bg:      rgba(8, 8, 10, 0.88);
+  --shadow-xs:      0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-sm:      0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md:      0 12px 32px -8px rgba(0, 0, 0, 0.6);
-  --modal-bg:       #101010;
-  --modal-overlay:  rgba(0, 0, 0, 0.75);
+  --shadow-md:      0 12px 32px -8px rgba(0, 0, 0, 0.65);
+  --shadow-lg:      0 24px 48px -12px rgba(0, 0, 0, 0.82);
+  --shadow-xl:      0 36px 80px -16px rgba(0, 0, 0, 0.95);
+  --modal-bg:       #101114;
+  --modal-overlay:  rgba(0, 0, 0, 0.80);
   --c0: #A8FF3E;
   --c1: #F5A623;
   --c2: #FF6B6B;
@@ -130,20 +141,102 @@ body.dark-mode {
   mask: radial-gradient(ellipse at 100% 100%, black 20%, transparent 80%);
 }
 
-/* ─── Nav ───────────────────────────────────────────────── */
+/* ─── Nav (Floating Island Glass Dock) ──────────────────── */
 .mirror-nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  height: 56px;
+  padding: 0 20px;
+  height: 54px;
+  width: calc(100% - 32px);
+  max-width: 1280px;
   background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 900px) {
+  .mirror-nav {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    height: 56px;
+    padding: 0 14px;
+  }
+}
+
+/* ─── Floating Cat Companion Dock ────────────────────────── */
+.cat-companion-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 6px 14px 6px 8px;
+  box-shadow: var(--shadow-md);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cat-companion-dock:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg);
+}
+.cat-companion-dock:active {
+  transform: scale(0.96);
+}
+.cat-avatar-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cat-dock-status {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.cat-dock-title {
+  font-size: 9px;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+.cat-dock-action {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .mirror-nav__logo {
