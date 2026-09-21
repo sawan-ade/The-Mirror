@@ -43,6 +43,7 @@ class GalaxyCanvas {
     // Enhancements: Painting atmosphere & Timeline evolution
     this.paintingMood = false;
     this.timelineFilterDate = null;
+    this.themeMode = 'light'; // Default to bright luminous mode as requested
 
     this.resize();
     this.initParticles();
@@ -204,27 +205,31 @@ class GalaxyCanvas {
 
   clusterColor(clusterId) {
     const colorMap = {
-      career:     '#A8FF3E', // Acid lime green
-      technology: '#64D8CB', // Teal
-      philosophy: '#22D3EE', // Sky
-      creativity: '#FF6B6B', // Coral
-      health:     '#F5A623', // Amber
-      default:    '#A8FF3E'
+      career:     '#7C3AED', // Electric purple / violet
+      technology: '#0284C7', // Sky cyan
+      philosophy: '#059669', // Emerald mint
+      creativity: '#E11D48', // Vivid coral rose
+      health:     '#D97706', // Radiant golden honey
+      default:    '#7C3AED'
     };
     return colorMap[clusterId] || colorMap.default;
   }
 
   clusterColorByKey(colorKey) {
     const map = {
-      violet:  '#A8FF3E', // Lime green
-      blue:    '#64D8CB', // Teal
-      cyan:    '#22D3EE', // Cyan
-      rose:    '#FF6B6B', // Coral
-      amber:   '#F5A623', // Amber
-      emerald: '#A8FF3E', // Green
-      orange:  '#FF9A3C'  // Orange
+      violet:  '#7C3AED', // Electric purple
+      blue:    '#0284C7', // Vivid blue
+      cyan:    '#0EA5E9', // Sky cyan
+      rose:    '#E11D48', // Coral rose
+      amber:   '#D97706', // Warm amber gold
+      emerald: '#059669', // Emerald mint
+      orange:  '#EA580C'  // Vibrant orange
     };
-    return map[colorKey] || '#A8FF3E';
+    return map[colorKey] || '#7C3AED';
+  }
+
+  setThemeMode(mode) {
+    this.themeMode = mode || 'light';
   }
 
   setPaintingMood(enabled) {
@@ -385,18 +390,32 @@ class GalaxyCanvas {
     const ctx = this.ctx;
     const W = this.canvas.width;
     const H = this.canvas.height;
+    const isLight = this.themeMode === 'light';
 
     // Background
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.75);
     if (this.paintingMood) {
-      bg.addColorStop(0, '#1c150c');
-      bg.addColorStop(0.5, '#120d09');
-      bg.addColorStop(1, '#070605');
+      if (isLight) {
+        bg.addColorStop(0, '#FFFDF8');
+        bg.addColorStop(0.5, '#FEF9EE');
+        bg.addColorStop(1, '#F8F1DE');
+      } else {
+        bg.addColorStop(0, '#1c150c');
+        bg.addColorStop(0.5, '#120d09');
+        bg.addColorStop(1, '#070605');
+      }
     } else {
-      bg.addColorStop(0, '#111111');
-      bg.addColorStop(0.5, '#0B0B0B');
-      bg.addColorStop(1, '#050505');
+      if (isLight) {
+        bg.addColorStop(0, '#FFFFFF');
+        bg.addColorStop(0.35, '#F8FAFC');
+        bg.addColorStop(0.75, '#F1F5F9');
+        bg.addColorStop(1, '#E2E8F0');
+      } else {
+        bg.addColorStop(0, '#111111');
+        bg.addColorStop(0.5, '#0B0B0B');
+        bg.addColorStop(1, '#050505');
+      }
     }
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
@@ -424,13 +443,20 @@ class GalaxyCanvas {
 
   drawParticles() {
     const ctx = this.ctx;
+    const isLight = this.themeMode === 'light';
     this.particles.forEach(p => {
       const alpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = this.paintingMood
-        ? `rgba(245, 166, 35, ${alpha * 0.85})`
-        : `rgba(168, 255, 62, ${alpha * 0.7})`;
+      ctx.arc(p.x, p.y, p.r * (isLight ? 1.3 : 1), 0, Math.PI * 2);
+      if (this.paintingMood) {
+        ctx.fillStyle = isLight
+          ? `rgba(217, 119, 6, ${alpha * 0.65})`
+          : `rgba(245, 166, 35, ${alpha * 0.85})`;
+      } else {
+        ctx.fillStyle = isLight
+          ? `rgba(124, 58, 237, ${alpha * 0.5})`
+          : `rgba(168, 255, 62, ${alpha * 0.7})`;
+      }
       ctx.fill();
     });
   }
@@ -438,6 +464,7 @@ class GalaxyCanvas {
   drawClusterHalos() {
     if (!this.clusters.length || !this.nodes.length) return;
     const ctx = this.ctx;
+    const isLight = this.themeMode === 'light';
 
     this.clusters.forEach(cluster => {
       const members = this.nodes.filter(n => n.cluster === cluster.id);
@@ -445,7 +472,7 @@ class GalaxyCanvas {
 
       const cx = members.reduce((s, n) => s + n.x, 0) / members.length;
       const cy = members.reduce((s, n) => s + n.y, 0) / members.length;
-      const maxDist = Math.max(...members.map(n => Math.hypot(n.x - cx, n.y - cy))) + 40;
+      const maxDist = Math.max(...members.map(n => Math.hypot(n.x - cx, n.y - cy))) + 45;
 
       const color = this.clusterColorByKey(cluster.colorKey);
       const hx = color.replace('#', '');
@@ -454,8 +481,10 @@ class GalaxyCanvas {
       const b = parseInt(hx.substring(4, 6), 16);
 
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxDist);
-      grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.04)`);
-      grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, 0.02)`);
+      const a1 = isLight ? 0.09 : 0.04;
+      const a2 = isLight ? 0.04 : 0.02;
+      grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${a1})`);
+      grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${a2})`);
       grad.addColorStop(1, 'rgba(0,0,0,0)');
 
       ctx.beginPath();
@@ -467,6 +496,7 @@ class GalaxyCanvas {
 
   drawEdges() {
     const ctx = this.ctx;
+    const isLight = this.themeMode === 'light';
 
     this.edges.forEach(edge => {
       const src = edge.sourceNode;
@@ -479,10 +509,10 @@ class GalaxyCanvas {
       const isSelected = this.selectedNode &&
         (edge.source === this.selectedNode.id || edge.target === this.selectedNode.id);
 
-      let alpha = edge.strength * 0.25;
-      if (isFaded) alpha = 0.04;
-      if (isSelected) alpha = edge.strength * 0.65;
-      if (isHighlighted) alpha = 0.8;
+      let alpha = edge.strength * (isLight ? 0.35 : 0.25);
+      if (isFaded) alpha = isLight ? 0.06 : 0.04;
+      if (isSelected) alpha = isLight ? 0.85 : (edge.strength * 0.65);
+      if (isHighlighted) alpha = isLight ? 0.95 : 0.8;
 
       const color = this.clusterColor(src.cluster);
       const hex = color.replace('#', '');
@@ -514,7 +544,7 @@ class GalaxyCanvas {
       ctx.moveTo(src.x, src.y);
       ctx.quadraticCurveTo(mx + perpX, my + perpY, tgt.x, tgt.y);
       ctx.strokeStyle = grad;
-      ctx.lineWidth = isSelected || isHighlighted ? 1.5 : 0.8;
+      ctx.lineWidth = isSelected || isHighlighted ? (isLight ? 2 : 1.5) : (isLight ? 1 : 0.8);
       ctx.stroke();
 
       if (isSelected) {
@@ -525,7 +555,7 @@ class GalaxyCanvas {
         ctx.beginPath();
         ctx.moveTo(src.x, src.y);
         ctx.quadraticCurveTo(mx + perpX, my + perpY, tgt.x, tgt.y);
-        ctx.strokeStyle = `rgba(${r},${g},${b},0.2)`;
+        ctx.strokeStyle = isLight ? `rgba(${r},${g},${b},0.35)` : `rgba(${r},${g},${b},0.2)`;
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.restore();
@@ -535,6 +565,7 @@ class GalaxyCanvas {
 
   drawNodes() {
     const ctx = this.ctx;
+    const isLight = this.themeMode === 'light';
 
     this.nodes.forEach(node => {
       const isHovered = this.hoveredNode === node;
@@ -552,7 +583,7 @@ class GalaxyCanvas {
       const cg = parseInt(hex.substring(2, 4), 16);
       const cb = parseInt(hex.substring(4, 6), 16);
 
-      let alpha = isFaded ? 0.15 : 1;
+      let alpha = isFaded ? (isLight ? 0.22 : 0.15) : 1;
       if (isHighlighted) alpha = 1;
       if (!isBorn) alpha *= 0.12;
 
@@ -561,9 +592,9 @@ class GalaxyCanvas {
 
       // Outer glow
       if (!isFaded && isBorn) {
-        const glowR = r * 2.5;
+        const glowR = r * (isLight ? 2.8 : 2.5);
         const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowR);
-        const glowAlpha = isSelected ? 0.35 : isHovered ? 0.25 : 0.12;
+        const glowAlpha = isSelected ? (isLight ? 0.45 : 0.35) : isHovered ? (isLight ? 0.35 : 0.25) : (isLight ? 0.2 : 0.12);
         glow.addColorStop(0, `rgba(${cr},${cg},${cb},${glowAlpha})`);
         glow.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.beginPath();
@@ -576,14 +607,14 @@ class GalaxyCanvas {
       if (node.status === 'abandoned') {
         ctx.beginPath();
         ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.3)`;
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = isLight ? `rgba(${cr},${cg},${cb},0.6)` : `rgba(${cr},${cg},${cb},0.3)`;
+        ctx.lineWidth = isLight ? 1.8 : 1;
         ctx.setLineDash([3, 3]);
         ctx.stroke();
         ctx.setLineDash([]);
         const innerGrad = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r);
-        innerGrad.addColorStop(0, `rgba(${cr},${cg},${cb},0.25)`);
-        innerGrad.addColorStop(1, `rgba(${cr},${cg},${cb},0.05)`);
+        innerGrad.addColorStop(0, isLight ? `rgba(${cr},${cg},${cb},0.35)` : `rgba(${cr},${cg},${cb},0.25)`);
+        innerGrad.addColorStop(1, isLight ? `rgba(${cr},${cg},${cb},0.1)` : `rgba(${cr},${cg},${cb},0.05)`);
         ctx.beginPath();
         ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
         ctx.fillStyle = innerGrad;
@@ -591,9 +622,16 @@ class GalaxyCanvas {
       } else {
         // Normal node
         const grad = ctx.createRadialGradient(node.x - r * 0.3, node.y - r * 0.3, 0, node.x, node.y, r);
-        grad.addColorStop(0, `rgba(${cr},${cg},${cb},0.95)`);
-        grad.addColorStop(0.6, `rgba(${cr},${cg},${cb},0.6)`);
-        grad.addColorStop(1, `rgba(${cr},${cg},${cb},0.1)`);
+        if (isLight) {
+          grad.addColorStop(0, `rgba(255,255,255,0.95)`);
+          grad.addColorStop(0.3, `rgba(${cr},${cg},${cb},0.95)`);
+          grad.addColorStop(0.75, `rgba(${cr},${cg},${cb},0.8)`);
+          grad.addColorStop(1, `rgba(${cr},${cg},${cb},0.4)`);
+        } else {
+          grad.addColorStop(0, `rgba(${cr},${cg},${cb},0.95)`);
+          grad.addColorStop(0.6, `rgba(${cr},${cg},${cb},0.6)`);
+          grad.addColorStop(1, `rgba(${cr},${cg},${cb},0.1)`);
+        }
         ctx.beginPath();
         ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
         ctx.fillStyle = grad;
@@ -603,8 +641,8 @@ class GalaxyCanvas {
         if (isSelected || isHighlighted) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${cr},${cg},${cb},0.6)`;
-          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = isLight ? '#0F172A' : `rgba(${cr},${cg},${cb},0.6)`;
+          ctx.lineWidth = isLight ? 2 : 1.5;
           ctx.stroke();
         }
       }
@@ -614,40 +652,48 @@ class GalaxyCanvas {
         const ringR = r + 6 + Math.sin(this.time * 2 + node.pulsePhase) * 4;
         ctx.beginPath();
         ctx.arc(node.x, node.y, ringR, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(168,255,62,0.45)`;
+        ctx.strokeStyle = isLight ? 'rgba(124, 58, 237, 0.65)' : 'rgba(168,255,62,0.45)';
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
 
       // ─── Visual Memory Badge (📸) ───
       if (node.photos && node.photos.length > 0 && isBorn) {
-        const badgeR = 7;
+        const badgeR = 8;
         const bx = node.x + r * 0.72;
         const by = node.y - r * 0.72;
         ctx.beginPath();
         ctx.arc(bx, by, badgeR, 0, Math.PI * 2);
-        ctx.fillStyle = '#0A0A0A';
+        ctx.fillStyle = isLight ? '#FFFFFF' : '#0A0A0A';
         ctx.fill();
-        ctx.strokeStyle = '#A8FF3E';
+        ctx.strokeStyle = isLight ? '#7C3AED' : '#A8FF3E';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.font = '8px sans-serif';
+        ctx.font = '9px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#A8FF3E';
         ctx.fillText('📸', bx, by + 0.5);
       }
 
       // Node label
-      const labelAlpha = isHovered || isSelected ? 1 : (isFaded ? 0 : (node.weight > 0.6 ? 0.75 : 0.35));
+      const labelAlpha = isHovered || isSelected ? 1 : (isFaded ? 0 : (node.weight > 0.6 ? 0.95 : 0.6));
       if (labelAlpha > 0.1 && isBorn) {
         ctx.globalAlpha = alpha * labelAlpha;
-        ctx.font = `${isSelected ? 700 : 500} ${Math.max(10, Math.min(13, node.radius * 0.9))}px 'Plus Jakarta Sans', sans-serif`;
-        ctx.fillStyle = isSelected ? '#A8FF3E' : '#F7F4EE';
+        ctx.font = `${isSelected ? 700 : 600} ${Math.max(10, Math.min(13, node.radius * 0.92))}px 'Plus Jakarta Sans', sans-serif`;
+        if (isLight) {
+          ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
+          ctx.shadowBlur = 5;
+          ctx.fillStyle = isSelected ? '#7C3AED' : '#0F172A';
+        } else {
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+          ctx.shadowBlur = 4;
+          ctx.fillStyle = isSelected ? '#A8FF3E' : '#F7F4EE';
+        }
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        ctx.fillText(node.label, node.x, node.y + r + 5);
+        ctx.fillText(node.label, node.x, node.y + r + 6);
+        ctx.shadowBlur = 0;
       }
 
       ctx.restore();

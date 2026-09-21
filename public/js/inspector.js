@@ -435,15 +435,15 @@ class Inspector {
 
   clusterColorByKey(colorKey) {
     const map = {
-      violet:  '#A8FF3E', // Lime green
-      blue:    '#64D8CB', // Cyan
-      cyan:    '#22D3EE', // Sky
-      rose:    '#FF6B6B', // Coral
-      amber:   '#F5A623', // Amber
-      emerald: '#A8FF3E', // Green
-      orange:  '#FF9A3C'  // Orange
+      violet:  '#7C3AED', // Electric violet
+      blue:    '#0284C7', // Ocean cyan
+      cyan:    '#0EA5E9', // Sky blue
+      rose:    '#E11D48', // Coral rose
+      amber:   '#D97706', // Radiant amber
+      emerald: '#059669', // Emerald mint
+      orange:  '#EA580C'  // Sunset orange
     };
-    return map[colorKey] || '#A8FF3E';
+    return map[colorKey] || '#7C3AED';
   }
 
   escapeHtml(str) {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE MIRROR — Your Thoughts, Reflected.</title>
-  <meta name="description" content="An interactive planetarium for your mind. Transforms messy notes, journals, and raw ideas into a living constellation of your intellectual world." />
+  <meta name="description" content="An interactive planetarium for your mind. Transforms messy notes, journals, and raw ideas into a luminous constellation of your intellectual world." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -12,44 +12,96 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:          #080808;
-      --card-bg:        #101010;
-      --card-paper:     rgba(20, 20, 20, 0.94);
-      --green:          #A8FF3E;
-      --green-glow:     rgba(168, 255, 62, 0.35);
+      --bg:             #F8FAFC;
+      --card-bg:        #FFFFFF;
+      --card-paper:     rgba(255, 255, 255, 0.92);
+      --primary:        #7C3AED;   /* Royal violet */
+      --primary-dim:    rgba(124, 58, 237, 0.08);
+      --primary-glow:   rgba(124, 58, 237, 0.28);
+      --amber:          #D97706;
+      --emerald:        #059669;
+      --cyan:           #0284C7;
+      --rose:           #E11D48;
+      --text-primary:   #0F172A;
+      --text-secondary: #334155;
+      --muted:          #64748B;
+      --paper-cream:    #FAF8F5;
+      --border:         rgba(15, 23, 42, 0.08);
+      --border-accent:  rgba(124, 58, 237, 0.35);
+      --shadow-sm:      0 2px 8px rgba(15, 23, 42, 0.05);
+      --shadow-md:      0 20px 45px -10px rgba(15, 23, 42, 0.09), 0 0 0 1px rgba(15, 23, 42, 0.04);
+      --shadow-lg:      0 30px 70px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+      --header-bg:      rgba(255, 255, 255, 0.88);
+    }
+
+    body.dark-mode {
+      --bg:             #080808;
+      --card-bg:        #121212;
+      --card-paper:     rgba(18, 18, 18, 0.94);
+      --primary:        #A8FF3E;   /* Neon lime */
+      --primary-dim:    rgba(168, 255, 62, 0.12);
+      --primary-glow:   rgba(168, 255, 62, 0.35);
       --amber:          #F5A623;
-      --warm-white:     #F7F4EE;
-      --paper-cream:    #F1ECE1;
-      --muted:          rgba(247, 244, 238, 0.60);
+      --emerald:        #34D399;
+      --cyan:           #38BDF8;
+      --rose:           #FB7185;
+      --text-primary:   #F7F4EE;
+      --text-secondary: rgba(247, 244, 238, 0.75);
+      --muted:          rgba(247, 244, 238, 0.45);
+      --paper-cream:    #161616;
       --border:         rgba(247, 244, 238, 0.12);
-      --border-accent:  rgba(168, 255, 62, 0.30);
+      --border-accent:  rgba(168, 255, 62, 0.35);
+      --shadow-sm:      0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md:      0 20px 45px -10px rgba(0, 0, 0, 0.7);
+      --shadow-lg:      0 30px 70px -15px rgba(0, 0, 0, 0.85);
+      --header-bg:      rgba(10, 10, 10, 0.88);
     }
 
     html, body {
       min-height: 100%;
-      background: var(--black);
-      color: var(--warm-white);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* ─── Ambient Cosmic Canvas Background ─────── */
+    /* ─── Ambient Radiant Gradient Backdrop ──────── */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(at 15% 15%, rgba(224, 231, 255, 0.85) 0px, transparent 55%),
+        radial-gradient(at 85% 15%, rgba(224, 242, 254, 0.85) 0px, transparent 55%),
+        radial-gradient(at 50% 60%, rgba(254, 243, 199, 0.6) 0px, transparent 65%),
+        radial-gradient(at 80% 85%, rgba(254, 226, 226, 0.6) 0px, transparent 60%),
+        #F8FAFC;
+      transition: opacity 0.4s ease;
+    }
+    body.dark-mode .ambient-bg {
+      background: 
+        radial-gradient(circle at 50% 25%, rgba(168, 255, 62, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
+        #080808;
+    }
+
     .cosmic-canvas-bg {
       position: fixed;
       inset: 0;
       background: url('img/cosmic-oil-canvas.jpg') center 25%/cover no-repeat;
-      opacity: 0.35;
-      filter: saturate(1.2) contrast(1.1);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .cosmic-vignette {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.85) 70%, #080808 100%);
+      opacity: 0.12;
+      filter: saturate(1.2) contrast(1.05);
       z-index: 1;
       pointer-events: none;
+      mix-blend-mode: multiply;
+      transition: opacity 0.3s;
+    }
+    body.dark-mode .cosmic-canvas-bg {
+      opacity: 0.32;
+      mix-blend-mode: normal;
     }
 
     /* ─── Header Navigation ───────────────────── */
@@ -60,78 +112,121 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 48px;
+      padding: 16px 40px;
       backdrop-filter: blur(20px);
-      background: rgba(8, 8, 8, 0.7);
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 8px;
       text-decoration: none;
-      color: var(--warm-white);
+      color: var(--text-primary);
+    }
+    .brand-the {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      font-weight: 700;
     }
     .brand-title {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 20px;
-      letter-spacing: 0.02em;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--text-primary);
     }
     .brand-dot {
       width: 7px; height: 7px;
-      background: var(--green);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--green);
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
     .nav-links {
       display: flex;
-      gap: 32px;
+      align-items: center;
+      gap: 24px;
       font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
+      font-weight: 600;
     }
     .nav-links a {
-      color: var(--muted);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.18s;
     }
-    .nav-links a:hover { color: var(--warm-white); }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* Interactive Companion Pill */
+    .pill-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: all 0.18s;
+    }
+    .pill-btn:hover {
+      background: var(--primary-dim);
+      border-color: var(--border-accent);
+    }
+
     .nav-cta {
-      background: var(--green);
-      color: #080808 !important;
+      background: var(--primary);
+      color: #FFFFFF !important;
       font-weight: 700 !important;
-      padding: 8px 18px;
-      border-radius: 8px;
+      font-size: 13px;
+      padding: 9px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 3px 12px var(--primary-glow);
       transition: transform 0.15s, box-shadow 0.15s !important;
     }
     .nav-cta:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px var(--green-glow);
+      box-shadow: 0 6px 20px var(--primary-glow);
+    }
+    body.dark-mode .nav-cta {
+      color: #0A0A0A !important;
     }
 
     /* ─── Hero Section ────────────────────────── */
     .hero {
       position: relative;
       z-index: 10;
-      min-height: 90vh;
+      min-height: 88vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 24px 60px;
+      padding: 130px 24px 70px;
     }
     .hero-card {
-      background: radial-gradient(circle at 50% 0%, rgba(247,244,238,0.06), transparent 70%), var(--card-paper);
+      background: var(--card-paper);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 64px 60px 54px;
-      max-width: 680px;
+      border-radius: 28px;
+      padding: 68px 64px 58px;
+      max-width: 720px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.04);
+      box-shadow: var(--shadow-lg);
       animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
       position: relative;
-      overflow: hidden;
+      backdrop-filter: blur(24px);
     }
     @keyframes heroIn {
       from { opacity: 0; transform: translateY(30px) scale(0.97); }
@@ -141,14 +236,14 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(168, 255, 62, 0.08);
-      border: 1px solid rgba(168, 255, 62, 0.25);
+      background: var(--primary-dim);
+      border: 1px solid var(--border-accent);
       border-radius: 999px;
       padding: 6px 18px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.1em;
-      color: var(--green);
+      color: var(--primary);
       text-transform: uppercase;
       margin-bottom: 28px;
     }
@@ -156,10 +251,10 @@
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(46px, 7vw, 76px);
+      font-size: clamp(48px, 7.5vw, 80px);
       line-height: 1.05;
-      color: var(--warm-white);
-      margin-bottom: 20px;
+      color: var(--text-primary);
+      margin-bottom: 22px;
       letter-spacing: -0.02em;
     }
     .hero-title span {
@@ -167,13 +262,21 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 800;
       letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--primary) 0%, #0284C7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark-mode .hero-title span {
+      background: linear-gradient(135deg, #A8FF3E 0%, #64D8CB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .hero-sub {
-      font-size: 16px;
-      color: var(--muted);
+      font-size: 17px;
+      color: var(--text-secondary);
       line-height: 1.7;
       margin-bottom: 40px;
-      max-width: 480px;
+      max-width: 520px;
       margin-left: auto;
       margin-right: auto;
       font-weight: 400;
@@ -181,37 +284,39 @@
     .btn-enter {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: var(--green);
-      color: #080808;
+      gap: 12px;
+      background: var(--primary);
+      color: #FFFFFF !important;
       font-weight: 700;
-      font-size: 15px;
-      padding: 16px 40px;
-      border-radius: 12px;
+      font-size: 16px;
+      padding: 16px 44px;
+      border-radius: 14px;
       text-decoration: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 24px var(--green-glow);
+      box-shadow: 0 4px 24px var(--primary-glow);
     }
     .btn-enter:hover {
-      background: #BBFF52;
       transform: translateY(-2px);
-      box-shadow: 0 8px 36px rgba(168, 255, 62, 0.5);
+      box-shadow: 0 8px 36px var(--primary-glow);
+    }
+    body.dark-mode .btn-enter {
+      color: #0A0A0A !important;
     }
     .hero-meta {
       margin-top: 36px;
       font-size: 12px;
       color: var(--muted);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
     .hero-meta strong {
-      color: var(--warm-white);
+      color: var(--text-primary);
     }
 
     /* ─── Paper Manuscript Showcase Strip ─────── */
     .paper-showcase {
       position: relative;
       z-index: 10;
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto 100px;
       padding: 0 24px;
     }
@@ -220,26 +325,25 @@
       grid-template-columns: 1.1fr 1fr;
       gap: 40px;
       align-items: center;
-      background: #0E0E0E;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      box-shadow: var(--shadow-md);
     }
-    @media (max-width: 800px) {
+    @media (max-width: 850px) {
       .paper-card-container { grid-template-columns: 1fr; }
     }
     .paper-card-media {
       position: relative;
       height: 100%;
-      min-height: 380px;
+      min-height: 390px;
       overflow: hidden;
     }
     .paper-card-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.05);
       transition: transform 0.6s ease;
     }
     .paper-card-container:hover .paper-card-media img {
@@ -248,108 +352,116 @@
     .paper-card-content {
       padding: 48px 40px 48px 10px;
     }
+    @media (max-width: 850px) {
+      .paper-card-content { padding: 32px; }
+    }
     .paper-tag {
       font-family: 'Space Mono', monospace;
       font-size: 11px;
-      color: var(--green);
+      color: var(--primary);
       letter-spacing: 0.15em;
       text-transform: uppercase;
+      font-weight: 700;
       margin-bottom: 12px;
       display: block;
     }
     .paper-heading {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 32px;
-      color: var(--warm-white);
+      font-size: 34px;
+      color: var(--text-primary);
       line-height: 1.25;
       margin-bottom: 18px;
     }
     .paper-body {
-      font-size: 14px;
-      color: var(--muted);
+      font-size: 15px;
+      color: var(--text-secondary);
       line-height: 1.75;
       margin-bottom: 24px;
     }
     .paper-quote-slip {
-      background: rgba(247, 244, 238, 0.04);
-      border-left: 3px solid var(--green);
-      border-radius: 0 8px 8px 0;
-      padding: 16px 20px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 18px;
-      color: var(--paper-cream);
+      font-size: 19px;
+      color: var(--text-primary);
       font-style: italic;
       line-height: 1.5;
+      box-shadow: var(--shadow-sm);
     }
 
     /* ─── Visual Memories Gallery Showcase ───── */
     .memories-showcase {
       position: relative;
       z-index: 10;
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto 100px;
       padding: 0 24px;
     }
     .section-header {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 48px;
     }
     .section-eyebrow {
       font-family: 'Space Mono', monospace;
       font-size: 11px;
-      color: var(--green);
+      color: var(--primary);
       letter-spacing: 0.16em;
       text-transform: uppercase;
+      font-weight: 700;
       margin-bottom: 12px;
       display: block;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: clamp(28px, 4vw, 42px);
-      color: var(--warm-white);
+      font-size: clamp(30px, 4vw, 44px);
+      color: var(--text-primary);
     }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      gap: 22px;
     }
     .gallery-item {
-      background: #111111;
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
       transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--shadow-sm);
     }
     .gallery-item:hover {
       transform: translateY(-6px);
       border-color: var(--border-accent);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      box-shadow: var(--shadow-md);
     }
     .gallery-item img {
       width: 100%;
-      height: 180px;
+      height: 190px;
       object-fit: cover;
     }
     .gallery-item-desc {
-      padding: 16px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
     .gallery-item-title {
       font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      color: var(--warm-white);
-      font-weight: 600;
+      font-size: 17px;
+      color: var(--text-primary);
+      font-weight: 700;
     }
     .gallery-item-caption {
       font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
+      color: var(--text-secondary);
+      line-height: 1.55;
       font-style: italic;
     }
 
@@ -357,53 +469,57 @@
     .features-section {
       position: relative;
       z-index: 10;
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto 120px;
       padding: 0 24px;
     }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      gap: 22px;
     }
     .feature-box {
-      background: rgba(16, 16, 16, 0.9);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 32px 28px;
-      backdrop-filter: blur(14px);
-      transition: border-color 0.2s, transform 0.2s;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
     .feature-box:hover {
-      border-color: rgba(168, 255, 62, 0.3);
+      border-color: var(--border-accent);
       transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
     }
     .feature-icon {
-      font-size: 28px;
+      font-size: 30px;
       margin-bottom: 16px;
       display: block;
     }
     .feature-title {
       font-size: 16px;
       font-weight: 700;
-      color: var(--warm-white);
+      color: var(--text-primary);
       margin-bottom: 10px;
     }
     .feature-text {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text-secondary);
       line-height: 1.65;
     }
     .tag-new {
       display: inline-block;
-      background: var(--green);
-      color: #080808;
+      background: var(--primary);
+      color: #FFFFFF;
       font-size: 10px;
       font-weight: 800;
       padding: 2px 8px;
       border-radius: 4px;
       margin-left: 6px;
       letter-spacing: 0.05em;
+    }
+    body.dark-mode .tag-new {
+      color: #0A0A0A;
     }
 
     /* ─── Footer ──────────────────────────────── */
@@ -415,26 +531,36 @@
       border-top: 1px solid var(--border);
       font-size: 13px;
       color: var(--muted);
+      background: var(--card-bg);
     }
-    footer a { color: var(--green); text-decoration: none; font-weight: 600; }
+    footer a { color: var(--primary); text-decoration: none; font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <!-- Cosmic Painting & Vignette Backdrop -->
+  <!-- Ambient Radiant Gradient Backdrop -->
+  <div class="ambient-bg"></div>
   <div class="cosmic-canvas-bg"></div>
-  <div class="cosmic-vignette"></div>
 
   <!-- Header -->
   <header>
     <a href="index.html" class="brand">
-      <span class="brand-title">THE MIRROR</span>
+      <span class="brand-the">THE</span>
+      <span class="brand-title">MIRROR</span>
       <span class="brand-dot"></span>
     </a>
-    <div class="nav-links">
-      <a href="#paper">Artisanal Paper</a>
-      <a href="#memories">Memories</a>
-      <a href="#features">Features</a>
+    <div class="nav-actions">
+      <div class="nav-links">
+        <a href="#paper">Artisanal Paper</a>
+        <a href="#memories">Memories</a>
+        <a href="#features">Features</a>
+      </div>
+      <button class="pill-btn" id="btn-toggle-cat" title="Toggle animated cursor-following cat">
+        <span>🐱</span> <span id="cat-status-text">Cat: ON</span>
+      </button>
+      <button class="pill-btn" id="btn-toggle-theme" title="Toggle Bright / Dark Palette">
+        <span id="theme-status-icon">☀️</span> <span id="theme-status-text">Bright</span>
+      </button>
       <a href="mirror.html" class="nav-cta">Launch Galaxy →</a>
     </div>
   </header>
@@ -561,12 +687,54 @@
     <a href="https://github.com/sawan-ade/The-Mirror" target="_blank">GitHub Repository</a>
   </footer>
 
+  <!-- Scripts -->
+  <script src="js/oneko.js"></script>
   <script>
+    // Theme Switcher
+    const btnTheme = document.getElementById('btn-toggle-theme');
+    const themeIcon = document.getElementById('theme-status-icon');
+    const themeText = document.getElementById('theme-status-text');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark';
+        localStorage.setItem('mirror_theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Bright';
+        localStorage.setItem('mirror_theme', 'light');
+      }
+    }
+
+    const savedTheme = localStorage.getItem('mirror_theme') || 'light';
+    applyTheme(savedTheme === 'dark');
+
+    btnTheme.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark-mode');
+      applyTheme(!isDark);
+    });
+
+    // Cat Companion Toggle
+    const btnCat = document.getElementById('btn-toggle-cat');
+    const catText = document.getElementById('cat-status-text');
+    let catActive = true;
+
+    btnCat.addEventListener('click', () => {
+      if (typeof window.toggleOneko === 'function') {
+        catActive = window.toggleOneko();
+        catText.textContent = catActive ? 'Cat: ON' : 'Cat: OFF';
+      }
+    });
+
+    // Smooth navigation transition
     document.getElementById('btn-enter-universe').addEventListener('click', function(e) {
       e.preventDefault();
-      document.body.style.transition = 'opacity 0.4s ease';
+      document.body.style.transition = 'opacity 0.35s ease';
       document.body.style.opacity = '0';
-      setTimeout(() => { window.location.href = 'mirror.html'; }, 400);
+      setTimeout(() => { window.location.href = 'mirror.html'; }, 350);
     });
   </script>
 </body>

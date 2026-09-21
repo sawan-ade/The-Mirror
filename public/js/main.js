@@ -659,15 +659,15 @@ class MirrorApp {
 
   clusterColorByKey(colorKey) {
     const map = {
-      violet:  '#A8FF3E',
-      blue:    '#64D8CB',
-      cyan:    '#22D3EE',
-      rose:    '#FF6B6B',
-      amber:   '#F5A623',
-      emerald: '#A8FF3E',
-      orange:  '#FF9A3C'
+      violet:  '#7C3AED',
+      blue:    '#0284C7',
+      cyan:    '#0EA5E9',
+      rose:    '#E11D48',
+      amber:   '#D97706',
+      emerald: '#059669',
+      orange:  '#EA580C'
     };
-    return map[colorKey] || '#A8FF3E';
+    return map[colorKey] || '#7C3AED';
   }
 
   // ─────────────────────────────────────────────
@@ -675,6 +675,51 @@ class MirrorApp {
   // ─────────────────────────────────────────────
 
   bindNavEvents() {
+    // ☀️ / 🌙 Theme Toggle
+    const btnTheme = document.getElementById('btn-toggle-theme');
+    const themeIcon = document.getElementById('theme-toggle-icon');
+    const themeLabel = document.getElementById('theme-toggle-label');
+
+    const updateThemeUI = (isDark) => {
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        if (themeIcon) themeIcon.textContent = '🌙';
+        if (themeLabel) themeLabel.textContent = 'Dark';
+        if (this.galaxy) this.galaxy.setThemeMode('dark');
+        localStorage.setItem('mirror_theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        if (themeIcon) themeIcon.textContent = '☀️';
+        if (themeLabel) themeLabel.textContent = 'Bright';
+        if (this.galaxy) this.galaxy.setThemeMode('light');
+        localStorage.setItem('mirror_theme', 'light');
+      }
+    };
+
+    // Load saved theme (default to light/bright as requested)
+    const savedTheme = localStorage.getItem('mirror_theme') || 'light';
+    updateThemeUI(savedTheme === 'dark');
+
+    if (btnTheme) {
+      btnTheme.addEventListener('click', () => {
+        const isDark = document.body.classList.contains('dark-mode');
+        updateThemeUI(!isDark);
+      });
+    }
+
+    // 🐱 Cat Companion Toggle
+    const btnCat = document.getElementById('btn-toggle-cat');
+    const catLabel = document.getElementById('cat-toggle-label');
+    if (btnCat) {
+      btnCat.addEventListener('click', () => {
+        if (typeof window.toggleOneko === 'function') {
+          const active = window.toggleOneko();
+          if (catLabel) catLabel.textContent = active ? 'Cat' : 'No Cat';
+          btnCat.style.opacity = active ? '1' : '0.6';
+        }
+      });
+    }
+
     // 📸 Memories gallery
     const btnMemories = document.getElementById('btn-memories');
     if (btnMemories) {

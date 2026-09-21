@@ -30,6 +30,14 @@
     </a>
 
     <div class="mirror-nav__actions">
+      <!-- Interactive Cat Companion & Theme Toggle -->
+      <button class="companion-toggle-btn" id="btn-toggle-cat" title="Toggle animated cursor-following cat">
+        <span>🐱</span> <span id="cat-toggle-label">Cat</span>
+      </button>
+      <button class="companion-toggle-btn" id="btn-toggle-theme" title="Toggle Bright / Dark Palette">
+        <span id="theme-toggle-icon">☀️</span> <span id="theme-toggle-label">Bright</span>
+      </button>
+
       <button class="nav-btn" id="btn-memories" title="Open Visual Memories Gallery">
         <span class="icon">📸</span> Memories
       </button>
@@ -292,6 +300,7 @@ The Mirror works best with 300–5000 words of your own writing."
   </div>
 
   <!-- ─── Scripts ─────────────────────────────────── -->
+  <script src="js/oneko.js"></script>
   <script src="js/demo.js"></script>
   <script src="js/canvas.js"></script>
   <script src="js/ai.js"></script>
