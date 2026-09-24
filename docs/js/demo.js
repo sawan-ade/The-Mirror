@@ -31,6 +31,23 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_dw1",
+          url: "img/illustrations/lighthouse_coastal.png",
+          caption: "Solitary beacon cutting through sea mist. The mental horizon of uninterrupted four-hour focus.",
+          date: "March 2024"
+        }
+      ],
+      voiceNotes: [
+        {
+          id: "v_dw1",
+          title: "Early Morning Silence",
+          date: "March 2024",
+          duration: "0:24",
+          text: "I keep coming back to this: my best code is written when everything is quiet and nobody is asking for status updates."
+        }
+      ],
       sourceExcerpts: [
         "I keep coming back to this idea that my best code is written in silence, early morning, before the world starts asking things of me.",
         "Cal Newport's Deep Work changed how I think about attention. Real creative work needs four-hour uninterrupted blocks, not ninety-minute ones.",
@@ -47,6 +64,23 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "April 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_su1",
+          url: "img/memory-startup.jpg",
+          caption: "Whiteboard architecture pass for the product concept. Drawing out the event streams at midnight.",
+          date: "April 2024"
+        }
+      ],
+      voiceNotes: [
+        {
+          id: "v_su1",
+          title: "Betting on Myself",
+          date: "April 2024",
+          duration: "0:32",
+          text: "What if I just build it? The fear isn't failing; it's looking back in ten years and realizing I was too comfortable to try."
+        }
+      ],
       sourceExcerpts: [
         "What if I just quit and build the thing? I've been saying 'maybe next year' for three years.",
         "The startup idea isn't just a startup idea anymore. It feels like the answer to a question I've been living with.",
@@ -63,6 +97,23 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "June 2024",
       lastSeen: "August 2025",
+      photos: [
+        {
+          id: "p_bo1",
+          url: "img/illustrations/river_sunset.png",
+          caption: "Golden hour river bend. Learning that recovery cannot be rushed and stillness is a prerequisite for clarity.",
+          date: "June 2024"
+        }
+      ],
+      voiceNotes: [
+        {
+          id: "v_bo1",
+          title: "Running on Fumes",
+          date: "June 2024",
+          duration: "0:28",
+          text: "Stared at the screen for two hours today. It's when the thing you used to love most starts to feel like the thing you dread most."
+        }
+      ],
       sourceExcerpts: [
         "I stared at the screen for two hours and wrote nothing. Not even a comment. This has happened four times this week.",
         "Burnout isn't tiredness. It's when the thing you loved most starts to feel like the thing you dread most.",
@@ -95,6 +146,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "May 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_med1",
+          url: "img/illustrations/rhaetian_alps.jpg",
+          caption: "Rhaetian Alps sunrise vista. High-altitude perspective where trivial noise and mental clutter dissolve.",
+          date: "May 2024"
+        }
+      ],
       sourceExcerpts: [
         "Twenty minutes of sitting still in the morning does more for my output than any productivity system.",
         "I notice I skip meditation during the weeks when I need it most. That's the paradox.",
@@ -127,6 +186,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_rd1",
+          url: "img/memory-reading.jpg",
+          caption: "The Heidegger and design theory stack. Underlining sentences that re-wire how I think about systems.",
+          date: "March 2024"
+        }
+      ],
       sourceExcerpts: [
         "I finished three books in March. None in April. Reading is a canary in the coal mine — I can tell how I'm doing by whether I'm reading.",
         "The ideas that stick are the ones I read slowly, underline, argue with.",
@@ -143,6 +210,14 @@ window.DEMO_DATA = {
       status: "active",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_sys1",
+          url: "img/illustrations/rigi_railways.png",
+          caption: "Rigi mountain railway climbing through cloud banks — designing engineering systems that ascend cleanly above complexity.",
+          date: "May 2024"
+        }
+      ],
       sourceExcerpts: [
         "Good system design is invisible when it works and catastrophically visible when it fails.",
         "I've been thinking about the way we model our data wrong. It's not a performance issue. It's a thinking issue.",
@@ -159,6 +234,14 @@ window.DEMO_DATA = {
       status: "emerging",
       firstSeen: "April 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_sp1",
+          url: "img/memory-studio.jpg",
+          caption: "Midnight studio desk. First 100 users logged in while the world was asleep.",
+          date: "April 2024"
+        }
+      ],
       sourceExcerpts: [
         "April 2024: Started a side project. Mostly for fun. A tool for my own workflow.",
         "August 2024: People keep asking me about the tool. Maybe there's something here.",
@@ -208,6 +291,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "July 2024",
       lastSeen: "July 2025",
+      photos: [
+        {
+          id: "p_lone1",
+          url: "img/illustrations/coffee_time_city.png",
+          caption: "Quiet cobblestone cafe corner at dawn. The delicate tension between craving solitude and needing urban presence.",
+          date: "July 2024"
+        }
+      ],
       sourceExcerpts: [
         "The remote work freedom I wanted feels like isolation I didn't ask for.",
         "I went to a conference and talked to more people in two days than I had in two months.",
@@ -240,6 +331,14 @@ window.DEMO_DATA = {
       status: "emerging",
       firstSeen: "August 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_wri1",
+          url: "img/illustrations/autumn_boat.png",
+          caption: "Rowing into autumn mist. Letting ideas drift without urgency until the right words settle onto paper.",
+          date: "August 2024"
+        }
+      ],
       sourceExcerpts: [
         "Writing is thinking. I don't know what I believe about something until I've tried to write it.",
         "After the podcast idea died, I started writing instead. It feels more honest.",
@@ -320,6 +419,20 @@ window.DEMO_DATA = {
       status: "active",
       firstSeen: "July 2024",
       lastSeen: "June 2025",
+      photos: [
+        {
+          id: "p_cvr1",
+          url: "img/illustrations/amsterdam_colors.png",
+          caption: "Amsterdam canal reflections at dusk. The magnetic energy of dense urban culture vs. secluded focus.",
+          date: "July 2024"
+        },
+        {
+          id: "p_cvr2",
+          url: "img/illustrations/house_woods.png",
+          caption: "Sanctuary cabin in deep pine woods. The longing for stillness and uninterrupted thought.",
+          date: "January 2025"
+        }
+      ],
       sourceExcerpts: [
         "The city is expensive and loud and I love it. But I could ship more code from a quiet town.",
         "Is the energy of a city something I need, or just something I've gotten used to?",

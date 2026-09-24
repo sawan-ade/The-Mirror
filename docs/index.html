@@ -3,76 +3,4656 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>THE MIRROR — Your thoughts, reflected back to you.</title>
-  <meta name="description" content="THE MIRROR transforms your unstructured thoughts, notes, and ideas into a living constellation of your intellectual world." />
+  <title>THE MIRROR — Your Thoughts, Reflected.</title>
+  <meta name="description" content="An interactive planetarium for your mind. Transforms unstructured thoughts, journals, and raw ideas into a luminous living constellation with photographic memory anchors." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/landing.css" />
-</head>
-<body class="landing-body">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Particle canvas background -->
-  <canvas id="landing-canvas"></canvas>
-
-  <!-- Central content -->
-  <main class="landing-main">
-    <div class="landing-glow"></div>
-
-    <div class="landing-content" id="landing-content">
-      <!-- Eyebrow -->
-      <span class="landing-eyebrow">AN AI THOUGHT MIRROR</span>
-
-      <!-- Title -->
-      <h1 class="landing-title">
-        <span class="title-the">THE</span>
-        <span class="title-mirror">MIRROR</span>
-      </h1>
-
-      <!-- Tagline -->
-      <p class="landing-tagline">Your thoughts, reflected back to you.</p>
-
-      <!-- Description -->
-      <p class="landing-description">
-        Give the Mirror your notes, ideas, and journal entries.<br />
-        Discover the patterns, connections, and forgotten thoughts<br />
-        hidden within your own mind.
-      </p>
-
-      <!-- Enter button -->
-      <button class="enter-btn" id="enter-btn" onclick="enterMirror()">
-        <span class="enter-btn-text">Enter the Mirror</span>
-        <span class="enter-btn-glow"></span>
-      </button>
-
-      <!-- Subtle feature hints -->
-      <div class="feature-hints">
-        <span class="hint">● Concept Galaxy</span>
-        <span class="hint">● Hidden Connections</span>
-        <span class="hint">● Ask the Mirror</span>
-        <span class="hint">● Forgotten Ideas</span>
-      </div>
-    </div>
-  </main>
-
-  <script src="js/landing-particles.js"></script>
-  <script>
-    function enterMirror() {
-      const content = document.getElementById('landing-content');
-      const btn = document.getElementById('enter-btn');
-      btn.classList.add('enter-btn--activated');
-      content.classList.add('content--exit');
-      setTimeout(() => {
-        document.body.classList.add('body--flash');
-        setTimeout(() => {
-          window.location.href = 'mirror.html';
-        }, 600);
-      }, 800);
+    :root {
+      --bg:             #FDFBF7;   /* Warm Alabaster Champagne */
+      --card-bg:        #FFFFFF;
+      --card-glass:     rgba(255, 255, 255, 0.90);
+      --primary:        #7C3AED;   /* Royal violet */
+      --primary-hover:  #6D28D9;
+      --primary-dim:    rgba(124, 58, 237, 0.08);
+      --primary-glow:   rgba(124, 58, 237, 0.22);
+      --amber:          #D97706;
+      --emerald:        #059669;
+      --cyan:           #0284C7;
+      --rose:           #E11D48;
+      --text-primary:   #0F172A;
+      --text-secondary: #334155;
+      --muted:          #64748B;
+      --paper-cream:    #FAF5EB;
+      --paper-edge:     #EADFC9;
+      --border:         rgba(15, 23, 42, 0.08);
+      --border-accent:  rgba(124, 58, 237, 0.35);
+      --shadow-xs:      0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm:      0 2px 8px rgba(15, 23, 42, 0.06);
+      --shadow-md:      0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
+      --shadow-lg:      0 24px 48px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+      --shadow-xl:      0 36px 80px -16px rgba(15, 23, 42, 0.16);
+      --dock-bg:        rgba(253, 251, 247, 0.88);
+      --radius-sm:      8px;
+      --radius-md:      14px;
+      --radius-lg:      20px;
+      --radius-xl:      26px;
+      --radius-full:    9999px;
     }
 
-    // Initialize landing particles
-    initLandingParticles(document.getElementById('landing-canvas'));
+    body.dark-mode {
+      --bg:             #08080A;   /* Deep Cosmic Abyss */
+      --card-bg:        #121317;
+      --card-glass:     rgba(18, 19, 23, 0.90);
+      --primary:        #A8FF3E;   /* Neon Lime */
+      --primary-hover:  #BBFF52;
+      --primary-dim:    rgba(168, 255, 62, 0.14);
+      --primary-glow:   rgba(168, 255, 62, 0.30);
+      --amber:          #F5A623;
+      --emerald:        #34D399;
+      --cyan:           #38BDF8;
+      --rose:           #FB7185;
+      --text-primary:   #F8FAFC;
+      --text-secondary: rgba(248, 250, 252, 0.72);
+      --muted:          rgba(248, 250, 252, 0.45);
+      --paper-cream:    #15161A;
+      --paper-edge:     #24262E;
+      --border:         rgba(248, 250, 252, 0.12);
+      --border-accent:  rgba(168, 255, 62, 0.35);
+      --shadow-xs:      0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-sm:      0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md:      0 12px 28px -6px rgba(0, 0, 0, 0.6);
+      --shadow-lg:      0 24px 48px -12px rgba(0, 0, 0, 0.8);
+      --shadow-xl:      0 36px 80px -16px rgba(0, 0, 0, 0.95);
+      --dock-bg:        rgba(8, 8, 10, 0.85);
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── Ambient Dynamic Light Mesh ──────────────── */
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(at 10% 12%, rgba(224, 231, 255, 0.75) 0px, transparent 50%),
+        radial-gradient(at 88% 14%, rgba(224, 242, 254, 0.75) 0px, transparent 50%),
+        radial-gradient(at 50% 55%, rgba(254, 243, 199, 0.55) 0px, transparent 60%),
+        radial-gradient(at 82% 85%, rgba(254, 226, 226, 0.55) 0px, transparent 55%),
+        var(--bg);
+      transition: opacity 0.4s ease;
+    }
+    body.dark-mode .ambient-canvas {
+      background: 
+        radial-gradient(circle at 50% 20%, rgba(168, 255, 62, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 75%, rgba(245, 166, 35, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 20% 60%, rgba(56, 189, 248, 0.04) 0%, transparent 55%),
+        #08080A;
+    }
+
+    .cosmic-canvas-bg {
+      position: fixed;
+      inset: 0;
+      background: url('img/cosmic-oil-canvas.jpg') center 20%/cover no-repeat;
+      opacity: 0.06;
+      filter: saturate(1.15) contrast(1.05);
+      z-index: 1;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      transition: opacity 0.35s;
+    }
+    body.dark-mode .cosmic-canvas-bg {
+      opacity: 0.22;
+      mix-blend-mode: screen;
+    }
+
+    /* ─── Floating Island Header Navigation ───────── */
+    .floating-island-nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 16px 6px 20px;
+      width: calc(100% - 36px);
+      max-width: 1140px;
+      height: 58px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (max-width: 900px) {
+      .floating-island-nav {
+        top: 0; left: 0;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+        border-left: none; border-right: none; border-top: none;
+        padding: 0 14px;
+        height: 56px;
+      }
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--text-primary);
+      user-select: none;
+    }
+    .brand-icon {
+      width: 26px; height: 26px;
+      border-radius: 8px;
+      background: var(--primary-dim);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+    .nav-brand:hover .brand-icon {
+      transform: rotate(12deg) scale(1.05);
+    }
+    .brand-the {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .live-pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(5, 150, 105, 0.08);
+      border: 1px solid rgba(5, 150, 105, 0.2);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--emerald);
+      text-transform: uppercase;
+    }
+    .live-pulse-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: livePulse 1.8s infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .nav-center-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    @media (max-width: 840px) {
+      .nav-center-links { display: none; }
+      .live-pulse-badge { display: none; }
+    }
+    .nav-center-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-center-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-right-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-svg {
+      width: 15px; height: 15px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .dock-pill-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-xs);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    .dock-pill-btn:hover {
+      background: var(--primary-dim);
+      border-color: var(--border-accent);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+    .dock-pill-btn:active {
+      transform: scale(0.96) !important;
+    }
+    .dock-pill-btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .dock-cta {
+      background: var(--primary);
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      box-shadow: 0 4px 16px var(--primary-glow);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      user-select: none;
+    }
+    .dock-cta:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+    .dock-cta:active {
+      transform: scale(0.96) !important;
+    }
+    body.dark-mode .dock-cta {
+      color: #0A0A0A !important;
+    }
+
+    /* ─── Hero Section with Pristine Typography ───── */
+    .hero-container {
+      position: relative;
+      z-index: 10;
+      min-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 125px 24px 70px;
+      text-align: center;
+    }
+
+    .hero-text-block {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-glass);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-full);
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(16px);
+      user-select: none;
+    }
+
+    .hero-main-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(52px, 8vw, 88px);
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero-main-title span.accent-text {
+      font-style: normal;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--primary) 0%, #0284C7 60%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark-mode .hero-main-title span.accent-text {
+      background: linear-gradient(135deg, #A8FF3E 0%, #38BDF8 60%, #FFD166 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 34px;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+
+    .hero-button-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .btn-launch-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #FFFFFF !important;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 36px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 28px var(--primary-glow);
+      user-select: none;
+    }
+    .btn-launch-hero:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px var(--primary-glow);
+    }
+    .btn-launch-hero:active {
+      transform: scale(0.97) !important;
+    }
+    body.dark-mode .btn-launch-hero {
+      color: #08080A !important;
+    }
+
+    .btn-simulator-scroll {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-glass);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 28px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    .btn-simulator-scroll:hover {
+      border-color: var(--border-accent);
+      background: var(--primary-dim);
+      transform: translateY(-2px);
+    }
+    .btn-simulator-scroll:active {
+      transform: scale(0.97) !important;
+    }
+
+    /* ─── Framed Interactive Constellation Viewport ─ */
+    .hero-constellation-frame {
+      width: 100%;
+      max-width: 900px;
+      margin: 10px auto 30px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .hero-constellation-frame:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 28px 70px -14px rgba(124, 58, 237, 0.16);
+    }
+    body.dark-mode .hero-constellation-frame:hover {
+      box-shadow: 0 28px 70px -14px rgba(168, 255, 62, 0.14);
+    }
+
+    .constellation-frame-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      border-bottom: 1px solid var(--border);
+      background: var(--paper-cream);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .frame-live-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--emerald);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+    .frame-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: livePulse 1.8s infinite;
+    }
+
+    .frame-clusters-list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (max-width: 700px) {
+      .frame-clusters-list { display: none; }
+    }
+    .frame-mini-chip {
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .frame-expand-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .frame-expand-link:hover {
+      color: var(--primary-hover);
+    }
+
+    .constellation-viewport {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.02) 0%, transparent 70%);
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    #hero-constellation-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .constellation-frame-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 22px;
+      border-top: 1px solid var(--border);
+      background: var(--paper-cream);
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Popover inside Viewport */
+    .hero-node-popover {
+      position: absolute;
+      z-index: 50;
+      pointer-events: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      max-width: 270px;
+      box-shadow: var(--shadow-xl);
+      backdrop-filter: blur(20px);
+      display: none;
+      transform: translate(-50%, -120%);
+      transition: opacity 0.15s, transform 0.15s;
+      text-align: left;
+    }
+    .hero-node-popover.active {
+      display: block;
+      animation: popoverFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popoverFade {
+      from { opacity: 0; transform: translate(-50%, -110%) scale(0.96); }
+      to   { opacity: 1; transform: translate(-50%, -120%) scale(1); }
+    }
+    .popover-cluster-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .popover-node-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .popover-node-quote {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Hero Metrics Strip */
+    .hero-metrics-pill-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 10px 24px;
+      background: var(--card-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+      margin: 0 auto;
+      max-width: fit-content;
+    }
+    .metric-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .metric-item strong {
+      color: var(--text-primary);
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+    }
+    .metric-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+    }
+
+    /* ─── Instant Thought Simulator (Mind Sandbox) ── */
+    .simulator-section {
+      position: relative;
+      z-index: 10;
+      max-width: 960px;
+      margin: 0 auto 110px;
+      padding: 0 24px;
+    }
+    .sandbox-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 44px 40px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+    .sandbox-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--cyan), var(--emerald), var(--amber));
+    }
+    .sandbox-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sandbox-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .sandbox-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 32px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .sandbox-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .sample-prompts-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .sample-prompt-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .sample-chip {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 7px 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.18s;
+      user-select: none;
+      text-align: left;
+    }
+    .sample-chip:hover {
+      background: var(--primary-dim);
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    .sample-chip:active {
+      transform: scale(0.97);
+    }
+
+    .simulator-input-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .simulator-textarea {
+      width: 100%;
+      min-height: 105px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      resize: vertical;
+      line-height: 1.6;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .simulator-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .simulator-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .simulator-hint {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-simulate-action {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 12px 28px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px var(--primary-glow);
+      transition: all 0.2s;
+    }
+    .btn-simulate-action:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    .btn-simulate-action:active {
+      transform: scale(0.96);
+    }
+    body.dark-mode .btn-simulate-action {
+      color: #08080A;
+    }
+
+    /* Live Output Simulation Card */
+    .simulator-output-card {
+      margin-top: 26px;
+      padding: 24px;
+      background: var(--paper-cream);
+      border: 1px dashed var(--border-accent);
+      border-radius: var(--radius-md);
+      display: none;
+      animation: outputSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes outputSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .output-cluster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .output-nodes-flow {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .simulated-node-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-xs);
+    }
+    .output-insight-bubble {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding: 14px 18px;
+      background: var(--card-bg);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ─── Artisanal Paper Manuscript Studio ───────── */
+    .paper-studio-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1120px;
+      margin: 0 auto 120px;
+      padding: 0 24px;
+    }
+    .tactile-folio-container {
+      background: #231F1C;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-xl);
+      padding: 16px 20px 24px;
+      box-shadow: 0 35px 80px -15px rgba(20, 16, 12, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+      transition: box-shadow 0.3s ease;
+    }
+    body.dark-mode .tactile-folio-container {
+      background: #141312;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Top Ribbon Header */
+    .folio-ribbon-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .folio-book-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .folio-leather-stamp {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #E2D9CE;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .folio-spec-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FBBF24;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .folio-ribbon-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .folio-ribbon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #E2D9CE;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .folio-ribbon-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .folio-ribbon-btn.active {
+      background: #FFFFFF;
+      color: #181513;
+      border-color: #FFFFFF;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+    .ribbon-tail {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Open Folio Spread (Two Pages) */
+    .folio-open-spread {
+      display: grid;
+      grid-template-columns: 1fr 24px 1.08fr;
+      margin-top: 14px;
+      background: #FAF7F0;
+      border-radius: var(--radius-lg);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      min-height: 480px;
+      position: relative;
+    }
+    @media (max-width: 900px) {
+      .folio-open-spread {
+        grid-template-columns: 1fr;
+      }
+      .folio-spine-gutter { display: none; }
+    }
+
+    /* Left Page: Physical Manuscript */
+    .folio-page-left {
+      padding: 38px 40px 32px;
+      background: radial-gradient(circle at 15% 15%, #FFFDF9 0%, #F5EFE4 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .page-corner-fold {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 0;
+      border-top: 24px solid #231F1C;
+      border-right: 24px solid transparent;
+      opacity: 0.6;
+    }
+
+    .page-meta-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed rgba(120, 80, 40, 0.22);
+      margin-bottom: 22px;
+    }
+    .page-date-stamp {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #8C6D46;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .page-entry-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #A3855E;
+      letter-spacing: 0.1em;
+    }
+
+    /* Handwriting & Calligraphy */
+    .page-handwritten-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .handwritten-heading {
+      font-family: 'Newsreader', 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(26px, 3vw, 34px);
+      color: var(--handwriting-ink, #1E3A8A);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      transition: color 0.3s ease;
+    }
+    .handwritten-text {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(23px, 2.4vw, 29px);
+      font-weight: 600;
+      color: var(--handwriting-ink, #1E3A8A);
+      line-height: 1.5;
+      margin-bottom: 18px;
+      transition: color 0.3s ease, opacity 0.2s ease;
+      text-shadow: 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+    .handwritten-marginalia {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: #92400E;
+      background: rgba(217, 119, 6, 0.08);
+      border-left: 2px solid #D97706;
+      padding: 8px 14px;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.4;
+      font-style: italic;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Physical Footer: Pen & Wax Seal */
+    .page-physical-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(120, 80, 40, 0.22);
+      flex-wrap: nowrap;
+      gap: 16px;
+    }
+    .pen-nib-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+    .nib-icon {
+      font-size: 20px;
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+      flex-shrink: 0;
+    }
+    .pen-nib-meta strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #3F3327;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pen-nib-meta span {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #8C6D46;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .physical-wax-seal {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #D97706 0%, #92400E 70%, #78350F 100%);
+      color: #FFFBEB;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      box-shadow: 0 4px 14px rgba(120, 53, 15, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.5), inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    /* Center Spine Gutter */
+    .folio-spine-gutter {
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.04) 30%, rgba(0, 0, 0, 0.04) 70%, rgba(0, 0, 0, 0.18) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+      border-right: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .spine-stitch {
+      width: 2px;
+      height: 18px;
+      background: #785A3C;
+      border-radius: 99px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Right Page: AI Neural Translation */
+    .folio-page-right {
+      padding: 38px 40px 32px;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    body.dark-mode .folio-page-right {
+      background: #18191E;
+    }
+
+    .page-ai-tag {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+    }
+    .ai-pulse-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+      animation: livePulse 1.8s infinite;
+    }
+    .page-confidence-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--emerald);
+      background: rgba(5, 150, 105, 0.1);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Extracted Concepts */
+    .ai-extracted-section {
+      margin-bottom: 20px;
+    }
+    .ai-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .ai-concept-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .folio-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-xs);
+      transition: all 0.2s;
+    }
+    .folio-chip:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* AI Observation Box */
+    .ai-observation-box {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-xs);
+    }
+    .observation-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .observation-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-style: italic;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Dimensional Metrics */
+    .ai-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ai-metric-item .metric-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .metric-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .metric-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* Folio Action Row */
+    .folio-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-folio-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #FFFFFF !important;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-folio-launch:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    body.dark-mode .btn-folio-launch {
+      color: #08080A !important;
+    }
+    .folio-sync-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    /* Bottom Ink Palette Bar */
+    .folio-ink-palette-bar {
+      margin-top: 16px;
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.24);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .ink-palette-label span {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #E2D9CE;
+      letter-spacing: 0.1em;
+      margin-right: 8px;
+    }
+    .ink-palette-label small {
+      font-size: 11px;
+      color: rgba(226, 217, 206, 0.65);
+    }
+    .ink-swatches-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ink-swatch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #E2D9CE;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .ink-swatch-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+    .ink-swatch-btn.active {
+      background: rgba(255, 255, 255, 0.95);
+      color: #181513;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    }
+    .swatch-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* ─── Curated Visual Memories Exhibition ──────── */
+    .memories-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1160px;
+      margin: 0 auto 130px;
+      padding: 0 24px;
+    }
+    .section-header-block {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-tag-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--primary);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-headline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(32px, 4.5vw, 48px);
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .section-subheadline {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .gallery-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 34px;
+      flex-wrap: wrap;
+    }
+    .gallery-filter-btn {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .gallery-filter-btn:hover {
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    .gallery-filter-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    body.dark-mode .gallery-filter-btn.active {
+      color: #08080A;
+    }
+
+    .exhibition-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 26px;
+    }
+    .polaroid-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px 12px 20px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s, border-color 0.28s, opacity 0.25s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .polaroid-card[data-hidden="true"] {
+      display: none !important;
+    }
+    .polaroid-card:nth-child(4n+1) { transform: rotate(-1.1deg); }
+    .polaroid-card:nth-child(4n+2) { transform: rotate(1.3deg); }
+    .polaroid-card:nth-child(4n+3) { transform: rotate(-0.7deg); }
+    .polaroid-card:nth-child(4n+4) { transform: rotate(1.0deg); }
+
+    .polaroid-card:hover {
+      transform: translateY(-8px) scale(1.02) rotate(0deg) !important;
+      box-shadow: var(--shadow-xl);
+      border-color: var(--border-accent);
+      z-index: 5;
+    }
+
+    .polaroid-image-frame {
+      width: 100%;
+      height: 220px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .polaroid-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .polaroid-card:hover .polaroid-image-frame img {
+      transform: scale(1.06);
+    }
+    .aperture-tag {
+      position: absolute;
+      bottom: 10px; right: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .card-cluster-pill {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      box-shadow: var(--shadow-sm);
+    }
+    .polaroid-caption-block {
+      padding: 0 4px;
+    }
+    .polaroid-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .polaroid-caption {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    /* ─── Interactive Intelligence Suite (4 Tabs) ─── */
+    .intelligence-section {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto 130px;
+      padding: 0 24px;
+    }
+    .suite-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 44px;
+      box-shadow: var(--shadow-lg);
+    }
+    @media (max-width: 700px) {
+      .suite-container-card { padding: 28px 20px; }
+    }
+
+    /* Suite Tabs Header */
+    .suite-nav-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .suite-tab-btn {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .suite-tab-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 18px var(--primary-glow);
+    }
+    body.dark-mode .suite-tab-btn.active {
+      color: #08080A;
+    }
+
+    .suite-tab-panel {
+      display: none;
+      animation: panelFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .suite-tab-panel.active {
+      display: block;
+    }
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tab 1: Voice Resonance */
+    .voice-visualizer-demo {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 800px) {
+      .voice-visualizer-demo { grid-template-columns: 1fr; }
+    }
+    .voice-bars-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 90px;
+      padding: 16px;
+      background: var(--paper-cream);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    .audio-bar {
+      width: 6px;
+      background: var(--primary);
+      border-radius: 99px;
+      height: 20%;
+      animation: waveDance 1.4s ease-in-out infinite alternate;
+    }
+    .audio-bar:nth-child(1) { animation-delay: 0.1s; height: 35%; }
+    .audio-bar:nth-child(2) { animation-delay: 0.3s; height: 75%; }
+    .audio-bar:nth-child(3) { animation-delay: 0.2s; height: 95%; }
+    .audio-bar:nth-child(4) { animation-delay: 0.5s; height: 45%; }
+    .audio-bar:nth-child(5) { animation-delay: 0.4s; height: 85%; }
+    .audio-bar:nth-child(6) { animation-delay: 0.15s; height: 60%; }
+    .audio-bar:nth-child(7) { animation-delay: 0.35s; height: 40%; }
+    @keyframes waveDance {
+      0% { transform: scaleY(0.3); }
+      100% { transform: scaleY(1); }
+    }
+
+    /* Tab 2: Temporal Evolution Scrubber */
+    .timeline-scrubber-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .demo-scrubber-slider {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Tab 3: Synapses Interactive Map */
+    .synapse-demo-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 30px;
+      background: var(--paper-cream);
+      border-radius: var(--radius-md);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .synapse-node-bubble {
+      padding: 14px 22px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .synapse-node-bubble:hover {
+      border-color: var(--primary);
+      transform: scale(1.05);
+      box-shadow: 0 0 16px var(--primary-glow);
+    }
+    .synapse-bridge-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Tab 4: Atmospheric Digital Landscapes & Fine Art Impasto */
+    .painting-mood-preview {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      min-height: 270px;
+      background: url('img/cosmic-oil-canvas.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      transition: background 0.4s ease;
+    }
+    .painting-mood-overlay {
+      background: rgba(15, 23, 42, 0.76);
+      backdrop-filter: blur(8px);
+      padding: 26px 36px;
+      border-radius: var(--radius-md);
+      color: #FFFFFF;
+      text-align: center;
+      max-width: 580px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .suite-mood-btn {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+      font-family: inherit;
+    }
+    .suite-mood-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .suite-mood-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+    body.dark-mode .suite-mood-btn.active {
+      color: #08080A;
+    }
+
+    /* ─── Lightbox Modal ──────────────────────────── */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(8, 8, 10, 0.88);
+      backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox-modal.active {
+      display: flex;
+    }
+    .lightbox-card {
+      position: relative;
+      max-width: 860px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+    }
+    .lightbox-image-wrap {
+      width: 100%;
+      max-height: 60vh;
+      overflow: hidden;
+      background: #000000;
+    }
+    .lightbox-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .lightbox-info {
+      padding: 24px 28px;
+    }
+    .lightbox-close-btn {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.6);
+      color: #FFFFFF;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .lightbox-close-btn:hover {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* ─── Floating Cat Status Dock ────────────────── */
+    .hero-cat-dock {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 6px 14px 6px 8px;
+      box-shadow: var(--shadow-md);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-primary);
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hero-cat-dock:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-cat-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--primary-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-cat-avatar img {
+      width: 22px; height: 22px;
+      image-rendering: pixelated;
+    }
+
+    /* ─── Modern Premium Footer ──────────────────────────────────── */
+    footer.site-footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      padding: 80px 24px 40px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    .footer-inner-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    
+    /* Top Callout Bar */
+    .footer-banner-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 32px 36px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+    .footer-cta-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .footer-cta-text p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+    .footer-cta-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: var(--primary);
+      color: #fff !important;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+      transition: all 0.2s ease;
+    }
+    .footer-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+    }
+    .footer-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--paper-cream);
+      color: var(--text-primary) !important;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .footer-btn-secondary:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Main Multi-Column Grid */
+    .footer-columns-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+    .footer-brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .footer-brand-header .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .footer-brand-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 380px;
+    }
+    .footer-creator-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      max-width: 380px;
+      box-shadow: var(--shadow-sm);
+    }
+    .creator-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+    }
+    .creator-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .creator-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .creator-role {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Social Icons Strip */
+    .footer-social-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .footer-social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-primary) !important;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .footer-social-btn:hover {
+      border-color: var(--primary);
+      background: rgba(124, 58, 237, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+    }
+    .footer-social-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Links Columns */
+    .footer-col h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+    }
+    .footer-links-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-links-list li a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links-list li a:hover {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+    .footer-badge-mini {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      margin-left: 4px;
+    }
+
+    /* Bottom Sub-Footer Bar */
+    .footer-sub-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      padding-left: 160px; /* Clean clearance for floating companion pod */
+    }
+    .footer-sub-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--text-primary);
+    }
+    .footer-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulseGreen 2s infinite ease-in-out;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .btn-back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-back-to-top:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-columns-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      .footer-brand-col {
+        grid-column: span 2;
+      }
+    }
+    @media (max-width: 640px) {
+      .footer-columns-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-brand-col {
+        grid-column: span 1;
+      }
+      .footer-banner-cta {
+        padding: 24px;
+      }
+      .footer-sub-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 0;
+        padding-bottom: 64px;
+      }
+    }
+
+    /* ─── Creative Agency & Mental Health Inspired Systems ──── */
+    :root {
+      --wellness-lavender: #E0E7FF;
+      --wellness-lavender-glow: rgba(167, 139, 250, 0.22);
+      --wellness-mint: #D1FAE5;
+      --wellness-mint-accent: #10B981;
+      --wellness-peach: #FEF3C7;
+      --wellness-peach-accent: #F59E0B;
+    }
+    body.dark-mode {
+      --wellness-lavender: rgba(167, 139, 250, 0.12);
+      --wellness-lavender-glow: rgba(167, 139, 250, 0.18);
+      --wellness-mint: rgba(16, 185, 129, 0.12);
+      --wellness-mint-accent: #34D399;
+      --wellness-peach: rgba(245, 158, 11, 0.12);
+      --wellness-peach-accent: #FBBF24;
+    }
+
+    /* Infinite Marquee Ticker Strip (Creative Agency Inspiration) */
+    .marquee-ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--card-bg);
+      position: relative;
+      z-index: 15;
+      padding: 14px 0;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+      user-select: none;
+    }
+    body.dark-mode .marquee-ticker-wrap {
+      background: #0E0F14;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: agencyMarquee 38s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    .marquee-track-reverse {
+      animation: agencyMarqueeReverse 42s linear infinite;
+    }
+    .marquee-track-reverse:hover {
+      animation-play-state: paused;
+    }
+    @keyframes agencyMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes agencyMarqueeReverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .marquee-item-group {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 0 16px;
+    }
+    .marquee-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .marquee-star {
+      color: var(--primary);
+      font-size: 15px;
+      display: inline-block;
+      animation: spinStar 8s linear infinite;
+    }
+    @keyframes spinStar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mindful Sanctuary Section (Mental Health Inspiration) */
+    .sanctuary-section {
+      position: relative;
+      padding: 90px 24px;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .sanctuary-ambient-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .sanctuary-orb-1 {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: var(--wellness-lavender-glow);
+      filter: blur(80px);
+      opacity: 0.7;
+    }
+    .sanctuary-orb-2 {
+      position: absolute;
+      bottom: 10%;
+      left: 5%;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      filter: blur(75px);
+      opacity: 0.6;
+    }
+
+    .sanctuary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .sanctuary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Neumorphic wellness cards (From uupm.cc/demo/mental-health) */
+    .neu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.dark-mode .neu-card {
+      background: rgba(20, 22, 28, 0.75);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+    .neu-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .neu-inset {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+    }
+    body.dark-mode .neu-inset {
+      background: rgba(12, 13, 17, 0.85);
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Breathing Circle Animation (uupm.cc/demo/mental-health) */
+    .breathing-circle-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 24px 0 16px;
+      position: relative;
+      min-height: 200px;
+    }
+    .breathing-circle {
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--wellness-lavender-glow) 0%, rgba(16, 185, 129, 0.18) 70%, transparent 100%);
+      border: 2px solid rgba(167, 139, 250, 0.35);
+      box-shadow: 0 0 40px var(--wellness-lavender-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.5s ease;
+      animation: serenityBreathing 8s infinite ease-in-out;
+      cursor: pointer;
+      user-select: none;
+    }
+    .breathing-circle.active-breathing {
+      animation: guidedBreathing 12s infinite ease-in-out;
+    }
+    @keyframes serenityBreathing {
+      0%, 100% {
+        transform: scale(0.92);
+        opacity: 0.75;
+        border-color: rgba(167, 139, 250, 0.3);
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 60px rgba(16, 185, 129, 0.3);
+      }
+    }
+    @keyframes guidedBreathing {
+      0%, 100% {
+        transform: scale(0.88);
+        border-color: rgba(167, 139, 250, 0.4);
+      }
+      35% {
+        transform: scale(1.18);
+        border-color: rgba(16, 185, 129, 0.7);
+        box-shadow: 0 0 70px rgba(16, 185, 129, 0.4);
+      }
+      60% {
+        transform: scale(1.18);
+        border-color: rgba(245, 158, 11, 0.6);
+      }
+      90% {
+        transform: scale(0.90);
+        border-color: rgba(167, 139, 250, 0.3);
+      }
+    }
+    .breathing-phase-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .breathing-subtext {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* 5-Mood Climate Selector */
+    .mood-selector-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .mood-btn {
+      flex: 1;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-xs);
+    }
+    .mood-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .mood-btn.active {
+      background: var(--primary-dim);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      transform: scale(1.05);
+    }
+
+    /* 7-Day Consistency Streak Grid (uupm.cc/demo/mental-health) */
+    .streak-widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .streak-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #059669;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    body.dark-mode .streak-badge-pill {
+      color: #34D399;
+      background: rgba(52, 211, 153, 0.15);
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+
+    .streak-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .streak-day-cell {
+      border: 1px solid var(--border);
+      background: var(--paper-cream);
+      border-radius: 12px;
+      padding: 10px 4px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    body.dark-mode .streak-day-cell {
+      background: rgba(25, 27, 34, 0.7);
+    }
+    .streak-day-cell.completed {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .streak-day-cell.today {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+    .streak-day-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .streak-day-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .streak-day-status {
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Weekly Cognitive Balance Spectrum Chart */
+    .spectrum-bars-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 100px;
+      gap: 8px;
+      padding-top: 10px;
+    }
+    .spectrum-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .spectrum-bar-fill {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(to top, var(--primary), var(--cyan));
+      transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spectrum-bar-fill.high {
+      background: linear-gradient(to top, var(--emerald), var(--primary));
+    }
+
+    /* Trust & Sovereignty Pills Row (Mental Health + Agency) */
+    .trust-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .trust-badge-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .trust-check-icon {
+      color: #10B981;
+      display: inline-flex;
+    }
+
+    /* Creative Agency Numbered Architecture List */
+    .agency-pillars-wrap {
+      margin-top: 44px;
+      border-top: 1px solid var(--border);
+    }
+    .agency-pillar-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .agency-pillar-item:hover {
+      background: var(--primary-dim);
+      padding-left: 20px;
+    }
+    .agency-pillar-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+    }
+    .agency-pillar-num {
+      font-family: 'Space Grotesk', 'Space Mono', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--primary);
+      opacity: 0.45;
+      line-height: 1;
+      min-width: 44px;
+      transition: opacity 0.2s;
+    }
+    .agency-pillar-item:hover .agency-pillar-num {
+      opacity: 0.95;
+    }
+    .agency-pillar-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    .agency-pillar-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 600px;
+    }
+    .agency-arrow-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      flex-shrink: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .agency-pillar-item:hover .agency-arrow-circle {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: translateX(4px) scale(1.05);
+      border-color: var(--primary);
+    }
+    body.dark-mode .agency-pillar-item:hover .agency-arrow-circle {
+      color: #0A0A0A;
+    }
+
+    /* Selected Thought Case Studies Grid (Creative Agency Inspiration) */
+    .agency-case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) {
+      .agency-case-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .agency-case-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    body.dark-mode .agency-case-card {
+      background: rgba(18, 19, 23, 0.85);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .agency-case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-accent);
+    }
+    .agency-case-thumb-wrap {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    .agency-case-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .agency-case-card:hover .agency-case-thumb {
+      transform: scale(1.06);
+    }
+    .agency-case-body {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex: 1;
+    }
+    .agency-case-meta {
+      flex: 1;
+    }
+    .agency-case-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .agency-case-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .agency-case-action {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--paper-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      color: var(--text-primary);
+    }
+    .agency-case-card:hover .agency-case-action {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: rotate(45deg);
+    }
+    body.dark-mode .agency-case-card:hover .agency-case-action {
+      color: #0A0A0A;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Mesh Backdrop -->
+  <div class="ambient-canvas"></div>
+  <div class="cosmic-canvas-bg"></div>
+
+  <!-- Floating Island Header Navigation -->
+  <header class="floating-island-nav" role="navigation" aria-label="Main Navigation">
+    <a href="index.html" class="nav-brand" aria-label="The Mirror Home">
+      <div class="brand-icon">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 3a9 9 0 0 1 0 18"></path>
+          <path d="M12 7a5 5 0 0 1 0 10"></path>
+        </svg>
+      </div>
+      <div>
+        <span class="brand-the">THE</span>
+        <span class="brand-title">MIRROR</span>
+      </div>
+    </a>
+
+    <div class="live-pulse-badge">
+      <span class="live-pulse-dot"></span>
+      Cognitive Planetarium
+    </div>
+
+    <nav class="nav-center-links">
+      <a href="#constellation-preview">Planetarium</a>
+      <a href="#simulator">Simulator</a>
+      <a href="#sanctuary">Sanctuary</a>
+      <a href="#paper-studio">Paper Studio</a>
+      <a href="#memories-exhibition">Memories</a>
+      <a href="#intelligence-suite">Architecture</a>
+    </nav>
+
+    <div class="nav-right-controls">
+      <!-- Cat Companion Toggle -->
+      <button class="dock-pill-btn" id="btn-toggle-cat" title="Toggle animated cursor-following cat">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 4.5-2.26 4.5-2.26s.26 2.72-1.74 4.5c.78 1 1.24 2.23 1.24 3.5 0 4.42-2.69 8-6 8s-6-3.58-6-8c0-1.27.46-2.5 1.24-3.5C5.24 5.72 5.5 3 5.5 3s2.72.26 4.5 2.26c.65-.17 1.33-.26 2-.26z"></path>
+          <circle cx="9" cy="12" r="1"></circle>
+          <circle cx="15" cy="12" r="1"></circle>
+        </svg>
+        <span id="cat-status-text">Cat: ON</span>
+      </button>
+
+      <!-- Theme Switcher Pill -->
+      <button class="dock-pill-btn" id="btn-toggle-theme" title="Toggle Bright / Dark Palette">
+        <span id="theme-status-icon">
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
+        <span id="theme-status-text">Bright</span>
+      </button>
+
+      <!-- Primary Galaxy CTA -->
+      <a href="mirror.html" class="dock-cta" id="btn-nav-enter">
+        <span>Launch Galaxy</span>
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Pristine Typography & Framed Constellation -->
+  <section class="hero-container" id="hero">
+    <div class="hero-text-block">
+      <div class="hero-eyebrow-pill">
+        <svg class="icon-svg" viewBox="0 0 24 24" style="width:13px; height:13px;">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        AI Thought Planetarium & Visual Memories
+      </div>
+
+      <!-- Pristine headline with zero overlapping nodes -->
+      <h1 class="hero-main-title">
+        Your Mind, <span class="accent-text">Illuminated.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Transform messy journals, late-night notes, and fleeting thoughts into a living celestial constellation. Where ideas breathe, connect, and remember.
+      </p>
+
+      <div class="hero-button-group">
+        <a href="mirror.html" class="btn-launch-hero" id="btn-enter-universe">
+          <span>Enter the Thought Galaxy</span>
+          <svg class="icon-svg" viewBox="0 0 24 24" style="width:18px; height:18px;">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#simulator" class="btn-simulator-scroll">
+          <span>Try Thought Simulator</span>
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Dedicated Luxury Constellation Viewport (Framed & Clean) -->
+    <div class="hero-constellation-frame" id="constellation-preview">
+      <div class="constellation-frame-bar">
+        <div class="frame-live-tag">
+          <span class="frame-live-dot"></span>
+          Interactive Constellation Viewport
+        </div>
+        <div class="frame-clusters-list">
+          <span class="frame-mini-chip" style="background:rgba(124,58,237,0.1); color:var(--primary);">Philosophy</span>
+          <span class="frame-mini-chip" style="background:rgba(2,132,199,0.1); color:var(--cyan);">Technology</span>
+          <span class="frame-mini-chip" style="background:rgba(225,29,72,0.1); color:var(--rose);">Inner World</span>
+          <span class="frame-mini-chip" style="background:rgba(5,150,105,0.1); color:var(--emerald);">Engineering</span>
+          <span class="frame-mini-chip" style="background:rgba(217,119,6,0.1); color:var(--amber);">Artisanal</span>
+        </div>
+        <a href="mirror.html" class="frame-expand-link">
+          <span>Full Planetarium</span>
+          <svg class="icon-svg" viewBox="0 0 24 24" style="width:12px; height:12px;">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="constellation-viewport">
+        <canvas id="hero-constellation-canvas"></canvas>
+
+        <!-- Node popover contained neatly inside viewport -->
+        <div class="hero-node-popover" id="hero-popover">
+          <span class="popover-cluster-badge" id="popover-cluster">Cluster</span>
+          <div class="popover-node-title" id="popover-title">Title</div>
+          <div class="popover-node-quote" id="popover-quote">"Excerpt quote"</div>
+        </div>
+      </div>
+
+      <div class="constellation-frame-footer">
+        <span>✦ Hover or drag thought nodes · Click to explore synaptic links</span>
+        <span>25 Thought Nodes · 5 Clusters</span>
+      </div>
+    </div>
+
+    <!-- Live Interactive Metrics Strip -->
+    <div class="hero-metrics-pill-strip">
+      <div class="metric-item">
+        <span class="metric-dot"></span>
+        <strong>25</strong> Thought Nodes
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--primary);"></span>
+        <strong>5</strong> Cognitive Clusters
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--cyan);"></span>
+        <strong>18</strong> Months of Evolution
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--amber);"></span>
+        Claude 3.5 Sonnet Engine
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Creative Agency Infinite Marquee Ticker 1 ───── -->
+  <div class="marquee-ticker-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Spatial Synthesis <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Neural Folio Studio <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">High-Dimensional Graph <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Cognitive Continuity <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Analog Japanese Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Local Vector Embeddings <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Tubik Digital Artworks <span class="marquee-star">✦</span></span>
+      </div>
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Spatial Synthesis <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Neural Folio Studio <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">High-Dimensional Graph <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Cognitive Continuity <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Analog Japanese Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Local Vector Embeddings <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Tubik Digital Artworks <span class="marquee-star">✦</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Section 1: Instant Thought Simulator ──── -->
+  <section class="simulator-section" id="simulator">
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <span class="sandbox-badge">Interactive Sandbox</span>
+        <h2 class="sandbox-title">Instant Thought Simulator</h2>
+        <p class="sandbox-desc">
+          Test the cognitive engine right here. Choose a reflection below or type your raw notes to see how The Mirror crystallizes them into connected knowledge.
+        </p>
+      </div>
+
+      <div class="sample-prompts-label">Pick a sample reflection:</div>
+      <div class="sample-prompt-chips">
+        <div class="sample-chip" data-prompt="I feel torn between deep technical engineering and the vulnerability of building in public. Solitude makes me build faster, but sharing creates serendipity.">
+          ✦ "Deep technical focus vs. building in public"
+        </div>
+        <div class="sample-chip" data-prompt="6:15 AM sunrise coffee with zero meetings. The only time my architecture thoughts are completely quiet, clear, and unfragmented.">
+          ✦ "Morning solitude and quiet systems clarity"
+        </div>
+        <div class="sample-chip" data-prompt="Reading ancient stoic philosophy on impermanence while architecting distributed fault-tolerant database systems.">
+          ✦ "Stoic philosophy meets distributed systems"
+        </div>
+      </div>
+
+      <div class="simulator-input-wrap">
+        <textarea
+          class="simulator-textarea"
+          id="simulator-input"
+          placeholder="Type or paste your unstructured reflections here…"
+        >I feel torn between deep technical engineering and the vulnerability of building in public. Solitude makes me build faster, but sharing creates serendipity.</textarea>
+      </div>
+
+      <div class="simulator-action-row">
+        <div class="simulator-hint">
+          <svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--emerald);">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Simulates real-time Claude Sonnet clustering
+        </div>
+        <button class="btn-simulate-action" id="btn-run-simulation">
+          <span>Simulate Reflection</span>
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Simulator Output Card -->
+      <div class="simulator-output-card" id="simulator-output">
+        <div class="output-cluster-header">
+          <strong style="font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--primary);">
+            ✨ Extracted Cognitive Synapse
+          </strong>
+          <span style="font-size:11px; font-family:'Space Mono', monospace; color:var(--muted);">
+            Similarity Confidence: 94.8%
+          </span>
+        </div>
+        <div class="output-nodes-flow">
+          <div class="simulated-node-tag">
+            <span style="width:7px; height:7px; border-radius:50%; background:var(--primary);"></span>
+            <span id="out-node-1">Deep Architecture</span>
+          </div>
+          <div class="simulated-node-tag">
+            <span style="width:7px; height:7px; border-radius:50%; background:var(--cyan);"></span>
+            <span id="out-node-2">Building in Public</span>
+          </div>
+          <div class="simulated-node-tag">
+            <span style="width:7px; height:7px; border-radius:50%; background:var(--amber);"></span>
+            <span id="out-node-3">Creative Vulnerability</span>
+          </div>
+        </div>
+        <div class="output-insight-bubble" id="out-insight">
+          "The Mirror observes: You view solitude not as isolation, but as the high-focus furnace where raw code is forged before facing public scrutiny."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Section: Mindful Reflection Sanctuary & Cognitive Continuity ─── -->
+  <section class="sanctuary-section" id="sanctuary">
+    <div class="sanctuary-ambient-glow">
+      <div class="sanctuary-orb-1"></div>
+      <div class="sanctuary-orb-2"></div>
+    </div>
+
+    <div class="section-header-block" style="margin-bottom: 40px; text-align:center;">
+      <span class="section-tag-eyebrow" style="background:var(--card-glass); border-color:rgba(16, 185, 129, 0.3); color:var(--emerald);">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+        Mindful Sanctuary & Cognitive Continuity
+      </span>
+      <h2 class="section-headline">Find Clarity in the Noise</h2>
+      <p class="section-subheadline" style="max-width:720px; margin:0 auto;">
+        A quiet sanctuary inspired by meditative reflection. Ground your daily mental climate, track cognitive habits, and gently breathe before crystallizing thoughts into the galaxy.
+      </p>
+    </div>
+
+    <div class="sanctuary-grid">
+      <!-- Left Column: Emotional Climate & Breathing Aura -->
+      <div class="neu-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.08em;">Mindful Check-in</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; font-weight:700; color:var(--text-primary); margin-top:2px;">How is your mind feeling today?</h3>
+          </div>
+          <div style="width:38px; height:38px; border-radius:12px; background:rgba(124,58,237,0.1); display:flex; align-items:center; justify-content:center; color:var(--primary); font-size:20px;">
+            🧘
+          </div>
+        </div>
+
+        <!-- 5-Mood Emotion Buttons -->
+        <div class="neu-inset" style="padding:16px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; font-family:'Space Mono', monospace; margin-bottom:8px;">
+            <span>Current Cognitive Climate</span>
+            <span id="active-mood-title" style="color:var(--primary);">Focused 💡</span>
+          </div>
+          <div class="mood-selector-strip" id="mood-selector-bar">
+            <button class="mood-btn active" data-mood="focused" title="Focused & Flowing">💡</button>
+            <button class="mood-btn" data-mood="grounded" title="Grounded & Calm">🌿</button>
+            <button class="mood-btn" data-mood="reflective" title="Reflective & Introspective">🌊</button>
+            <button class="mood-btn" data-mood="overloaded" title="Mental Fatigue & Overload">☁️</button>
+            <button class="mood-btn" data-mood="epiphany" title="Creative Epiphany">🔥</button>
+          </div>
+        </div>
+
+        <!-- Serenity Guided Breathing Circle -->
+        <div class="breathing-circle-container">
+          <div class="breathing-circle" id="serenity-breathing-orb" title="Click to begin or pause 60s mindful breathing guidance">
+            <div class="breathing-phase-text" id="breathing-phase-label">Breathe In</div>
+            <div class="breathing-subtext" id="breathing-sublabel">Tap to Guide</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Affirmation & Reflection Prompt -->
+        <div class="neu-inset" style="padding:16px; margin-top:14px;">
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; font-family:'Space Mono', monospace; margin-bottom:6px;">
+            <span>💭 Daily Cognitive Mirror Insight</span>
+          </div>
+          <p id="sanctuary-affirmation" style="font-size:14px; font-style:italic; color:var(--text-primary); line-height:1.6; margin-bottom:12px;">
+            "Clarity is not the absence of complex thoughts, but the deliberate stillness you bring to examining them."
+          </p>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span id="sanctuary-tag" style="font-family:'Space Mono', monospace; font-size:11px; color:var(--primary); font-weight:700;">#FOCUS_FLOW</span>
+            <button class="dock-pill-btn" id="btn-sanctuary-reflect" style="background:var(--primary); color:#FFF; font-weight:700; border:none; padding:8px 16px;">
+              <span>Reflect on this State →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 7-Day Consistency Streak & Balance Spectrum -->
+      <div class="neu-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <!-- Streak Header -->
+          <div class="streak-widget-header">
+            <div>
+              <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.08em;">Cognitive Continuity</span>
+              <h3 style="font-family:'Playfair Display', serif; font-size:22px; font-weight:700; color:var(--text-primary); margin-top:2px;">7-Day Reflection Continuity</h3>
+            </div>
+            <div class="streak-badge-pill">
+              <span>🌟</span>
+              <span>7 Day Streak!</span>
+            </div>
+          </div>
+
+          <!-- 7-Day Grid Cards -->
+          <div class="streak-days-grid" id="streak-days-container">
+            <div class="streak-day-cell completed" title="Monday: 2 thoughts recorded">
+              <div class="streak-day-name">Mon</div>
+              <div class="streak-day-num">18</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Tuesday: 3 thoughts recorded">
+              <div class="streak-day-name">Tue</div>
+              <div class="streak-day-num">19</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Wednesday: 1 thought recorded">
+              <div class="streak-day-name">Wed</div>
+              <div class="streak-day-num">20</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Thursday: 4 thoughts recorded">
+              <div class="streak-day-name">Thu</div>
+              <div class="streak-day-num">21</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Friday: 2 thoughts recorded">
+              <div class="streak-day-name">Fri</div>
+              <div class="streak-day-num">22</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Saturday: 3 thoughts recorded">
+              <div class="streak-day-name">Sat</div>
+              <div class="streak-day-num">23</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell today completed" title="Today: Reflection recorded">
+              <div class="streak-day-name">Sun</div>
+              <div class="streak-day-num">24</div>
+              <div class="streak-day-status">🌟</div>
+            </div>
+          </div>
+
+          <!-- Weekly Cognitive Balance Spectrum Chart -->
+          <div class="neu-inset" style="padding:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); font-weight:700;">Cognitive Depth Spectrum</span>
+              <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--emerald); font-weight:700;">+24% vs. Last Week</span>
+            </div>
+            <div class="spectrum-bars-row">
+              <div class="spectrum-col">
+                <span style="font-size:14px;">💡</span>
+                <div class="spectrum-bar-fill high" style="height:78%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">M</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌿</span>
+                <div class="spectrum-bar-fill" style="height:62%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">T</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌊</span>
+                <div class="spectrum-bar-fill" style="height:48%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">W</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">💡</span>
+                <div class="spectrum-bar-fill high" style="height:85%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">T</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🔥</span>
+                <div class="spectrum-bar-fill high" style="height:95%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">F</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌿</span>
+                <div class="spectrum-bar-fill" style="height:70%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">S</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌟</span>
+                <div class="spectrum-bar-fill high" style="height:88%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">S</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust & Sovereignty Badges (Mental Health + Agency Grade) -->
+        <div class="trust-badges-row">
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>100% Confidential</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>Zero Cloud Telemetry</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>Local Sovereign Latent Space</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Section 2: Archival Folio · Tactile Paper Studio ─── -->
+  <section class="paper-studio-section" id="paper-studio">
+    <div class="section-header-block" style="margin-bottom: 38px;">
+      <span class="section-tag-eyebrow">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        Archival Folio · Tactile Paper Studio
+      </span>
+      <h2 class="section-headline">The Weight of Thought on Paper</h2>
+      <p class="section-subheadline">
+        Before thoughts become digital constellations, they begin as quiet ink on cotton paper. Explore the dual-page manuscript where physical reflection directly informs synthetic intelligence.
+      </p>
+    </div>
+
+    <!-- The Open-Folio Journal Container -->
+    <div class="tactile-folio-container">
+      
+      <!-- Top Leather Header & Silk Bookmark Ribbons -->
+      <div class="folio-ribbon-bar">
+        <div class="folio-book-label">
+          <span class="folio-leather-stamp">LEATHER ARCHIVE · VOL. IV</span>
+          <span class="folio-spec-badge">300 GSM COLD PRESS COTTON</span>
+        </div>
+        <div class="folio-ribbon-tabs">
+          <button class="folio-ribbon-btn active" data-folio="clarity">
+            <span class="ribbon-tail" style="background:#2563EB;"></span>
+            <span class="ribbon-text">06:15 AM · Sunrise Focus</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="midnight">
+            <span class="ribbon-tail" style="background:#059669;"></span>
+            <span class="ribbon-text">00:42 AM · Midnight Sprint</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="solitude">
+            <span class="ribbon-tail" style="background:#E11D48;"></span>
+            <span class="ribbon-text">04:30 PM · Rainy Cafe</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="alps">
+            <span class="ribbon-tail" style="background:#D97706;"></span>
+            <span class="ribbon-text">07:15 AM · Alpine Ascent</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Open Book Spread -->
+      <div class="folio-open-spread" id="folio-spread">
+        
+        <!-- Left Page: The Physical Handwritten Manuscript -->
+        <div class="folio-page folio-page-left">
+          <div class="page-corner-fold"></div>
+          <div class="page-meta-header">
+            <div class="page-date-stamp" id="folio-date-stamp">OCTOBER 14 · 06:15 AM</div>
+            <div class="page-entry-num" id="folio-entry-num">FOLIO ENTRY #42</div>
+          </div>
+
+          <!-- Realistic Handwritten Script Block -->
+          <div class="page-handwritten-body">
+            <p class="handwritten-heading" id="folio-handwritten-title">Sunrise Deep Focus Block</p>
+            <p class="handwritten-text" id="folio-handwritten-text">
+              "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise before the world begins demanding answers."
+            </p>
+            <div class="handwritten-marginalia" id="folio-marginalia">
+              ✦ "When you build in quiet solitude, every sentence carries deliberate weight."
+            </div>
+          </div>
+
+          <!-- Page Footer: Ink Metadata & Wax Seal -->
+          <div class="page-physical-footer">
+            <div class="pen-nib-meta">
+              <span class="nib-icon">✒</span>
+              <div>
+                <strong id="folio-pen-name">Pilot Custom 823 M (14K Gold)</strong>
+                <span id="folio-ink-name">Ink: Iroshizuku Tsukiyo (Midnight Blue)</span>
+              </div>
+            </div>
+            <div class="physical-wax-seal" id="folio-wax-seal">
+              <span>MIRROR</span>
+              <span style="font-size:7px; opacity:0.85;">ARCHIVE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Book Gutter Spine with Stitches -->
+        <div class="folio-spine-gutter">
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+        </div>
+
+        <!-- Right Page: The AI Cognitive Mirror Translation -->
+        <div class="folio-page folio-page-right">
+          <div class="page-meta-header">
+            <div class="page-ai-tag">
+              <span class="ai-pulse-dot"></span>
+              CLAUDE 3.5 SONNET SYNTHESIS
+            </div>
+            <div class="page-confidence-badge" id="folio-confidence">98.4% SEMANTIC MATCH</div>
+          </div>
+
+          <!-- Extracted Core Concepts Chips -->
+          <div class="ai-extracted-section">
+            <div class="ai-section-label">EXTRACTED CONCEPT NODES</div>
+            <div class="ai-concept-chips" id="folio-concept-chips">
+              <span class="folio-chip">✦ Deep Work (0.95)</span>
+              <span class="folio-chip">✦ Dawn Solitude (0.88)</span>
+              <span class="folio-chip">✦ Uninterrupted Flow (0.92)</span>
+            </div>
+          </div>
+
+          <!-- Cognitive Observation Card -->
+          <div class="ai-observation-box">
+            <div class="observation-header">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+              <span>COGNITIVE MIRROR INSIGHT</span>
+            </div>
+            <p class="observation-body" id="folio-observation">
+              "Your handwritten reflections consistently correlate physical morning solitude with architectural breakthroughs. Temporal isolation functions not as avoidance, but as your primary creative engine."
+            </p>
+          </div>
+
+          <!-- Dimensional Resonance Bars -->
+          <div class="ai-metrics-grid">
+            <div class="ai-metric-item">
+              <div class="metric-label">Reflective Depth</div>
+              <div class="metric-bar-wrap"><div class="metric-bar-fill" id="bar-depth" style="width:94%;"></div></div>
+            </div>
+            <div class="ai-metric-item">
+              <div class="metric-label">Conceptual Novelty</div>
+              <div class="metric-bar-wrap"><div class="metric-bar-fill" id="bar-novelty" style="width:87%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Interactive Action Button -->
+          <div class="folio-action-row">
+            <a href="mirror.html" class="btn-folio-launch">
+              <span>View in Live Thought Galaxy</span>
+              <span class="btn-arrow">→</span>
+            </a>
+            <span class="folio-sync-note">● Synced to Local Knowledge Graph</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Interactive Fountain Pen Ink Bar -->
+      <div class="folio-ink-palette-bar">
+        <div class="ink-palette-label">
+          <span>FOUNTAIN PEN INK PALETTE:</span>
+          <small>Click to dynamically change ink formulation & handwriting tint</small>
+        </div>
+        <div class="ink-swatches-group">
+          <button class="ink-swatch-btn active" data-ink="tsukiyo" data-color="#1E3A8A" data-seal="radial-gradient(circle at 35% 30%, #1E3A8A 0%, #172554 80%)" title="Iroshizuku Tsukiyo (Midnight Blue)">
+            <span class="swatch-circle" style="background:#1E3A8A;"></span>
+            <span class="swatch-name">Tsukiyo (Midnight)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="yomogi" data-color="#065F46" data-seal="radial-gradient(circle at 35% 30%, #059669 0%, #064E3B 80%)" title="Sailor Manyo Yomogi (Forest Pine)">
+            <span class="swatch-circle" style="background:#065F46;"></span>
+            <span class="swatch-name">Yomogi (Pine)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="momiji" data-color="#9F1239" data-seal="radial-gradient(circle at 35% 30%, #E11D48 0%, #881337 80%)" title="Iroshizuku Momiji (Autumn Crimson)">
+            <span class="swatch-circle" style="background:#9F1239;"></span>
+            <span class="swatch-name">Momiji (Crimson)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="ambre" data-color="#B45309" data-seal="radial-gradient(circle at 35% 30%, #D97706 0%, #78350F 80%)" title="Jacques Herbin Ambre de Birmanie (Warm Amber)">
+            <span class="swatch-circle" style="background:#B45309;"></span>
+            <span class="swatch-name">Ambre (Golden)</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Creative Agency Infinite Marquee Ticker 2 ───── -->
+  <div class="marquee-ticker-wrap" aria-hidden="true">
+    <div class="marquee-track marquee-track-reverse">
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Retina Paper Grain <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Fountain Pen Tactility <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Japanese Sumi Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Claude 3.5 Sonnet Extraction <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Deep Archival Manuscript <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Knowledge Constellations <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign Latent Space <span class="marquee-star">✦</span></span>
+      </div>
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Retina Paper Grain <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Fountain Pen Tactility <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Japanese Sumi Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Claude 3.5 Sonnet Extraction <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Deep Archival Manuscript <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Knowledge Constellations <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign Latent Space <span class="marquee-star">✦</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Section 3: Atmospheric Digital Landscapes & City Views Exhibition ── -->
+  <section class="memories-section" id="memories-exhibition">
+    <div class="section-header-block">
+      <span class="section-tag-eyebrow">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        Atmospheric Digital Artworks · Landscapes & City Views
+      </span>
+      <h2 class="section-headline">Environments That Anchor Our Thoughts</h2>
+      <p class="section-subheadline">
+        Every deep reflection is shaped by the atmosphere around us. Curated digital landscapes and city views by Tubik Studio, paired with reflective journal memories.
+      </p>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="gallery-filter-bar" id="gallery-filters">
+      <button class="gallery-filter-btn active" data-filter="all">All Environments (8)</button>
+      <button class="gallery-filter-btn" data-filter="alpine">Alpine & Mountains</button>
+      <button class="gallery-filter-btn" data-filter="city">City & Architecture</button>
+      <button class="gallery-filter-btn" data-filter="coastal">Rivers & Coasts</button>
+      <button class="gallery-filter-btn" data-filter="sanctuary">Quiet Sanctuaries</button>
+    </div>
+
+    <div class="exhibition-gallery-grid" id="gallery-grid">
+      <!-- Card 1: Rhaetian Alps -->
+      <div class="polaroid-card" data-category="alpine" data-img="img/illustrations/rhaetian_alps.jpg" data-title="Rhaetian Alps Dawn" data-quote="6:15 AM high-altitude clarity. Jagged alpine peaks breaking through cloud mist — where complex system designs suddenly feel quiet and obvious." data-tag="Alpine Elevation" data-credit="Tubik Studio · Alpine Landscape" data-aperture="Alpine Elevation 2,800m">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Alpine Dawn</span>
+          <img src="img/illustrations/rhaetian_alps.jpg" alt="Rhaetian Alps Dawn digital illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Rhaetian Alps Dawn</div>
+          <div class="polaroid-caption">"High-altitude clarity where complex system designs suddenly feel quiet and obvious."</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Amsterdam Canals -->
+      <div class="polaroid-card" data-category="city" data-img="img/illustrations/amsterdam_colors.png" data-title="Amsterdam Twilight Canals" data-quote="Warm amber windows reflecting on dark waterways. Orderly canals mirroring modular, resilient software architectures." data-tag="City Architecture" data-credit="Tubik Studio · City View" data-aperture="Canal Twilight · Amsterdam">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">City Architecture</span>
+          <img src="img/illustrations/amsterdam_colors.png" alt="Amsterdam Twilight Canals illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Amsterdam Canals</div>
+          <div class="polaroid-caption">"Warm amber windows reflecting on dark waterways — orderly systems in balance."</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Old Town Morning Cafe -->
+      <div class="polaroid-card" data-category="city" data-img="img/illustrations/coffee_time_city.png" data-title="Old Town Morning Cafe" data-quote="A solitary table on cobblestone streets before the city awakes. The gentle hum of urban life framing deep stream-of-consciousness writing." data-tag="Urban Solitude" data-credit="Tubik Studio · Urban Scene" data-aperture="Dawn Cafe · 06:45 AM">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Urban Solitude</span>
+          <img src="img/illustrations/coffee_time_city.png" alt="Old Town Morning Cafe illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Morning Cafe</div>
+          <div class="polaroid-caption">"A solitary table on cobblestone streets before the city awakes. Coffee and ink."</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Nordic Fjord Settlement -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/norway_fjord.png" data-title="Nordic Fjord Settlement" data-quote="Towering granite walls sheltering tiny wooden houses. Grounding perspective against cosmic vastness and long-term craft." data-tag="Coastal Landscape" data-credit="Tubik Studio · Nordic Fjord" data-aperture="Fjord Valley · Western Norway">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Coastal Landscape</span>
+          <img src="img/illustrations/norway_fjord.png" alt="Nordic Fjord Settlement illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Nordic Fjord</div>
+          <div class="polaroid-caption">"Towering granite walls sheltering tiny wooden houses — grounding perspective."</div>
+        </div>
+      </div>
+
+      <!-- Card 5: Solitary Beacon at Sea -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/lighthouse_coastal.png" data-title="Solitary Beacon at Sea" data-quote="A lone lighthouse cutting through sea mist and turbulent surf. Four-hour deep work focus when all external noise is silenced." data-tag="Maritime Solitude" data-credit="Tubik Studio · Coastal Beacon" data-aperture="North Sea Coast · Dense Fog">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Maritime Solitude</span>
+          <img src="img/illustrations/lighthouse_coastal.png" alt="Lighthouse coastal illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Solitary Beacon</div>
+          <div class="polaroid-caption">"Cutting through sea mist and turbulent surf — pure four-hour deep work focus."</div>
+        </div>
+      </div>
+
+      <!-- Card 6: Rigi Mountain Railway -->
+      <div class="polaroid-card" data-category="alpine" data-img="img/illustrations/rigi_railways.png" data-title="Rigi Mountain Railway" data-quote="Ascending above the fog line into blinding sunlight. Mechanical precision climbing through sheer natural scale." data-tag="Mountain Ascent" data-credit="Tubik Studio · Alpine Panorama" data-aperture="Mount Rigi · Elevation 1,798m">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Mountain Ascent</span>
+          <img src="img/illustrations/rigi_railways.png" alt="Rigi mountain railway illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Rigi Railway</div>
+          <div class="polaroid-caption">"Ascending above the fog line into sunlight. Mechanical precision in nature."</div>
+        </div>
+      </div>
+
+      <!-- Card 7: Golden Hour River Bend -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/river_sunset.png" data-title="Golden Hour River Bend" data-quote="Still waters reflecting lavender and amber skies. The patient, unhurried current of deliberate contemplation." data-tag="Evening Horizon" data-credit="Tubik Studio · River Sunset" data-aperture="River Basin · Golden Hour">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Evening Horizon</span>
+          <img src="img/illustrations/river_sunset.png" alt="River sunset illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">River Sunset</div>
+          <div class="polaroid-caption">"Still waters reflecting amber skies — the patient current of deliberate contemplation."</div>
+        </div>
+      </div>
+
+      <!-- Card 8: Sanctuary in the Forest -->
+      <div class="polaroid-card" data-category="sanctuary" data-img="img/illustrations/house_woods.png" data-title="Sanctuary in the Forest" data-quote="A warm light glowing inside the pine forest cabin. Deep incubation for difficult ideas that need space to breathe." data-tag="Pine Woods Sanctuary" data-credit="Tubik Studio · Forest Cabin" data-aperture="Old Growth Forest · Midnight">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Forest Sanctuary</span>
+          <img src="img/illustrations/house_woods.png" alt="Sanctuary in the Forest illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Forest Sanctuary</div>
+          <div class="polaroid-caption">"A warm light glowing inside the pine cabin — deep incubation for complex ideas."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Section 4: Interactive Intelligence Suite ── -->
+  <section class="intelligence-section" id="intelligence-suite">
+    <div class="suite-container-card">
+      <div class="section-header-block" style="margin-bottom:30px;">
+        <span class="section-tag-eyebrow">
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Cognitive Intelligence Suite
+        </span>
+        <h2 class="section-headline">Beyond Conventional Note-Taking</h2>
+        <p class="section-subheadline">
+          The Mirror is built with specialized intelligence workflows designed for reflective depth.
+        </p>
+      </div>
+
+      <!-- Suite Tabs -->
+      <div class="suite-nav-pills">
+        <button class="suite-tab-btn active" data-suite="voice">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+          Voice Resonance
+        </button>
+        <button class="suite-tab-btn" data-suite="timeline">
+          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Temporal Evolution
+        </button>
+        <button class="suite-tab-btn" data-suite="synapses">
+          <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          Hidden Synapses
+        </button>
+        <button class="suite-tab-btn" data-suite="painting">
+          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+          Cosmic Impasto
+        </button>
+      </div>
+
+      <!-- Tab Panel 1: Voice Resonance -->
+      <div class="suite-tab-panel active" id="panel-voice">
+        <div class="voice-visualizer-demo">
+          <div>
+            <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin-bottom:10px;">
+              Spoken Thoughts Turned to Constellations
+            </h3>
+            <p style="font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:18px;">
+              Record stream-of-consciousness audio memos while on walks or in transit. The Mirror analyzes acoustic cadence, emotional inflection, and semantic themes to anchor glowing nodes.
+            </p>
+            <div style="font-family:'Space Mono', monospace; font-size:12px; color:var(--primary); font-weight:700;">
+              ▶ Active Waveform Analysis
+            </div>
+          </div>
+          <div class="voice-bars-container">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Panel 2: Temporal Evolution -->
+      <div class="suite-tab-panel" id="panel-timeline">
+        <div class="timeline-scrubber-demo">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin-bottom:6px;">
+                Watch Your Thinking Evolve Like a Film
+              </h3>
+              <p style="font-size:14px; color:var(--text-secondary);">
+                Drag the scrubber below to witness your ideas grow from 2024 to 2026.
+              </p>
+            </div>
+            <span id="demo-timeline-date" style="font-family:'Space Mono', monospace; font-size:14px; color:var(--primary); font-weight:700;">
+              Oct 2025 (Present)
+            </span>
+          </div>
+          <input type="range" class="demo-scrubber-slider" id="demo-time-slider" min="0" max="100" value="85" />
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-family:'Space Mono', monospace; color:var(--muted);">
+            <span>Jan 2024 · 4 concepts</span>
+            <span>Aug 2024 · 12 concepts</span>
+            <span>Present · 25 active concepts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Panel 3: Hidden Synapses -->
+      <div class="suite-tab-panel" id="panel-synapses">
+        <div class="synapse-demo-box">
+          <div class="synapse-node-bubble" id="synapse-node-a">Deep Work Architecture</div>
+          <div class="synapse-bridge-indicator">
+            <span>─── AI Synapse Bridge ───</span>
+            <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <div class="synapse-node-bubble" id="synapse-node-b">Solitude & Cafe Focus</div>
+        </div>
+        <p style="font-size:13px; color:var(--text-secondary); text-align:center; margin-top:16px; font-style:italic;">
+          Hover over the nodes above to inspect how non-obvious thematic links are surfaced across months of journal entries.
+        </p>
+      </div>
+
+      <!-- Tab Panel 4: Atmospheric Environments & Impasto -->
+      <div class="suite-tab-panel" id="panel-painting">
+        <div class="painting-mood-preview" id="suite-painting-box">
+          <div class="painting-mood-overlay">
+            <span style="font-family:'Space Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:var(--primary); background:rgba(0,0,0,0.45); padding:3px 9px; border-radius:4px; display:inline-block; margin-bottom:10px; border:1px solid rgba(255,255,255,0.15);">Atmospheric Canvas Environments</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin-bottom:8px;" id="suite-mood-title">
+              Renaissance Impasto & Tubik Digital Art
+            </h3>
+            <p style="font-size:13px; line-height:1.6; margin-bottom:18px; color:rgba(255,255,255,0.85);" id="suite-mood-desc">
+              Immerse your cognitive galaxy inside fine-art oil canvas textures or atmospheric Tubik digital landscapes.
+            </p>
+            <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;" id="suite-mood-buttons">
+              <button class="suite-mood-btn active" data-bg="img/cosmic-oil-canvas.jpg" data-title="Van Gogh Impasto" data-desc="Fine art impasto canvas texture with rich swirling oil pigments and chiaroscuro depths.">Van Gogh Impasto</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/rhaetian_alps.jpg" data-title="Rhaetian Alps Dawn" data-desc="High-altitude alpine sunrise with misty peaks and crisp morning light breaking over valleys.">Alpine Dawn</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/amsterdam_colors.png" data-title="Amsterdam Canals" data-desc="Twilight urban canals reflecting amber streetlamps and orderly historic architecture.">Amsterdam Canals</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/norway_fjord.png" data-title="Nordic Fjord Settlement" data-desc="Deep blue fjord waters sheltered by towering rock faces and serene wooden cottages.">Nordic Fjord</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agency-Grade Numbered Architectural Capabilities -->
+      <div class="agency-pillars-wrap">
+        <div class="agency-pillar-item" onclick="window.location.href='#simulator'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">01</span>
+            <div class="agency-pillar-info">
+              <h3>High-Dimensional Latent Geometry</h3>
+              <p>Translates messy, unstructured sentences into 384-dimensional cosine orbits where conceptual gravity pulls kindred ideas together.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#paper-studio'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">02</span>
+            <div class="agency-pillar-info">
+              <h3>Dual-Page Archival Folio Studio</h3>
+              <p>Physical penmanship meets synthetic clarity. Premium cotton paper grain, archival Japanese inks, and Claude-powered margin annotations.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#sanctuary'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">03</span>
+            <div class="agency-pillar-info">
+              <h3>Mindful Cognitive Sanctuary & Consistency</h3>
+              <p>Empathetic 5-state climate check-ins, guided breathing circles, and 7-day continuity streaks that nurture healthy reflective habits.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#memories-exhibition'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">04</span>
+            <div class="agency-pillar-info">
+              <h3>Atmospheric Fine-Art Resonance</h3>
+              <p>Digital landscape masterworks by Tubik Studio anchor abstract philosophical notions to visceral sensory memory beacons.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Creative Agency Style Thought Case Studies -->
+      <div style="margin-top:54px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.12em; font-weight:700;">Selected Thought Portfolios</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:28px; font-weight:700; color:var(--text-primary); margin-top:4px;">Cognitive Case Studies</h3>
+          </div>
+          <a href="mirror.html" class="dock-pill-btn" style="font-size:12px; font-weight:700; text-decoration:none;">
+            <span>Explore All in 3D Galaxy</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="agency-case-grid">
+          <!-- Case 1 -->
+          <div class="agency-case-card" onclick="openCaseStudy(0)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/norway_fjord.png" alt="Nordic Fjord Settlement" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(124,58,237,0.12); color:var(--primary);">Systems Architecture</span>
+                <h4 class="agency-case-title">Stoic Equanimity in High-Frequency Systems</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 2 -->
+          <div class="agency-case-card" onclick="openCaseStudy(1)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/rhaetian_alps.jpg" alt="Rhaetian Alps Dawn" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(16,185,129,0.12); color:#059669;">Mindful Metaphysics</span>
+                <h4 class="agency-case-title">The Alchemy of 6:15 AM Dawn Solitude</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 3 -->
+          <div class="agency-case-card" onclick="openCaseStudy(2)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/amsterdam_colors.png" alt="Amsterdam Canals" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(2,132,199,0.12); color:#0284C7;">Atmospheric Aesthetics</span>
+                <h4 class="agency-case-title">Twilight Canals & Orderly Urban Geometry</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 4 -->
+          <div class="agency-case-card" onclick="openCaseStudy(3)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/yosemite_falls.png" alt="Yosemite Falls" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(217,119,6,0.12); color:#D97706;">Analog Studio</span>
+                <h4 class="agency-case-title">Cotton Paper as an Anti-Distraction Shield</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Photo Lightbox Modal ──────────────────────── -->
+  <div class="lightbox-modal" id="home-lightbox">
+    <div class="lightbox-card">
+      <button class="lightbox-close-btn" id="btn-close-lightbox">✕</button>
+      <div class="lightbox-image-wrap">
+        <img id="lightbox-main-img" src="" alt="Memory expanded" />
+      </div>
+      <div class="lightbox-info">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:8px;">
+          <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--primary); font-weight:700; text-transform:uppercase;" id="lightbox-tag"></span>
+          <span style="font-family:'Space Mono', monospace; font-size:10px; color:var(--muted); background:var(--paper-cream); padding:3px 8px; border-radius:4px; border:1px solid var(--border);" id="lightbox-credit">Tubik Studio Digital Illustration</span>
+        </div>
+        <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin:6px 0 10px;" id="lightbox-title"></h3>
+        <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; font-style:italic;" id="lightbox-quote"></p>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid var(--border); flex-wrap:wrap; gap:10px;">
+          <div style="font-family:'Space Mono', monospace; font-size:11px; color:var(--muted);" id="lightbox-aperture"></div>
+          <a href="mirror.html" style="font-size:12px; color:var(--primary); font-weight:700; text-decoration:none; display:flex; align-items:center; gap:4px;">Anchor in Thought Galaxy →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Floating Cat Companion Status Pod ─────────── -->
+  <div class="hero-cat-dock" id="hero-cat-pod" title="Pixel cat is following your cursor!">
+    <div class="hero-cat-avatar">
+      <img src="img/oneko.gif" alt="Pixel cat avatar" />
+    </div>
+    <div style="display:flex; flex-direction:column; line-height:1.2;">
+      <span style="font-size:9px; font-family:'Space Mono', monospace; text-transform:uppercase; color:var(--muted);">Companion</span>
+      <span style="font-size:11px; font-weight:700; color:var(--primary);" id="cat-pod-status">Hunting cursor</span>
+    </div>
+  </div>
+
+  <!-- ─── Modern Premium Footer ──────────────────────── -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner-container">
+      
+      <!-- Top Callout Banner -->
+      <div class="footer-banner-cta">
+        <div class="footer-cta-text">
+          <h3>Ready to illuminate your own thoughts?</h3>
+          <p>Experience high-dimensional semantic clustering paired with tactile analog journals.</p>
+        </div>
+        <div class="footer-cta-actions">
+          <a href="mirror.html" class="footer-btn-primary">
+            <span>Enter Thought Galaxy</span>
+            <span>→</span>
+          </a>
+          <a href="https://github.com/sawan-ade/The-Mirror" target="_blank" rel="noopener noreferrer" class="footer-btn-secondary">
+            <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>Star on GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Columns Grid -->
+      <div class="footer-columns-grid">
+        
+        <!-- Column 1: Brand & Creator -->
+        <div class="footer-brand-col">
+          <a href="index.html" class="footer-brand-header">
+            <div class="brand-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 0 18v-18z"></path></svg>
+            </div>
+            <span>THE MIRROR</span>
+          </a>
+          <p class="footer-brand-desc">
+            A spatial cognitive planetarium bridging analog fountain pen reflections with high-dimensional AI concept clustering. Your thoughts, reflected back to you.
+          </p>
+
+          <!-- Creator Profile Card -->
+          <div class="footer-creator-card">
+            <div class="creator-avatar">SA</div>
+            <div class="creator-info">
+              <span class="creator-name">Sawan Ade</span>
+              <span class="creator-role">Machine Learning & Systems Builder</span>
+            </div>
+          </div>
+
+          <!-- Verified Social Handles Strip -->
+          <div class="footer-social-strip">
+            <a href="https://github.com/sawan-ade" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="GitHub: @sawan-ade">
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sawan-ade-330997242/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="LinkedIn: Sawan Ade">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:adeysawan@gmail.com" class="footer-social-btn" title="Email: adeysawan@gmail.com">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Experiences -->
+        <div class="footer-col">
+          <h4>Experience</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero">Cognitive Planetarium</a></li>
+            <li><a href="#simulator">Thought Simulator</a></li>
+            <li><a href="#sanctuary">Mindful Sanctuary <span class="footer-badge-mini">Serenity</span></a></li>
+            <li><a href="#paper-studio">Tactile Folio Studio</a></li>
+            <li><a href="#memories-exhibition">Atmospheric Artworks</a></li>
+            <li><a href="#intelligence-suite">Architecture Suite</a></li>
+            <li><a href="mirror.html">Launch Live 3D Galaxy →</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Architecture -->
+        <div class="footer-col">
+          <h4>Architecture</h4>
+          <ul class="footer-links-list">
+            <li><a href="#paper-studio">Claude 3.5 Sonnet Extraction</a></li>
+            <li><a href="#hero">High-Dimensional Latent Orbit</a></li>
+            <li><a href="#paper-studio">Japanese Archival Inks</a></li>
+            <li><a href="#memories-gallery">Tubik Digital Landscapes</a></li>
+            <li><a href="#hero">Constellation Vector Graphs</a></li>
+            <li><a href="https://github.com/sawan-ade/The-Mirror" target="_blank" rel="noopener noreferrer">Source Code Repository</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Platform & Privacy -->
+        <div class="footer-col">
+          <h4>Privacy & Tech</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero">100% Client-Side Knowledge</a></li>
+            <li><a href="#hero">Zero-Telemetry Guarantee</a></li>
+            <li><a href="#hero">Local Vector Coordinates</a></li>
+            <li><a href="https://github.com/sawan-ade/The-Mirror/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT Open License</a></li>
+            <li><a href="#hero">Companion: Cursor Cat</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sub-Footer -->
+      <div class="footer-sub-bar">
+        <div>
+          © 2026 <strong>The Mirror</strong>. Designed & engineered with care by <a href="https://github.com/sawan-ade" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:none; font-weight:700;">Sawan Ade</a>.
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+          <div class="footer-sub-status">
+            <span class="footer-pulse-dot"></span>
+            <span>All Systems Operational · v2.4 LTS</span>
+          </div>
+          <button class="btn-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll back to top">
+            <span>Back to Top</span>
+            <span>↑</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ─── Scripts ─────────────────────────────────── -->
+  <script src="js/oneko.js"></script>
+  <script>
+    // ─────────────────────────────────────────────
+    // Theme Switcher & Persistence
+    // ─────────────────────────────────────────────
+    const btnTheme = document.getElementById('btn-toggle-theme');
+    const themeIcon = document.getElementById('theme-status-icon');
+    const themeText = document.getElementById('theme-status-text');
+
+    const sunSvg = `<svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    const moonSvg = `<svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        themeIcon.innerHTML = moonSvg;
+        themeText.textContent = 'Dark';
+        localStorage.setItem('mirror_theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        themeIcon.innerHTML = sunSvg;
+        themeText.textContent = 'Bright';
+        localStorage.setItem('mirror_theme', 'light');
+      }
+    }
+
+    const savedTheme = localStorage.getItem('mirror_theme') || 'light';
+    applyTheme(savedTheme === 'dark');
+
+    btnTheme.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark-mode');
+      applyTheme(!isDark);
+    });
+
+    // ─────────────────────────────────────────────
+    // Cat Companion Toggle
+    // ─────────────────────────────────────────────
+    const btnCat = document.getElementById('btn-toggle-cat');
+    const catText = document.getElementById('cat-status-text');
+    const catPod = document.getElementById('hero-cat-pod');
+    const catPodStatus = document.getElementById('cat-pod-status');
+    let catActive = true;
+
+    function handleCatToggle() {
+      if (typeof window.toggleOneko === 'function') {
+        catActive = window.toggleOneko();
+        catText.textContent = catActive ? 'Cat: ON' : 'Cat: OFF';
+        catPodStatus.textContent = catActive ? 'Hunting cursor' : 'Sleeping';
+        catPod.style.opacity = catActive ? '1' : '0.6';
+      }
+    }
+
+    btnCat.addEventListener('click', handleCatToggle);
+    catPod.addEventListener('click', handleCatToggle);
+
+    // ─────────────────────────────────────────────
+    // Interactive Framed Constellation Canvas Viewport
+    // ─────────────────────────────────────────────
+    (function initHeroGalaxy() {
+      const canvas = document.getElementById('hero-constellation-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const popover = document.getElementById('hero-popover');
+      const popCluster = document.getElementById('popover-cluster');
+      const popTitle = document.getElementById('popover-title');
+      const popQuote = document.getElementById('popover-quote');
+
+      const heroNodes = [
+        { label: 'Deep Work', cluster: 'Philosophy', color: '#7C3AED', quote: '6:15 AM sunrise block with zero interruptions.' },
+        { label: 'Building in Public', cluster: 'Technology', color: '#0284C7', quote: 'Sharing incomplete work creates serendipity.' },
+        { label: 'Solitude & City', cluster: 'Inner World', color: '#E11D48', quote: 'Rainy coffee alone — the quiet edge of thought.' },
+        { label: 'Systems Craft', cluster: 'Engineering', color: '#059669', quote: 'Simplicity is prerequisite for reliability.' },
+        { label: 'Fountain Pen Ink', cluster: 'Artisanal', color: '#D97706', quote: 'Tsukiyo ink flow on deckled cotton paper.' },
+        { label: 'Emergent AI', cluster: 'Cognition', color: '#7C3AED', quote: 'Mapping latent patterns beyond human recall.' },
+        { label: 'Distributed State', cluster: 'Engineering', color: '#059669', quote: 'Consensus algorithms mirroring philosophical agreement.' },
+        { label: 'Stoic Meditation', cluster: 'Philosophy', color: '#D97706', quote: 'Impermanence as the ground for deliberate action.' },
+        { label: 'Midnight Sprint', cluster: 'Technology', color: '#0284C7', quote: 'When the world is dark, creativity breathes.' },
+        { label: 'Curated Reading', cluster: 'Creativity', color: '#E11D48', quote: 'The books that permanently alter your cognitive lens.' }
+      ];
+
+      let width = 0, height = 0;
+      let nodes = [];
+      let mouse = { x: -1000, y: -1000 };
+      let hoveredNode = null;
+
+      function resize() {
+        width = canvas.width = canvas.parentElement.offsetWidth || 860;
+        height = canvas.height = canvas.parentElement.offsetHeight || 380;
+        spawnNodes();
+      }
+
+      function spawnNodes() {
+        nodes = heroNodes.map((n, i) => {
+          const angle = (i / heroNodes.length) * Math.PI * 2;
+          const rx = width * 0.36;
+          const ry = height * 0.32;
+          return {
+            ...n,
+            x: width / 2 + Math.cos(angle) * rx + (Math.random() - 0.5) * 40,
+            y: height / 2 + Math.sin(angle) * ry + (Math.random() - 0.5) * 30,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: 7 + Math.random() * 4,
+            pulsePhase: Math.random() * Math.PI * 2
+          };
+        });
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+
+        hoveredNode = null;
+        for (let n of nodes) {
+          const dist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+          if (dist < n.r + 14) {
+            hoveredNode = n;
+            break;
+          }
+        }
+
+        if (hoveredNode) {
+          popCluster.textContent = hoveredNode.cluster;
+          popCluster.style.background = hoveredNode.color + '22';
+          popCluster.style.color = hoveredNode.color;
+          popTitle.textContent = hoveredNode.label;
+          popQuote.textContent = `"${hoveredNode.quote}"`;
+          popover.style.left = hoveredNode.x + 'px';
+          popover.style.top = (hoveredNode.y - 10) + 'px';
+          popover.classList.add('active');
+          canvas.style.cursor = 'pointer';
+        } else {
+          popover.classList.remove('active');
+          canvas.style.cursor = 'crosshair';
+        }
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        hoveredNode = null;
+        mouse.x = -1000;
+        mouse.y = -1000;
+        popover.classList.remove('active');
+      });
+
+      let time = 0;
+      function animate() {
+        time += 0.02;
+        ctx.clearRect(0, 0, width, height);
+        const isDark = document.body.classList.contains('dark-mode');
+
+        // Draw connections with synaptic pulse
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i];
+            const b = nodes[j];
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < 220) {
+              const alpha = (1 - dist / 220) * (isDark ? 0.35 : 0.22);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = isDark ? `rgba(168, 255, 62, ${alpha})` : `rgba(124, 58, 237, ${alpha})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+
+              // Traveling light packet
+              if (Math.sin(time * 2 + i + j) > 0.4) {
+                const pulseT = ((time * 0.4 + (i * 0.2)) % 1);
+                const px = a.x + (b.x - a.x) * pulseT;
+                const py = a.y + (b.y - a.y) * pulseT;
+                ctx.beginPath();
+                ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = isDark ? '#A8FF3E' : '#7C3AED';
+                ctx.fill();
+              }
+            }
+          }
+        }
+
+        // Draw and update nodes
+        nodes.forEach(n => {
+          n.x += n.vx;
+          n.y += n.vy;
+          n.pulsePhase += 0.02;
+
+          // Boundary bounce within viewport
+          if (n.x < 36 || n.x > width - 36) n.vx *= -1;
+          if (n.y < 30 || n.y > height - 30) n.vy *= -1;
+
+          // Mouse gentle repel
+          const dMouse = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+          if (dMouse < 75) {
+            const angle = Math.atan2(n.y - mouse.y, n.x - mouse.x);
+            n.x += Math.cos(angle) * 1.2;
+            n.y += Math.sin(angle) * 1.2;
+          }
+
+          const isHov = (hoveredNode === n);
+          const r = n.r * (isHov ? 1.35 : 1) + Math.sin(n.pulsePhase) * 0.7;
+
+          // Outer bloom halo
+          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 2.8);
+          glow.addColorStop(0, n.color + (isHov ? '77' : '33'));
+          glow.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r * 2.8, 0, Math.PI * 2);
+          ctx.fillStyle = glow;
+          ctx.fill();
+
+          // Node body
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = n.color;
+          ctx.fill();
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Node label inside viewport
+          ctx.font = `${isHov ? 700 : 600} 11px 'Plus Jakarta Sans', sans-serif`;
+          ctx.fillStyle = isDark ? '#F8FAFC' : '#0F172A';
+          ctx.textAlign = 'center';
+          ctx.fillText(n.label, n.x, n.y + r + 13);
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // ─────────────────────────────────────────────
+    // Interactive Thought Simulator (Mind Sandbox)
+    // ─────────────────────────────────────────────
+    const simInput = document.getElementById('simulator-input');
+    const btnSimulate = document.getElementById('btn-run-simulation');
+    const simOutput = document.getElementById('simulator-output');
+    const outNode1 = document.getElementById('out-node-1');
+    const outNode2 = document.getElementById('out-node-2');
+    const outNode3 = document.getElementById('out-node-3');
+    const outInsight = document.getElementById('out-insight');
+
+    // Sample prompt chips
+    document.querySelectorAll('.sample-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        simInput.value = chip.getAttribute('data-prompt');
+        runSimulation();
+      });
+    });
+
+    btnSimulate.addEventListener('click', runSimulation);
+
+    function runSimulation() {
+      const text = simInput.value.trim().toLowerCase();
+      simOutput.style.display = 'block';
+
+      if (text.includes('coffee') || text.includes('sunrise') || text.includes('morning')) {
+        outNode1.textContent = 'Dawn Solitude';
+        outNode2.textContent = 'Cognitive Flow';
+        outNode3.textContent = 'Quiet Architecture';
+        outInsight.textContent = '"The Mirror observes: Your deepest insights require temporal isolation before society begins generating demands."';
+      } else if (text.includes('stoic') || text.includes('philosophy') || text.includes('ancient')) {
+        outNode1.textContent = 'Stoic Equilibrium';
+        outNode2.textContent = 'Fault Tolerance';
+        outNode3.textContent = 'Long-Horizon Craft';
+        outInsight.textContent = '"The Mirror observes: You view systems reliability through the lens of ancient resilience, designing software to outlive trend cycles."';
+      } else {
+        outNode1.textContent = 'Deep Architecture';
+        outNode2.textContent = 'Building in Public';
+        outNode3.textContent = 'Creative Serendipity';
+        outInsight.textContent = '"The Mirror observes: You view solitude not as isolation, but as the high-focus furnace where raw code is forged before facing public scrutiny."';
+      }
+    }
+
+    // ─────────────────────────────────────────────
+    // Archival Folio Spread Interaction & Ink Switcher
+    // ─────────────────────────────────────────────
+    const folioRibbonBtns = document.querySelectorAll('.folio-ribbon-btn');
+    const folioSpread = document.getElementById('folio-spread');
+    const folioDateStamp = document.getElementById('folio-date-stamp');
+    const folioEntryNum = document.getElementById('folio-entry-num');
+    const folioHwTitle = document.getElementById('folio-handwritten-title');
+    const folioHwText = document.getElementById('folio-handwritten-text');
+    const folioMarginalia = document.getElementById('folio-marginalia');
+    const folioPenName = document.getElementById('folio-pen-name');
+    const folioInkName = document.getElementById('folio-ink-name');
+    const folioConfidence = document.getElementById('folio-confidence');
+    const folioChips = document.getElementById('folio-concept-chips');
+    const folioObservation = document.getElementById('folio-observation');
+    const barDepth = document.getElementById('bar-depth');
+    const barNovelty = document.getElementById('bar-novelty');
+    const folioWaxSeal = document.getElementById('folio-wax-seal');
+
+    const folioEntries = {
+      clarity: {
+        date: 'OCTOBER 14 · 06:15 AM',
+        entry: 'FOLIO ENTRY #42',
+        title: 'Sunrise Deep Focus Block',
+        text: '"Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise before the world begins demanding answers."',
+        marginalia: '✦ "When you build in quiet solitude, every sentence carries deliberate weight."',
+        pen: 'Pilot Custom 823 M (14K Gold)',
+        ink: 'Ink: Iroshizuku Tsukiyo (Midnight Blue)',
+        confidence: '98.4% SEMANTIC MATCH',
+        chips: ['✦ Deep Work (0.95)', '✦ Dawn Solitude (0.88)', '✦ Uninterrupted Flow (0.92)'],
+        observation: '"Your handwritten reflections consistently correlate physical morning solitude with architectural breakthroughs. Temporal isolation functions not as avoidance, but as your primary creative engine."',
+        depth: '94%',
+        novelty: '87%'
+      },
+      midnight: {
+        date: 'NOVEMBER 02 · 00:42 AM',
+        entry: 'FOLIO ENTRY #68',
+        title: 'Studio Midnight Sprint',
+        text: '"00:42 AM. The first 100 users logged in while the studio was silent. When you build alone in the dark, every pixel and every line of code feels intensely personal."',
+        marginalia: '✦ "Silence isn\'t empty; it\'s the space where craftsmanship can breathe."',
+        pen: 'Lamy 2000 Makrolon (F Nib)',
+        ink: 'Ink: Sailor Manyo Yomogi (Pine Green)',
+        confidence: '99.1% SEMANTIC MATCH',
+        chips: ['✦ Building in Public (0.97)', '✦ Studio Solitude (0.91)', '✦ Midnight Flow (0.94)'],
+        observation: '"Midnight sprints in your journal represent inflection points where theoretical plans convert into concrete reality. You thrive when external distraction is mathematically zero."',
+        depth: '91%',
+        novelty: '95%'
+      },
+      solitude: {
+        date: 'DECEMBER 19 · 04:30 PM',
+        entry: 'FOLIO ENTRY #89',
+        title: 'Rainy Cafe & City Edge',
+        text: '"Rain streaking across the cafe window. Solitude in public isn\'t loneliness — it is the high-bandwidth channel where observing human life gives purpose to abstract systems."',
+        marginalia: '✦ "The tension between wanting to withdraw and wanting to belong."',
+        pen: 'Montblanc Meisterstück 146 (14K)',
+        ink: 'Ink: Montblanc Burgundy (Deep Rose)',
+        confidence: '96.8% SEMANTIC MATCH',
+        chips: ['✦ Solitude & City (0.93)', '✦ Human Systems (0.89)', '✦ Urban Observation (0.86)'],
+        observation: '"A recurring philosophical dialectic: you require solitude to produce deep work, yet need urban vitality to feel connected to the people who will inhabit your software."',
+        depth: '96%',
+        novelty: '82%'
+      },
+      alps: {
+        date: 'JANUARY 08 · 07:15 AM',
+        entry: 'FOLIO ENTRY #104',
+        title: 'Rhaetian Alpine Ascent',
+        text: '"High-altitude air at 2,800m. Looking over snow-covered granite ridges. Systems that survive centuries are carved from subtraction, not addition."',
+        marginalia: '✦ "Climb high enough and all trivial bugs disappear from the horizon."',
+        pen: 'Nakaya Piccolo Kuro-tamenuri (Elastic M)',
+        ink: 'Ink: Jacques Herbin Ambre (Gilded Amber)',
+        confidence: '99.3% SEMANTIC MATCH',
+        chips: ['✦ Alpine Clarity (0.98)', '✦ Structural Subtraction (0.94)', '✦ Enduring Craft (0.91)'],
+        observation: '"Natural landscapes trigger your most disciplined architectural thinking. In high elevations, you consistently strip away excess complexity and reaffirm core principles."',
+        depth: '98%',
+        novelty: '93%'
+      }
+    };
+
+    folioRibbonBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        folioRibbonBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.getAttribute('data-folio');
+        const data = folioEntries[key];
+        if (!data) return;
+
+        // Animate left page
+        folioHwText.style.opacity = '0';
+        folioMarginalia.style.opacity = '0';
+        folioObservation.style.opacity = '0';
+
+        setTimeout(() => {
+          folioDateStamp.textContent = data.date;
+          folioEntryNum.textContent = data.entry;
+          folioHwTitle.textContent = data.title;
+          folioHwText.textContent = data.text;
+          folioMarginalia.textContent = data.marginalia;
+          folioPenName.textContent = data.pen;
+          folioInkName.textContent = data.ink;
+          folioConfidence.textContent = data.confidence;
+          folioObservation.textContent = data.observation;
+          barDepth.style.width = data.depth;
+          barNovelty.style.width = data.novelty;
+
+          folioChips.innerHTML = data.chips.map(c => `<span class="folio-chip">${c}</span>`).join('');
+
+          folioHwText.style.opacity = '1';
+          folioMarginalia.style.opacity = '1';
+          folioObservation.style.opacity = '1';
+        }, 160);
+      });
+    });
+
+    // Fountain Pen Ink Swatches
+    const inkSwatchBtns = document.querySelectorAll('.ink-swatch-btn');
+    inkSwatchBtns.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        inkSwatchBtns.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        const color = swatch.getAttribute('data-color');
+        const seal = swatch.getAttribute('data-seal');
+        const title = swatch.getAttribute('title');
+
+        if (folioSpread) {
+          folioSpread.style.setProperty('--handwriting-ink', color);
+        }
+        if (folioWaxSeal && seal) {
+          folioWaxSeal.style.background = seal;
+        }
+        if (folioInkName) {
+          folioInkName.textContent = `Ink: ${title}`;
+        }
+      });
+    });
+
+    // ─────────────────────────────────────────────
+    // Interactive Intelligence Suite Tabs
+    // ─────────────────────────────────────────────
+    const suiteTabs = document.querySelectorAll('.suite-tab-btn');
+    const suitePanels = document.querySelectorAll('.suite-tab-panel');
+
+    suiteTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        suiteTabs.forEach(t => t.classList.remove('active'));
+        suitePanels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const targetId = 'panel-' + tab.getAttribute('data-suite');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) targetPanel.classList.add('active');
+      });
+    });
+
+    // Demo Timeline Scrubber
+    const demoSlider = document.getElementById('demo-time-slider');
+    const demoDate = document.getElementById('demo-timeline-date');
+    if (demoSlider) {
+      demoSlider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value);
+        if (val < 30) demoDate.textContent = 'Feb 2024 · 4 Concepts';
+        else if (val < 70) demoDate.textContent = 'Jan 2025 · 16 Concepts';
+        else demoDate.textContent = 'Present (2026) · 25 Concepts';
+      });
+    }
+
+    // ─────────────────────────────────────────────
+    // Atmospheric Landscapes & City Views Gallery Filtering
+    // ─────────────────────────────────────────────
+    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+    const galleryCards = document.querySelectorAll('.polaroid-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        galleryCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.removeAttribute('data-hidden');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = '';
+            }, 60);
+          } else {
+            card.setAttribute('data-hidden', 'true');
+          }
+        });
+      });
+    });
+
+    // ─────────────────────────────────────────────
+    // Photo Lightbox Exhibition
+    // ─────────────────────────────────────────────
+    const lightbox = document.getElementById('home-lightbox');
+    const lbImg = document.getElementById('lightbox-main-img');
+    const lbTitle = document.getElementById('lightbox-title');
+    const lbQuote = document.getElementById('lightbox-quote');
+    const lbTag = document.getElementById('lightbox-tag');
+    const lbCredit = document.getElementById('lightbox-credit');
+    const lbAperture = document.getElementById('lightbox-aperture');
+    const btnCloseLb = document.getElementById('btn-close-lightbox');
+
+    galleryCards.forEach(card => {
+      card.addEventListener('click', () => {
+        lbImg.src = card.getAttribute('data-img');
+        lbTitle.textContent = card.getAttribute('data-title');
+        lbQuote.textContent = `"${card.getAttribute('data-quote')}"`;
+        lbTag.textContent = card.getAttribute('data-tag');
+        if (lbCredit) lbCredit.textContent = card.getAttribute('data-credit') || 'Tubik Studio Digital Art';
+        lbAperture.textContent = card.getAttribute('data-aperture');
+        lightbox.classList.add('active');
+      });
+    });
+
+    btnCloseLb.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+
+    // ─────────────────────────────────────────────
+    // Suite Tab 4: Mood Canvas Switcher
+    // ─────────────────────────────────────────────
+    const suitePaintingBox = document.getElementById('suite-painting-box');
+    const suiteMoodTitle = document.getElementById('suite-mood-title');
+    const suiteMoodDesc = document.getElementById('suite-mood-desc');
+    const suiteMoodBtns = document.querySelectorAll('.suite-mood-btn');
+
+    suiteMoodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        suiteMoodBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const bg = btn.getAttribute('data-bg');
+        const title = btn.getAttribute('data-title');
+        const desc = btn.getAttribute('data-desc');
+
+        if (suitePaintingBox) {
+          suitePaintingBox.style.backgroundImage = `url('${bg}')`;
+        }
+        if (suiteMoodTitle) suiteMoodTitle.textContent = title;
+        if (suiteMoodDesc) suiteMoodDesc.textContent = desc;
+      });
+    });
+
+    // ─────────────────────────────────────────────
+    // Mindful Sanctuary & Cognitive Continuity System
+    // (Inspired by uupm.cc/demo/mental-health)
+    // ─────────────────────────────────────────────
+    const sanctuaryMoods = {
+      focused: {
+        title: "Focused 💡",
+        tag: "#FOCUS_FLOW",
+        affirmation: "Clarity is not the absence of complex thoughts, but the deliberate stillness you bring to examining them.",
+        prompt: "Deep technical architecture focus: I notice my thoughts cluster clearest when eliminating all speculative context.",
+        color: "var(--primary)"
+      },
+      grounded: {
+        title: "Grounded 🌿",
+        tag: "#EQUANIMITY",
+        affirmation: "Root your attention into the present physical moment. No idea can shake your foundation unless you permit it.",
+        prompt: "Quiet stillness: Sitting in silence before morning meetings, anchoring attention to physical breath and tea warmth.",
+        color: "#10B981"
+      },
+      reflective: {
+        title: "Reflective 🌊",
+        tag: "#CONTEMPLATION",
+        affirmation: "The thoughts you release into the constellation will return to you transformed into constellations of insight.",
+        prompt: "Contemplating the balance between building in public and protecting the sacred sanctuary of private research.",
+        color: "#0284C7"
+      },
+      overloaded: {
+        title: "Overloaded ☁️",
+        tag: "#RELEASE_BURDEN",
+        affirmation: "You do not need to solve every open question before you sleep. Unburden your mind onto paper.",
+        prompt: "Cognitive overload: Brain saturated with concurrent threads. Archiving all tasks onto archival paper to restore breathing room.",
+        color: "#64748B"
+      },
+      epiphany: {
+        title: "Epiphany 🔥",
+        tag: "#CREATIVE_SPARK",
+        affirmation: "When lightning strikes the intellect, write without editorial doubt. Capture the heat before cold logic sets in.",
+        prompt: "Breakthrough synthesis: What if vector embeddings are treated not merely as database floats, but as gravitational celestial orbits?",
+        color: "#F59E0B"
+      }
+    };
+
+    let currentSanctuaryMood = 'focused';
+    const moodBtns = document.querySelectorAll('.mood-btn');
+    const moodTitleEl = document.getElementById('active-mood-title');
+    const affirmationEl = document.getElementById('sanctuary-affirmation');
+    const sanctuaryTagEl = document.getElementById('sanctuary-tag');
+    const btnSanctuaryReflect = document.getElementById('btn-sanctuary-reflect');
+
+    moodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        moodBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const moodKey = btn.getAttribute('data-mood');
+        const data = sanctuaryMoods[moodKey];
+        if (!data) return;
+        currentSanctuaryMood = moodKey;
+
+        if (moodTitleEl) moodTitleEl.textContent = data.title;
+        if (affirmationEl) affirmationEl.textContent = `"${data.affirmation}"`;
+        if (sanctuaryTagEl) sanctuaryTagEl.textContent = data.tag;
+      });
+    });
+
+    if (btnSanctuaryReflect) {
+      btnSanctuaryReflect.addEventListener('click', () => {
+        const inputEl = document.getElementById('simulator-input');
+        const simSection = document.getElementById('simulator');
+        const runBtn = document.getElementById('btn-run-simulation');
+        const data = sanctuaryMoods[currentSanctuaryMood];
+        if (inputEl && data) {
+          inputEl.value = data.prompt;
+          if (simSection) {
+            simSection.scrollIntoView({ behavior: 'smooth' });
+          }
+          setTimeout(() => {
+            if (runBtn) runBtn.click();
+          }, 450);
+        }
+      });
+    }
+
+    // ─────────────────────────────────────────────
+    // Serenity Guided Breathing Circle
+    // ─────────────────────────────────────────────
+    const breathingOrb = document.getElementById('serenity-breathing-orb');
+    const breathingPhaseLabel = document.getElementById('breathing-phase-label');
+    const breathingSublabel = document.getElementById('breathing-sublabel');
+    let isBreathingActive = false;
+    let breathingInterval = null;
+    let breathingStep = 0;
+
+    const breathingPhases = [
+      { phase: "Breathe In", time: "4s", sub: "Deep inhalation" },
+      { phase: "Hold Breath", time: "4s", sub: "Sustain stillness" },
+      { phase: "Breathe Out", time: "4s", sub: "Gentle release" },
+      { phase: "Rest", time: "2s", sub: "Observe quiet" }
+    ];
+
+    function stepBreathing() {
+      const p = breathingPhases[breathingStep % breathingPhases.length];
+      if (breathingPhaseLabel) breathingPhaseLabel.textContent = p.phase;
+      if (breathingSublabel) breathingSublabel.textContent = `${p.sub} (${p.time})`;
+      breathingStep++;
+    }
+
+    if (breathingOrb) {
+      breathingOrb.addEventListener('click', () => {
+        isBreathingActive = !isBreathingActive;
+        if (isBreathingActive) {
+          breathingOrb.classList.add('active-breathing');
+          breathingStep = 0;
+          stepBreathing();
+          breathingInterval = setInterval(stepBreathing, 3500);
+        } else {
+          breathingOrb.classList.remove('active-breathing');
+          clearInterval(breathingInterval);
+          if (breathingPhaseLabel) breathingPhaseLabel.textContent = "Breathe In";
+          if (breathingSublabel) breathingSublabel.textContent = "Tap to Guide";
+        }
+      });
+    }
+
+    // ─────────────────────────────────────────────
+    // Interactive 7-Day Consistency Streak Checkboxes
+    // ─────────────────────────────────────────────
+    const streakCells = document.querySelectorAll('.streak-day-cell');
+    streakCells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('completed');
+        const statusEl = cell.querySelector('.streak-day-status');
+        if (statusEl) {
+          if (cell.classList.contains('completed')) {
+            statusEl.textContent = cell.classList.contains('today') ? '🌟' : '✅';
+          } else {
+            statusEl.textContent = '○';
+          }
+        }
+      });
+    });
+
+    // ─────────────────────────────────────────────
+    // Creative Agency Case Studies Opener
+    // ─────────────────────────────────────────────
+    const caseStudyPrompts = [
+      "Stoic equanimity meets distributed systems: reading ancient reflections on control while tuning fault-tolerant network topologies.",
+      "The alchemy of dawn solitude: 6:15 AM quiet coffee before any external Slack requests invade my architecture focus.",
+      "Twilight canals in Amsterdam: the rhythm of evening light across historic stone structures echoes deep modular database schemas.",
+      "Cotton paper as sanctuary: fountain pen ink on heavy Japanese archival leaves creates an impervious shield against notification fatigue."
+    ];
+
+    window.openCaseStudy = function(idx) {
+      const prompt = caseStudyPrompts[idx] || caseStudyPrompts[0];
+      const inputEl = document.getElementById('simulator-input');
+      const simSection = document.getElementById('simulator');
+      const runBtn = document.getElementById('btn-run-simulation');
+      if (inputEl) {
+        inputEl.value = prompt;
+        if (simSection) {
+          simSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        setTimeout(() => {
+          if (runBtn) runBtn.click();
+        }, 450);
+      }
+    };
+
+    // ─────────────────────────────────────────────
+    // Smooth Page Exit to Galaxy
+    // ─────────────────────────────────────────────
+    document.getElementById('btn-enter-universe').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.body.style.transition = 'opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+      document.body.style.opacity = '0';
+      setTimeout(() => { window.location.href = 'mirror.html'; }, 350);
+    });
   </script>
 </body>
 </html>
