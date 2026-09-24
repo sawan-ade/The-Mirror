@@ -7,7 +7,7 @@
   <meta name="description" content="An interactive planetarium for your mind. Transforms unstructured thoughts, journals, and raw ideas into a luminous living constellation with photographic memory anchors." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -847,41 +847,238 @@
       margin: 0 auto 120px;
       padding: 0 24px;
     }
-    .paper-studio-card {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+    .tactile-folio-container {
+      background: #231F1C;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
+      padding: 16px 20px 24px;
+      box-shadow: 0 35px 80px -15px rgba(20, 16, 12, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
       position: relative;
+      transition: box-shadow 0.3s ease;
     }
-    @media (max-width: 880px) {
-      .paper-studio-card { grid-template-columns: 1fr; }
+    body.dark-mode .tactile-folio-container {
+      background: #141312;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.7);
     }
 
-    .paper-media-side {
-      position: relative;
-      min-height: 420px;
-      overflow: hidden;
+    /* Top Ribbon Header */
+    .folio-ribbon-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .paper-media-side img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    .folio-book-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .paper-studio-card:hover .paper-media-side img {
-      transform: scale(1.03);
+    .folio-leather-stamp {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #E2D9CE;
+      text-transform: uppercase;
+      opacity: 0.85;
     }
-    .wax-seal-badge {
-      position: absolute;
-      top: 24px; left: 24px;
-      background: radial-gradient(circle at 35% 35%, #D97706 0%, #92400E 100%);
-      color: #FFFDF8;
-      width: 54px; height: 54px;
+    .folio-spec-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FBBF24;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .folio-ribbon-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .folio-ribbon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #E2D9CE;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .folio-ribbon-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .folio-ribbon-btn.active {
+      background: #FFFFFF;
+      color: #181513;
+      border-color: #FFFFFF;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+    .ribbon-tail {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Open Folio Spread (Two Pages) */
+    .folio-open-spread {
+      display: grid;
+      grid-template-columns: 1fr 24px 1.08fr;
+      margin-top: 14px;
+      background: #FAF7F0;
+      border-radius: var(--radius-lg);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      min-height: 480px;
+      position: relative;
+    }
+    @media (max-width: 900px) {
+      .folio-open-spread {
+        grid-template-columns: 1fr;
+      }
+      .folio-spine-gutter { display: none; }
+    }
+
+    /* Left Page: Physical Manuscript */
+    .folio-page-left {
+      padding: 38px 40px 32px;
+      background: radial-gradient(circle at 15% 15%, #FFFDF9 0%, #F5EFE4 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .page-corner-fold {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 0;
+      border-top: 24px solid #231F1C;
+      border-right: 24px solid transparent;
+      opacity: 0.6;
+    }
+
+    .page-meta-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed rgba(120, 80, 40, 0.22);
+      margin-bottom: 22px;
+    }
+    .page-date-stamp {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #8C6D46;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .page-entry-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #A3855E;
+      letter-spacing: 0.1em;
+    }
+
+    /* Handwriting & Calligraphy */
+    .page-handwritten-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .handwritten-heading {
+      font-family: 'Newsreader', 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(26px, 3vw, 34px);
+      color: var(--handwriting-ink, #1E3A8A);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      transition: color 0.3s ease;
+    }
+    .handwritten-text {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(23px, 2.4vw, 29px);
+      font-weight: 600;
+      color: var(--handwriting-ink, #1E3A8A);
+      line-height: 1.5;
+      margin-bottom: 18px;
+      transition: color 0.3s ease, opacity 0.2s ease;
+      text-shadow: 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+    .handwritten-marginalia {
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      color: #92400E;
+      background: rgba(217, 119, 6, 0.08);
+      border-left: 2px solid #D97706;
+      padding: 8px 14px;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.4;
+      font-style: italic;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Physical Footer: Pen & Wax Seal */
+    .page-physical-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px dashed rgba(120, 80, 40, 0.22);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .pen-nib-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nib-icon {
+      font-size: 20px;
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+    }
+    .pen-nib-meta strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #3F3327;
+      letter-spacing: 0.02em;
+    }
+    .pen-nib-meta span {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: #8C6D46;
+      font-weight: 600;
+    }
+
+    .physical-wax-seal {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #D97706 0%, #92400E 70%, #78350F 100%);
+      color: #FFFBEB;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -889,97 +1086,259 @@
       font-size: 8px;
       font-weight: 800;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
-      box-shadow: 0 4px 16px rgba(146, 64, 14, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4);
-      border: 2px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 14px rgba(120, 53, 15, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.5), inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       user-select: none;
+      transition: background 0.3s ease;
     }
 
-    .paper-content-side {
-      padding: 48px 44px;
+    /* Center Spine Gutter */
+    .folio-spine-gutter {
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.04) 30%, rgba(0, 0, 0, 0.04) 70%, rgba(0, 0, 0, 0.18) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+      border-right: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .spine-stitch {
+      width: 2px;
+      height: 18px;
+      background: #785A3C;
+      border-radius: 99px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Right Page: AI Neural Translation */
+    .folio-page-right {
+      padding: 38px 40px 32px;
+      background: #FFFFFF;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    @media (max-width: 600px) {
-      .paper-content-side { padding: 32px 24px; }
+    body.dark-mode .folio-page-right {
+      background: #18191E;
     }
 
-    .paper-eyebrow {
+    .page-ai-tag {
+      display: flex;
+      align-items: center;
+      gap: 7px;
       font-family: 'Space Mono', monospace;
       font-size: 11px;
-      color: var(--amber);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
       font-weight: 700;
-      margin-bottom: 12px;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+    }
+    .ai-pulse-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+      animation: livePulse 1.8s infinite;
+    }
+    .page-confidence-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--emerald);
+      background: rgba(5, 150, 105, 0.1);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Extracted Concepts */
+    .ai-extracted-section {
+      margin-bottom: 20px;
+    }
+    .ai-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .ai-concept-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .folio-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-xs);
+      transition: all 0.2s;
+    }
+    .folio-chip:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* AI Observation Box */
+    .ai-observation-box {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-xs);
+    }
+    .observation-header {
       display: flex;
       align-items: center;
       gap: 6px;
-    }
-    .paper-main-heading {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(28px, 3.8vw, 40px);
-      color: var(--text-primary);
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .paper-body-text {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 28px;
-    }
-
-    /* Interactive Journal Tab Switcher */
-    .journal-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-    .journal-tab-btn {
-      background: var(--paper-cream);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-full);
-      padding: 6px 14px;
-      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
       font-weight: 700;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.18s;
-      user-select: none;
-    }
-    .journal-tab-btn.active {
-      background: var(--amber);
-      color: #FFFFFF;
-      border-color: var(--amber);
-      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.3);
-    }
-
-    .deckled-paper-slip {
-      background: var(--paper-cream);
-      border: 1px solid var(--paper-edge);
-      border-left: 4px solid var(--amber);
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 22px 24px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-    .deckled-paper-quote {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 21px;
-      color: var(--text-primary);
-      font-style: italic;
-      line-height: 1.5;
+      color: var(--primary);
+      letter-spacing: 0.08em;
       margin-bottom: 8px;
     }
-    .deckled-paper-meta {
+    .observation-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-style: italic;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Dimensional Metrics */
+    .ai-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ai-metric-item .metric-label {
       font-family: 'Space Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .metric-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .metric-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* Folio Action Row */
+    .folio-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-folio-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #FFFFFF !important;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-folio-launch:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    body.dark-mode .btn-folio-launch {
+      color: #08080A !important;
+    }
+    .folio-sync-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    /* Bottom Ink Palette Bar */
+    .folio-ink-palette-bar {
+      margin-top: 16px;
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.24);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .ink-palette-label span {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #E2D9CE;
+      letter-spacing: 0.1em;
+      margin-right: 8px;
+    }
+    .ink-palette-label small {
+      font-size: 11px;
+      color: rgba(226, 217, 206, 0.65);
+    }
+    .ink-swatches-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ink-swatch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #E2D9CE;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .ink-swatch-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+    .ink-swatch-btn.active {
+      background: rgba(255, 255, 255, 0.95);
+      color: #181513;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    }
+    .swatch-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
     }
 
     /* ─── Curated Visual Memories Exhibition ──────── */
@@ -1728,48 +2087,180 @@
     </div>
   </section>
 
-  <!-- ─── Section 2: Artisanal Paper Manuscript Studio ─── -->
+  <!-- ─── Section 2: Archival Folio · Tactile Paper Studio ─── -->
   <section class="paper-studio-section" id="paper-studio">
-    <div class="paper-studio-card">
-      <div class="paper-media-side">
-        <img src="img/paper-journal.jpg" alt="Artisanal deckled cotton paper notebook and fountain pen" loading="lazy" />
-        <div class="wax-seal-badge">
-          <span>MIRROR</span>
-          <span>EST.26</span>
+    <div class="section-header-block" style="margin-bottom: 38px;">
+      <span class="section-tag-eyebrow">
+        <svg class="icon-svg" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+        Archival Folio · Tactile Paper Studio
+      </span>
+      <h2 class="section-headline">The Weight of Thought on Paper</h2>
+      <p class="section-subheadline">
+        Before thoughts become digital constellations, they begin as quiet ink on cotton paper. Explore the dual-page manuscript where physical reflection directly informs synthetic intelligence.
+      </p>
+    </div>
+
+    <!-- The Open-Folio Journal Container -->
+    <div class="tactile-folio-container">
+      
+      <!-- Top Leather Header & Silk Bookmark Ribbons -->
+      <div class="folio-ribbon-bar">
+        <div class="folio-book-label">
+          <span class="folio-leather-stamp">LEATHER ARCHIVE · VOL. IV</span>
+          <span class="folio-spec-badge">300 GSM COLD PRESS COTTON</span>
+        </div>
+        <div class="folio-ribbon-tabs">
+          <button class="folio-ribbon-btn active" data-folio="clarity">
+            <span class="ribbon-tail" style="background:#2563EB;"></span>
+            <span class="ribbon-text">06:15 AM · Sunrise Focus</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="midnight">
+            <span class="ribbon-tail" style="background:#059669;"></span>
+            <span class="ribbon-text">00:42 AM · Midnight Sprint</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="solitude">
+            <span class="ribbon-tail" style="background:#E11D48;"></span>
+            <span class="ribbon-text">04:30 PM · Rainy Cafe</span>
+          </button>
+          <button class="folio-ribbon-btn" data-folio="alps">
+            <span class="ribbon-tail" style="background:#D97706;"></span>
+            <span class="ribbon-text">07:15 AM · Alpine Ascent</span>
+          </button>
         </div>
       </div>
-      <div class="paper-content-side">
-        <div>
-          <span class="paper-eyebrow">
-            <svg class="icon-svg" viewBox="0 0 24 24">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            The Tactile Studio
-          </span>
-          <h2 class="paper-main-heading">The Weight of Thought on Paper</h2>
-          <p class="paper-body-text">
-            Thoughts should not be trapped in cold data tables. The Mirror pairs high-velocity AI concept clustering with the tactile warmth of cotton paper, fountain pen reflections, and personal memories.
-          </p>
+
+      <!-- Open Book Spread -->
+      <div class="folio-open-spread" id="folio-spread">
+        
+        <!-- Left Page: The Physical Handwritten Manuscript -->
+        <div class="folio-page folio-page-left">
+          <div class="page-corner-fold"></div>
+          <div class="page-meta-header">
+            <div class="page-date-stamp" id="folio-date-stamp">OCTOBER 14 · 06:15 AM</div>
+            <div class="page-entry-num" id="folio-entry-num">FOLIO ENTRY #42</div>
+          </div>
+
+          <!-- Realistic Handwritten Script Block -->
+          <div class="page-handwritten-body">
+            <p class="handwritten-heading" id="folio-handwritten-title">Sunrise Deep Focus Block</p>
+            <p class="handwritten-text" id="folio-handwritten-text">
+              "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise before the world begins demanding answers."
+            </p>
+            <div class="handwritten-marginalia" id="folio-marginalia">
+              ✦ "When you build in quiet solitude, every sentence carries deliberate weight."
+            </div>
+          </div>
+
+          <!-- Page Footer: Ink Metadata & Wax Seal -->
+          <div class="page-physical-footer">
+            <div class="pen-nib-meta">
+              <span class="nib-icon">✒</span>
+              <div>
+                <strong id="folio-pen-name">Pilot Custom 823 M (14K Gold)</strong>
+                <span id="folio-ink-name">Ink: Iroshizuku Tsukiyo (Midnight Blue)</span>
+              </div>
+            </div>
+            <div class="physical-wax-seal" id="folio-wax-seal">
+              <span>MIRROR</span>
+              <span style="font-size:7px; opacity:0.85;">ARCHIVE</span>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <div class="journal-tabs">
-            <button class="journal-tab-btn active" data-tab="clarity">06:15 AM · Sunrise</button>
-            <button class="journal-tab-btn" data-tab="midnight">00:42 AM · Studio</button>
-            <button class="journal-tab-btn" data-tab="solitude">04:30 PM · Rain</button>
+        <!-- Center Book Gutter Spine with Stitches -->
+        <div class="folio-spine-gutter">
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+          <div class="spine-stitch"></div>
+        </div>
+
+        <!-- Right Page: The AI Cognitive Mirror Translation -->
+        <div class="folio-page folio-page-right">
+          <div class="page-meta-header">
+            <div class="page-ai-tag">
+              <span class="ai-pulse-dot"></span>
+              CLAUDE 3.5 SONNET SYNTHESIS
+            </div>
+            <div class="page-confidence-badge" id="folio-confidence">98.4% SEMANTIC MATCH</div>
           </div>
 
-          <div class="deckled-paper-slip">
-            <div class="deckled-paper-quote" id="journal-quote">
-              "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise."
-            </div>
-            <div class="deckled-paper-meta" id="journal-meta">
-              Entry #42 · Heavy Cotton · Pilot Custom 823 M (Iroshizuku Tsukiyo)
+          <!-- Extracted Core Concepts Chips -->
+          <div class="ai-extracted-section">
+            <div class="ai-section-label">EXTRACTED CONCEPT NODES</div>
+            <div class="ai-concept-chips" id="folio-concept-chips">
+              <span class="folio-chip">✦ Deep Work (0.95)</span>
+              <span class="folio-chip">✦ Dawn Solitude (0.88)</span>
+              <span class="folio-chip">✦ Uninterrupted Flow (0.92)</span>
             </div>
           </div>
+
+          <!-- Cognitive Observation Card -->
+          <div class="ai-observation-box">
+            <div class="observation-header">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+              <span>COGNITIVE MIRROR INSIGHT</span>
+            </div>
+            <p class="observation-body" id="folio-observation">
+              "Your handwritten reflections consistently correlate physical morning solitude with architectural breakthroughs. Temporal isolation functions not as avoidance, but as your primary creative engine."
+            </p>
+          </div>
+
+          <!-- Dimensional Resonance Bars -->
+          <div class="ai-metrics-grid">
+            <div class="ai-metric-item">
+              <div class="metric-label">Reflective Depth</div>
+              <div class="metric-bar-wrap"><div class="metric-bar-fill" id="bar-depth" style="width:94%;"></div></div>
+            </div>
+            <div class="ai-metric-item">
+              <div class="metric-label">Conceptual Novelty</div>
+              <div class="metric-bar-wrap"><div class="metric-bar-fill" id="bar-novelty" style="width:87%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Interactive Action Button -->
+          <div class="folio-action-row">
+            <a href="mirror.html" class="btn-folio-launch">
+              <span>View in Live Thought Galaxy</span>
+              <span class="btn-arrow">→</span>
+            </a>
+            <span class="folio-sync-note">● Synced to Local Knowledge Graph</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Interactive Fountain Pen Ink Bar -->
+      <div class="folio-ink-palette-bar">
+        <div class="ink-palette-label">
+          <span>FOUNTAIN PEN INK PALETTE:</span>
+          <small>Click to dynamically change ink formulation & handwriting tint</small>
+        </div>
+        <div class="ink-swatches-group">
+          <button class="ink-swatch-btn active" data-ink="tsukiyo" data-color="#1E3A8A" data-seal="radial-gradient(circle at 35% 30%, #1E3A8A 0%, #172554 80%)" title="Iroshizuku Tsukiyo (Midnight Blue)">
+            <span class="swatch-circle" style="background:#1E3A8A;"></span>
+            <span class="swatch-name">Tsukiyo (Midnight)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="yomogi" data-color="#065F46" data-seal="radial-gradient(circle at 35% 30%, #059669 0%, #064E3B 80%)" title="Sailor Manyo Yomogi (Forest Pine)">
+            <span class="swatch-circle" style="background:#065F46;"></span>
+            <span class="swatch-name">Yomogi (Pine)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="momiji" data-color="#9F1239" data-seal="radial-gradient(circle at 35% 30%, #E11D48 0%, #881337 80%)" title="Iroshizuku Momiji (Autumn Crimson)">
+            <span class="swatch-circle" style="background:#9F1239;"></span>
+            <span class="swatch-name">Momiji (Crimson)</span>
+          </button>
+          <button class="ink-swatch-btn" data-ink="ambre" data-color="#B45309" data-seal="radial-gradient(circle at 35% 30%, #D97706 0%, #78350F 80%)" title="Jacques Herbin Ambre de Birmanie (Warm Amber)">
+            <span class="swatch-circle" style="background:#B45309;"></span>
+            <span class="swatch-name">Ambre (Golden)</span>
+          </button>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -2355,39 +2846,136 @@
     }
 
     // ─────────────────────────────────────────────
-    // Interactive Journal Tabs in Paper Studio
+    // Archival Folio Spread Interaction & Ink Switcher
     // ─────────────────────────────────────────────
-    const journalQuote = document.getElementById('journal-quote');
-    const journalMeta = document.getElementById('journal-meta');
-    const journalTabs = document.querySelectorAll('.journal-tab-btn');
+    const folioRibbonBtns = document.querySelectorAll('.folio-ribbon-btn');
+    const folioSpread = document.getElementById('folio-spread');
+    const folioDateStamp = document.getElementById('folio-date-stamp');
+    const folioEntryNum = document.getElementById('folio-entry-num');
+    const folioHwTitle = document.getElementById('folio-handwritten-title');
+    const folioHwText = document.getElementById('folio-handwritten-text');
+    const folioMarginalia = document.getElementById('folio-marginalia');
+    const folioPenName = document.getElementById('folio-pen-name');
+    const folioInkName = document.getElementById('folio-ink-name');
+    const folioConfidence = document.getElementById('folio-confidence');
+    const folioChips = document.getElementById('folio-concept-chips');
+    const folioObservation = document.getElementById('folio-observation');
+    const barDepth = document.getElementById('bar-depth');
+    const barNovelty = document.getElementById('bar-novelty');
+    const folioWaxSeal = document.getElementById('folio-wax-seal');
 
-    const journalEntries = {
+    const folioEntries = {
       clarity: {
-        quote: "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise.",
-        meta: "Entry #42 · Heavy Cotton · Pilot Custom 823 M (Iroshizuku Tsukiyo)"
+        date: 'OCTOBER 14 · 06:15 AM',
+        entry: 'FOLIO ENTRY #42',
+        title: 'Sunrise Deep Focus Block',
+        text: '"Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise before the world begins demanding answers."',
+        marginalia: '✦ "When you build in quiet solitude, every sentence carries deliberate weight."',
+        pen: 'Pilot Custom 823 M (14K Gold)',
+        ink: 'Ink: Iroshizuku Tsukiyo (Midnight Blue)',
+        confidence: '98.4% SEMANTIC MATCH',
+        chips: ['✦ Deep Work (0.95)', '✦ Dawn Solitude (0.88)', '✦ Uninterrupted Flow (0.92)'],
+        observation: '"Your handwritten reflections consistently correlate physical morning solitude with architectural breakthroughs. Temporal isolation functions not as avoidance, but as your primary creative engine."',
+        depth: '94%',
+        novelty: '87%'
       },
       midnight: {
-        quote: "00:42 AM. The first 100 users logged in while the studio was silent. When you build alone, every pixel feels personal.",
-        meta: "Entry #68 · Rhodia Grid · Lamy 2000 F (Sailor Manyo Yomogi)"
+        date: 'NOVEMBER 02 · 00:42 AM',
+        entry: 'FOLIO ENTRY #68',
+        title: 'Studio Midnight Sprint',
+        text: '"00:42 AM. The first 100 users logged in while the studio was silent. When you build alone in the dark, every pixel and every line of code feels intensely personal."',
+        marginalia: '✦ "Silence isn\'t empty; it\'s the space where craftsmanship can breathe."',
+        pen: 'Lamy 2000 Makrolon (F Nib)',
+        ink: 'Ink: Sailor Manyo Yomogi (Pine Green)',
+        confidence: '99.1% SEMANTIC MATCH',
+        chips: ['✦ Building in Public (0.97)', '✦ Studio Solitude (0.91)', '✦ Midnight Flow (0.94)'],
+        observation: '"Midnight sprints in your journal represent inflection points where theoretical plans convert into concrete reality. You thrive when external distraction is mathematically zero."',
+        depth: '91%',
+        novelty: '95%'
       },
       solitude: {
-        quote: "Rain streaking across the cafe window. Solitude isn't loneliness — it is the high-bandwidth channel for deep work.",
-        meta: "Entry #89 · Midori MD Cotton · Montblanc Meisterstück 146 (Permanent Blue)"
+        date: 'DECEMBER 19 · 04:30 PM',
+        entry: 'FOLIO ENTRY #89',
+        title: 'Rainy Cafe & City Edge',
+        text: '"Rain streaking across the cafe window. Solitude in public isn\'t loneliness — it is the high-bandwidth channel where observing human life gives purpose to abstract systems."',
+        marginalia: '✦ "The tension between wanting to withdraw and wanting to belong."',
+        pen: 'Montblanc Meisterstück 146 (14K)',
+        ink: 'Ink: Montblanc Burgundy (Deep Rose)',
+        confidence: '96.8% SEMANTIC MATCH',
+        chips: ['✦ Solitude & City (0.93)', '✦ Human Systems (0.89)', '✦ Urban Observation (0.86)'],
+        observation: '"A recurring philosophical dialectic: you require solitude to produce deep work, yet need urban vitality to feel connected to the people who will inhabit your software."',
+        depth: '96%',
+        novelty: '82%'
+      },
+      alps: {
+        date: 'JANUARY 08 · 07:15 AM',
+        entry: 'FOLIO ENTRY #104',
+        title: 'Rhaetian Alpine Ascent',
+        text: '"High-altitude air at 2,800m. Looking over snow-covered granite ridges. Systems that survive centuries are carved from subtraction, not addition."',
+        marginalia: '✦ "Climb high enough and all trivial bugs disappear from the horizon."',
+        pen: 'Nakaya Piccolo Kuro-tamenuri (Elastic M)',
+        ink: 'Ink: Jacques Herbin Ambre (Gilded Amber)',
+        confidence: '99.3% SEMANTIC MATCH',
+        chips: ['✦ Alpine Clarity (0.98)', '✦ Structural Subtraction (0.94)', '✦ Enduring Craft (0.91)'],
+        observation: '"Natural landscapes trigger your most disciplined architectural thinking. In high elevations, you consistently strip away excess complexity and reaffirm core principles."',
+        depth: '98%',
+        novelty: '93%'
       }
     };
 
-    journalTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        journalTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const key = tab.getAttribute('data-tab');
-        if (journalEntries[key]) {
-          journalQuote.style.opacity = '0';
-          setTimeout(() => {
-            journalQuote.textContent = `"${journalEntries[key].quote}"`;
-            journalMeta.textContent = journalEntries[key].meta;
-            journalQuote.style.opacity = '1';
-          }, 150);
+    folioRibbonBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        folioRibbonBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.getAttribute('data-folio');
+        const data = folioEntries[key];
+        if (!data) return;
+
+        // Animate left page
+        folioHwText.style.opacity = '0';
+        folioMarginalia.style.opacity = '0';
+        folioObservation.style.opacity = '0';
+
+        setTimeout(() => {
+          folioDateStamp.textContent = data.date;
+          folioEntryNum.textContent = data.entry;
+          folioHwTitle.textContent = data.title;
+          folioHwText.textContent = data.text;
+          folioMarginalia.textContent = data.marginalia;
+          folioPenName.textContent = data.pen;
+          folioInkName.textContent = data.ink;
+          folioConfidence.textContent = data.confidence;
+          folioObservation.textContent = data.observation;
+          barDepth.style.width = data.depth;
+          barNovelty.style.width = data.novelty;
+
+          folioChips.innerHTML = data.chips.map(c => `<span class="folio-chip">${c}</span>`).join('');
+
+          folioHwText.style.opacity = '1';
+          folioMarginalia.style.opacity = '1';
+          folioObservation.style.opacity = '1';
+        }, 160);
+      });
+    });
+
+    // Fountain Pen Ink Swatches
+    const inkSwatchBtns = document.querySelectorAll('.ink-swatch-btn');
+    inkSwatchBtns.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        inkSwatchBtns.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        const color = swatch.getAttribute('data-color');
+        const seal = swatch.getAttribute('data-seal');
+        const title = swatch.getAttribute('title');
+
+        if (folioSpread) {
+          folioSpread.style.setProperty('--handwriting-ink', color);
+        }
+        if (folioWaxSeal && seal) {
+          folioWaxSeal.style.background = seal;
+        }
+        if (folioInkName) {
+          folioInkName.textContent = `Ink: ${title}`;
         }
       });
     });
