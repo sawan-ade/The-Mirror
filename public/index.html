@@ -1823,19 +1823,332 @@
       image-rendering: pixelated;
     }
 
-    /* ─── Footer ──────────────────────────────────── */
-    footer {
+    /* ─── Modern Premium Footer ──────────────────────────────────── */
+    footer.site-footer {
       position: relative;
       z-index: 10;
-      text-align: center;
-      padding: 70px 24px;
       border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--muted);
       background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      padding: 80px 24px 40px;
+      color: var(--text-secondary);
+      font-size: 14px;
     }
-    footer a { color: var(--primary); text-decoration: none; font-weight: 700; }
-    footer a:focus-visible { outline: 2px solid var(--primary); border-radius: 4px; }
+    .footer-inner-container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    
+    /* Top Callout Bar */
+    .footer-banner-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 32px 36px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(59, 130, 246, 0.04) 50%, rgba(16, 185, 129, 0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+    .footer-cta-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .footer-cta-text p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+    .footer-cta-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: var(--primary);
+      color: #fff !important;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+      transition: all 0.2s ease;
+    }
+    .footer-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+    }
+    .footer-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--paper-cream);
+      color: var(--text-primary) !important;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .footer-btn-secondary:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Main Multi-Column Grid */
+    .footer-columns-grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+    .footer-brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .footer-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    .footer-brand-header .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .footer-brand-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 380px;
+    }
+    .footer-creator-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      max-width: 380px;
+      box-shadow: var(--shadow-sm);
+    }
+    .creator-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C3AED, #3B82F6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+    }
+    .creator-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .creator-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .creator-role {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Social Icons Strip */
+    .footer-social-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .footer-social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-primary) !important;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .footer-social-btn:hover {
+      border-color: var(--primary);
+      background: rgba(124, 58, 237, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+    }
+    .footer-social-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* Links Columns */
+    .footer-col h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+    }
+    .footer-links-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-links-list li a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links-list li a:hover {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+    .footer-badge-mini {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      margin-left: 4px;
+    }
+
+    /* Bottom Sub-Footer Bar */
+    .footer-sub-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      padding-left: 160px; /* Clean clearance for floating companion pod */
+    }
+    .footer-sub-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--text-primary);
+    }
+    .footer-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulseGreen 2s infinite ease-in-out;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .btn-back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-back-to-top:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+      .footer-columns-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      .footer-brand-col {
+        grid-column: span 2;
+      }
+    }
+    @media (max-width: 640px) {
+      .footer-columns-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-brand-col {
+        grid-column: span 1;
+      }
+      .footer-banner-cta {
+        padding: 24px;
+      }
+      .footer-sub-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 0;
+        padding-bottom: 64px;
+      }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -2564,16 +2877,126 @@
     </div>
   </div>
 
-  <!-- ─── Footer ──────────────────────────────────── -->
-  <footer>
-    <div style="margin-bottom:14px;">
-      Built with <strong>Claude 3.5 Sonnet</strong> for the <strong>Anthropic & HackerRank Orchestrate 2026</strong>
-    </div>
-    <div>
-      <a href="https://github.com/sawan-ade/The-Mirror" target="_blank" rel="noopener noreferrer">
-        GitHub Repository (sawan-ade/The-Mirror)
-      </a> · 
-      <a href="mirror.html">Launch Full Galaxy Planetarium →</a>
+  <!-- ─── Modern Premium Footer ──────────────────────── -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner-container">
+      
+      <!-- Top Callout Banner -->
+      <div class="footer-banner-cta">
+        <div class="footer-cta-text">
+          <h3>Ready to illuminate your own thoughts?</h3>
+          <p>Experience high-dimensional semantic clustering paired with tactile analog journals.</p>
+        </div>
+        <div class="footer-cta-actions">
+          <a href="mirror.html" class="footer-btn-primary">
+            <span>Enter Thought Galaxy</span>
+            <span>→</span>
+          </a>
+          <a href="https://github.com/sawan-ade/The-Mirror" target="_blank" rel="noopener noreferrer" class="footer-btn-secondary">
+            <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>Star on GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Columns Grid -->
+      <div class="footer-columns-grid">
+        
+        <!-- Column 1: Brand & Creator -->
+        <div class="footer-brand-col">
+          <a href="index.html" class="footer-brand-header">
+            <div class="brand-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 0 18v-18z"></path></svg>
+            </div>
+            <span>THE MIRROR</span>
+          </a>
+          <p class="footer-brand-desc">
+            A spatial cognitive planetarium bridging analog fountain pen reflections with high-dimensional AI concept clustering. Your thoughts, reflected back to you.
+          </p>
+
+          <!-- Creator Profile Card -->
+          <div class="footer-creator-card">
+            <div class="creator-avatar">SA</div>
+            <div class="creator-info">
+              <span class="creator-name">Sawan Ade</span>
+              <span class="creator-role">Machine Learning & Systems Builder</span>
+            </div>
+          </div>
+
+          <!-- Verified Social Handles Strip -->
+          <div class="footer-social-strip">
+            <a href="https://github.com/sawan-ade" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="GitHub: @sawan-ade">
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sawan-ade-330997242/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="LinkedIn: Sawan Ade">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:adeysawan@gmail.com" class="footer-social-btn" title="Email: adeysawan@gmail.com">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Experiences -->
+        <div class="footer-col">
+          <h4>Experience</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero">Cognitive Planetarium</a></li>
+            <li><a href="#simulator">Thought Simulator</a></li>
+            <li><a href="#paper-studio">Tactile Folio Studio <span class="footer-badge-mini">New</span></a></li>
+            <li><a href="#memories-gallery">Atmospheric Artworks</a></li>
+            <li><a href="#intelligence-suite">Intelligence Suite</a></li>
+            <li><a href="mirror.html">Launch Live 3D Galaxy →</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Architecture -->
+        <div class="footer-col">
+          <h4>Architecture</h4>
+          <ul class="footer-links-list">
+            <li><a href="#paper-studio">Claude 3.5 Sonnet Extraction</a></li>
+            <li><a href="#hero">High-Dimensional Latent Orbit</a></li>
+            <li><a href="#paper-studio">Japanese Archival Inks</a></li>
+            <li><a href="#memories-gallery">Tubik Digital Landscapes</a></li>
+            <li><a href="#hero">Constellation Vector Graphs</a></li>
+            <li><a href="https://github.com/sawan-ade/The-Mirror" target="_blank" rel="noopener noreferrer">Source Code Repository</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Platform & Privacy -->
+        <div class="footer-col">
+          <h4>Privacy & Tech</h4>
+          <ul class="footer-links-list">
+            <li><a href="#hero">100% Client-Side Knowledge</a></li>
+            <li><a href="#hero">Zero-Telemetry Guarantee</a></li>
+            <li><a href="#hero">Local Vector Coordinates</a></li>
+            <li><a href="https://github.com/sawan-ade/The-Mirror/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT Open License</a></li>
+            <li><a href="#hero">Companion: Cursor Cat</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Sub-Footer -->
+      <div class="footer-sub-bar">
+        <div>
+          © 2026 <strong>The Mirror</strong>. Designed & engineered with care by <a href="https://github.com/sawan-ade" target="_blank" rel="noopener noreferrer" style="color:var(--text-primary); text-decoration:none; font-weight:700;">Sawan Ade</a>.
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+          <div class="footer-sub-status">
+            <span class="footer-pulse-dot"></span>
+            <span>All Systems Operational · v2.4 LTS</span>
+          </div>
+          <button class="btn-back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll back to top">
+            <span>Back to Top</span>
+            <span>↑</span>
+          </button>
+        </div>
+      </div>
+
     </div>
   </footer>
 
