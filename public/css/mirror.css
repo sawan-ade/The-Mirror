@@ -1790,4 +1790,69 @@ body.dark-mode .excerpt-item:hover {
   border-color: rgba(168,255,62,0.25);
 }
 
-
+/* ─── Serenity Mindful Breathing Galaxy HUD (Inspired by uupm.cc/demo/mental-health) ──── */
+.serenity-galaxy-hud {
+  position: fixed;
+  bottom: 80px;
+  right: 28px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-accent);
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.3s ease;
+  user-select: none;
+}
+.serenity-galaxy-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.25) 0%, rgba(16, 185, 129, 0.15) 70%, transparent 100%);
+  border: 2px solid rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 4s ease-in-out, border-color 1s ease;
+}
+.serenity-galaxy-circle.inhale {
+  transform: scale(1.22);
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 45px rgba(16, 185, 129, 0.4);
+}
+.serenity-galaxy-circle.hold {
+  transform: scale(1.22);
+  border-color: rgba(245, 158, 11, 0.6);
+}
+.serenity-galaxy-circle.exhale {
+  transform: scale(0.90);
+  border-color: rgba(167, 139, 250, 0.4);
+}
+.serenity-hud-phase {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.serenity-hud-sec {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.serenity-hud-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}

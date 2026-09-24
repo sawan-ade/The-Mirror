@@ -54,6 +54,10 @@
         <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
         <span>Painting</span>
       </button>
+      <button class="nav-btn" id="btn-serenity" title="Toggle Serenity Mindful Breathing Guide">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+        <span>Serenity</span>
+      </button>
       <button class="nav-btn" id="btn-share" title="Generate Thought Galaxy Poster">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
         <span>Share</span>
@@ -96,6 +100,15 @@
       <span class="cat-dock-title">Companion</span>
       <span class="cat-dock-action" id="galaxy-cat-status">Hunting cursor</span>
     </div>
+  </div>
+
+  <!-- ─── Serenity Mindful Breathing Galaxy HUD ──────── -->
+  <div class="serenity-galaxy-hud" id="serenity-galaxy-hud" style="display:none;" title="Click to dismiss guided breather">
+    <div class="serenity-galaxy-circle" id="serenity-galaxy-circle">
+      <span class="serenity-hud-phase" id="serenity-hud-phase">Inhale</span>
+      <span class="serenity-hud-sec" id="serenity-hud-sec">4s</span>
+    </div>
+    <div class="serenity-hud-sub">Guided Breathing</div>
   </div>
 
   <!-- ─── Bottom Stats Bar ────────────────────────── -->
@@ -353,5 +366,56 @@ The Mirror works best with 300–5000 words of your own writing."
   <script src="js/inspector.js"></script>
   <script src="js/chat.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // ─── Serenity Mindful Breathing Mode (Inspired by uupm.cc/demo/mental-health)
+    const btnSerenity = document.getElementById('btn-serenity');
+    const hudSerenity = document.getElementById('serenity-galaxy-hud');
+    const circleSerenity = document.getElementById('serenity-galaxy-circle');
+    const phaseSerenity = document.getElementById('serenity-hud-phase');
+    const secSerenity = document.getElementById('serenity-hud-sec');
+    let serenityActive = false;
+    let serenityTimer = null;
+    let serenityStep = 0;
+
+    const serenityCycle = [
+      { phase: "Inhale", time: "4s", cls: "inhale" },
+      { phase: "Hold", time: "4s", cls: "hold" },
+      { phase: "Exhale", time: "4s", cls: "exhale" },
+      { phase: "Rest", time: "2s", cls: "rest" }
+    ];
+
+    function runSerenityStep() {
+      const step = serenityCycle[serenityStep % serenityCycle.length];
+      if (circleSerenity) {
+        circleSerenity.className = 'serenity-galaxy-circle ' + step.cls;
+      }
+      if (phaseSerenity) phaseSerenity.textContent = step.phase;
+      if (secSerenity) secSerenity.textContent = step.time;
+      serenityStep++;
+    }
+
+    if (btnSerenity && hudSerenity) {
+      btnSerenity.addEventListener('click', () => {
+        serenityActive = !serenityActive;
+        btnSerenity.classList.toggle('nav-btn--active', serenityActive);
+        if (serenityActive) {
+          hudSerenity.style.display = 'flex';
+          serenityStep = 0;
+          runSerenityStep();
+          serenityTimer = setInterval(runSerenityStep, 3500);
+        } else {
+          hudSerenity.style.display = 'none';
+          clearInterval(serenityTimer);
+        }
+      });
+
+      hudSerenity.addEventListener('click', () => {
+        serenityActive = false;
+        btnSerenity.classList.remove('nav-btn--active');
+        hudSerenity.style.display = 'none';
+        clearInterval(serenityTimer);
+      });
+    }
+  </script>
 </body>
 </html>

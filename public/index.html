@@ -2150,6 +2150,576 @@
       }
     }
 
+    /* ─── Creative Agency & Mental Health Inspired Systems ──── */
+    :root {
+      --wellness-lavender: #E0E7FF;
+      --wellness-lavender-glow: rgba(167, 139, 250, 0.22);
+      --wellness-mint: #D1FAE5;
+      --wellness-mint-accent: #10B981;
+      --wellness-peach: #FEF3C7;
+      --wellness-peach-accent: #F59E0B;
+    }
+    body.dark-mode {
+      --wellness-lavender: rgba(167, 139, 250, 0.12);
+      --wellness-lavender-glow: rgba(167, 139, 250, 0.18);
+      --wellness-mint: rgba(16, 185, 129, 0.12);
+      --wellness-mint-accent: #34D399;
+      --wellness-peach: rgba(245, 158, 11, 0.12);
+      --wellness-peach-accent: #FBBF24;
+    }
+
+    /* Infinite Marquee Ticker Strip (Creative Agency Inspiration) */
+    .marquee-ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--card-bg);
+      position: relative;
+      z-index: 15;
+      padding: 14px 0;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+      user-select: none;
+    }
+    body.dark-mode .marquee-ticker-wrap {
+      background: #0E0F14;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: agencyMarquee 38s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    .marquee-track-reverse {
+      animation: agencyMarqueeReverse 42s linear infinite;
+    }
+    .marquee-track-reverse:hover {
+      animation-play-state: paused;
+    }
+    @keyframes agencyMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes agencyMarqueeReverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .marquee-item-group {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 0 16px;
+    }
+    .marquee-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .marquee-star {
+      color: var(--primary);
+      font-size: 15px;
+      display: inline-block;
+      animation: spinStar 8s linear infinite;
+    }
+    @keyframes spinStar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mindful Sanctuary Section (Mental Health Inspiration) */
+    .sanctuary-section {
+      position: relative;
+      padding: 90px 24px;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .sanctuary-ambient-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .sanctuary-orb-1 {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: var(--wellness-lavender-glow);
+      filter: blur(80px);
+      opacity: 0.7;
+    }
+    .sanctuary-orb-2 {
+      position: absolute;
+      bottom: 10%;
+      left: 5%;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      filter: blur(75px);
+      opacity: 0.6;
+    }
+
+    .sanctuary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .sanctuary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Neumorphic wellness cards (From uupm.cc/demo/mental-health) */
+    .neu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.dark-mode .neu-card {
+      background: rgba(20, 22, 28, 0.75);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+    .neu-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .neu-inset {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+    }
+    body.dark-mode .neu-inset {
+      background: rgba(12, 13, 17, 0.85);
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Breathing Circle Animation (uupm.cc/demo/mental-health) */
+    .breathing-circle-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 24px 0 16px;
+      position: relative;
+      min-height: 200px;
+    }
+    .breathing-circle {
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--wellness-lavender-glow) 0%, rgba(16, 185, 129, 0.18) 70%, transparent 100%);
+      border: 2px solid rgba(167, 139, 250, 0.35);
+      box-shadow: 0 0 40px var(--wellness-lavender-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.5s ease;
+      animation: serenityBreathing 8s infinite ease-in-out;
+      cursor: pointer;
+      user-select: none;
+    }
+    .breathing-circle.active-breathing {
+      animation: guidedBreathing 12s infinite ease-in-out;
+    }
+    @keyframes serenityBreathing {
+      0%, 100% {
+        transform: scale(0.92);
+        opacity: 0.75;
+        border-color: rgba(167, 139, 250, 0.3);
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 60px rgba(16, 185, 129, 0.3);
+      }
+    }
+    @keyframes guidedBreathing {
+      0%, 100% {
+        transform: scale(0.88);
+        border-color: rgba(167, 139, 250, 0.4);
+      }
+      35% {
+        transform: scale(1.18);
+        border-color: rgba(16, 185, 129, 0.7);
+        box-shadow: 0 0 70px rgba(16, 185, 129, 0.4);
+      }
+      60% {
+        transform: scale(1.18);
+        border-color: rgba(245, 158, 11, 0.6);
+      }
+      90% {
+        transform: scale(0.90);
+        border-color: rgba(167, 139, 250, 0.3);
+      }
+    }
+    .breathing-phase-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .breathing-subtext {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* 5-Mood Climate Selector */
+    .mood-selector-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .mood-btn {
+      flex: 1;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-xs);
+    }
+    .mood-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .mood-btn.active {
+      background: var(--primary-dim);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      transform: scale(1.05);
+    }
+
+    /* 7-Day Consistency Streak Grid (uupm.cc/demo/mental-health) */
+    .streak-widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .streak-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #059669;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    body.dark-mode .streak-badge-pill {
+      color: #34D399;
+      background: rgba(52, 211, 153, 0.15);
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+
+    .streak-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .streak-day-cell {
+      border: 1px solid var(--border);
+      background: var(--paper-cream);
+      border-radius: 12px;
+      padding: 10px 4px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    body.dark-mode .streak-day-cell {
+      background: rgba(25, 27, 34, 0.7);
+    }
+    .streak-day-cell.completed {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .streak-day-cell.today {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+    .streak-day-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .streak-day-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .streak-day-status {
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Weekly Cognitive Balance Spectrum Chart */
+    .spectrum-bars-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 100px;
+      gap: 8px;
+      padding-top: 10px;
+    }
+    .spectrum-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .spectrum-bar-fill {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(to top, var(--primary), var(--cyan));
+      transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .spectrum-bar-fill.high {
+      background: linear-gradient(to top, var(--emerald), var(--primary));
+    }
+
+    /* Trust & Sovereignty Pills Row (Mental Health + Agency) */
+    .trust-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .trust-badge-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .trust-check-icon {
+      color: #10B981;
+      display: inline-flex;
+    }
+
+    /* Creative Agency Numbered Architecture List */
+    .agency-pillars-wrap {
+      margin-top: 44px;
+      border-top: 1px solid var(--border);
+    }
+    .agency-pillar-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .agency-pillar-item:hover {
+      background: var(--primary-dim);
+      padding-left: 20px;
+    }
+    .agency-pillar-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+    }
+    .agency-pillar-num {
+      font-family: 'Space Grotesk', 'Space Mono', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--primary);
+      opacity: 0.45;
+      line-height: 1;
+      min-width: 44px;
+      transition: opacity 0.2s;
+    }
+    .agency-pillar-item:hover .agency-pillar-num {
+      opacity: 0.95;
+    }
+    .agency-pillar-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    .agency-pillar-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 600px;
+    }
+    .agency-arrow-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      flex-shrink: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .agency-pillar-item:hover .agency-arrow-circle {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: translateX(4px) scale(1.05);
+      border-color: var(--primary);
+    }
+    body.dark-mode .agency-pillar-item:hover .agency-arrow-circle {
+      color: #0A0A0A;
+    }
+
+    /* Selected Thought Case Studies Grid (Creative Agency Inspiration) */
+    .agency-case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (max-width: 768px) {
+      .agency-case-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .agency-case-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    body.dark-mode .agency-case-card {
+      background: rgba(18, 19, 23, 0.85);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .agency-case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-accent);
+    }
+    .agency-case-thumb-wrap {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    .agency-case-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .agency-case-card:hover .agency-case-thumb {
+      transform: scale(1.06);
+    }
+    .agency-case-body {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex: 1;
+    }
+    .agency-case-meta {
+      flex: 1;
+    }
+    .agency-case-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .agency-case-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .agency-case-action {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--paper-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      color: var(--text-primary);
+    }
+    .agency-case-card:hover .agency-case-action {
+      background: var(--primary);
+      color: #FFFFFF;
+      transform: rotate(45deg);
+    }
+    body.dark-mode .agency-case-card:hover .agency-case-action {
+      color: #0A0A0A;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -2189,9 +2759,10 @@
     <nav class="nav-center-links">
       <a href="#constellation-preview">Planetarium</a>
       <a href="#simulator">Simulator</a>
+      <a href="#sanctuary">Sanctuary</a>
       <a href="#paper-studio">Paper Studio</a>
       <a href="#memories-exhibition">Memories</a>
-      <a href="#intelligence-suite">Intelligence</a>
+      <a href="#intelligence-suite">Architecture</a>
     </nav>
 
     <div class="nav-right-controls">
@@ -2331,6 +2902,32 @@
     </div>
   </section>
 
+  <!-- ─── Creative Agency Infinite Marquee Ticker 1 ───── -->
+  <div class="marquee-ticker-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Spatial Synthesis <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Neural Folio Studio <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">High-Dimensional Graph <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Cognitive Continuity <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Analog Japanese Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Local Vector Embeddings <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Tubik Digital Artworks <span class="marquee-star">✦</span></span>
+      </div>
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Spatial Synthesis <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Neural Folio Studio <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">High-Dimensional Graph <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Cognitive Continuity <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Analog Japanese Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Local Vector Embeddings <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Tubik Digital Artworks <span class="marquee-star">✦</span></span>
+      </div>
+    </div>
+  </div>
+
   <!-- ─── Section 1: Instant Thought Simulator ──── -->
   <section class="simulator-section" id="simulator">
     <div class="sandbox-card">
@@ -2405,6 +3002,202 @@
         </div>
         <div class="output-insight-bubble" id="out-insight">
           "The Mirror observes: You view solitude not as isolation, but as the high-focus furnace where raw code is forged before facing public scrutiny."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Section: Mindful Reflection Sanctuary & Cognitive Continuity ─── -->
+  <section class="sanctuary-section" id="sanctuary">
+    <div class="sanctuary-ambient-glow">
+      <div class="sanctuary-orb-1"></div>
+      <div class="sanctuary-orb-2"></div>
+    </div>
+
+    <div class="section-header-block" style="margin-bottom: 40px; text-align:center;">
+      <span class="section-tag-eyebrow" style="background:var(--card-glass); border-color:rgba(16, 185, 129, 0.3); color:var(--emerald);">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+        Mindful Sanctuary & Cognitive Continuity
+      </span>
+      <h2 class="section-headline">Find Clarity in the Noise</h2>
+      <p class="section-subheadline" style="max-width:720px; margin:0 auto;">
+        A quiet sanctuary inspired by meditative reflection. Ground your daily mental climate, track cognitive habits, and gently breathe before crystallizing thoughts into the galaxy.
+      </p>
+    </div>
+
+    <div class="sanctuary-grid">
+      <!-- Left Column: Emotional Climate & Breathing Aura -->
+      <div class="neu-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.08em;">Mindful Check-in</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:22px; font-weight:700; color:var(--text-primary); margin-top:2px;">How is your mind feeling today?</h3>
+          </div>
+          <div style="width:38px; height:38px; border-radius:12px; background:rgba(124,58,237,0.1); display:flex; align-items:center; justify-content:center; color:var(--primary); font-size:20px;">
+            🧘
+          </div>
+        </div>
+
+        <!-- 5-Mood Emotion Buttons -->
+        <div class="neu-inset" style="padding:16px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; font-family:'Space Mono', monospace; margin-bottom:8px;">
+            <span>Current Cognitive Climate</span>
+            <span id="active-mood-title" style="color:var(--primary);">Focused 💡</span>
+          </div>
+          <div class="mood-selector-strip" id="mood-selector-bar">
+            <button class="mood-btn active" data-mood="focused" title="Focused & Flowing">💡</button>
+            <button class="mood-btn" data-mood="grounded" title="Grounded & Calm">🌿</button>
+            <button class="mood-btn" data-mood="reflective" title="Reflective & Introspective">🌊</button>
+            <button class="mood-btn" data-mood="overloaded" title="Mental Fatigue & Overload">☁️</button>
+            <button class="mood-btn" data-mood="epiphany" title="Creative Epiphany">🔥</button>
+          </div>
+        </div>
+
+        <!-- Serenity Guided Breathing Circle -->
+        <div class="breathing-circle-container">
+          <div class="breathing-circle" id="serenity-breathing-orb" title="Click to begin or pause 60s mindful breathing guidance">
+            <div class="breathing-phase-text" id="breathing-phase-label">Breathe In</div>
+            <div class="breathing-subtext" id="breathing-sublabel">Tap to Guide</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Affirmation & Reflection Prompt -->
+        <div class="neu-inset" style="padding:16px; margin-top:14px;">
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; font-family:'Space Mono', monospace; margin-bottom:6px;">
+            <span>💭 Daily Cognitive Mirror Insight</span>
+          </div>
+          <p id="sanctuary-affirmation" style="font-size:14px; font-style:italic; color:var(--text-primary); line-height:1.6; margin-bottom:12px;">
+            "Clarity is not the absence of complex thoughts, but the deliberate stillness you bring to examining them."
+          </p>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span id="sanctuary-tag" style="font-family:'Space Mono', monospace; font-size:11px; color:var(--primary); font-weight:700;">#FOCUS_FLOW</span>
+            <button class="dock-pill-btn" id="btn-sanctuary-reflect" style="background:var(--primary); color:#FFF; font-weight:700; border:none; padding:8px 16px;">
+              <span>Reflect on this State →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 7-Day Consistency Streak & Balance Spectrum -->
+      <div class="neu-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <!-- Streak Header -->
+          <div class="streak-widget-header">
+            <div>
+              <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.08em;">Cognitive Continuity</span>
+              <h3 style="font-family:'Playfair Display', serif; font-size:22px; font-weight:700; color:var(--text-primary); margin-top:2px;">7-Day Reflection Continuity</h3>
+            </div>
+            <div class="streak-badge-pill">
+              <span>🌟</span>
+              <span>7 Day Streak!</span>
+            </div>
+          </div>
+
+          <!-- 7-Day Grid Cards -->
+          <div class="streak-days-grid" id="streak-days-container">
+            <div class="streak-day-cell completed" title="Monday: 2 thoughts recorded">
+              <div class="streak-day-name">Mon</div>
+              <div class="streak-day-num">18</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Tuesday: 3 thoughts recorded">
+              <div class="streak-day-name">Tue</div>
+              <div class="streak-day-num">19</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Wednesday: 1 thought recorded">
+              <div class="streak-day-name">Wed</div>
+              <div class="streak-day-num">20</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Thursday: 4 thoughts recorded">
+              <div class="streak-day-name">Thu</div>
+              <div class="streak-day-num">21</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Friday: 2 thoughts recorded">
+              <div class="streak-day-name">Fri</div>
+              <div class="streak-day-num">22</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell completed" title="Saturday: 3 thoughts recorded">
+              <div class="streak-day-name">Sat</div>
+              <div class="streak-day-num">23</div>
+              <div class="streak-day-status">✅</div>
+            </div>
+            <div class="streak-day-cell today completed" title="Today: Reflection recorded">
+              <div class="streak-day-name">Sun</div>
+              <div class="streak-day-num">24</div>
+              <div class="streak-day-status">🌟</div>
+            </div>
+          </div>
+
+          <!-- Weekly Cognitive Balance Spectrum Chart -->
+          <div class="neu-inset" style="padding:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); font-weight:700;">Cognitive Depth Spectrum</span>
+              <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--emerald); font-weight:700;">+24% vs. Last Week</span>
+            </div>
+            <div class="spectrum-bars-row">
+              <div class="spectrum-col">
+                <span style="font-size:14px;">💡</span>
+                <div class="spectrum-bar-fill high" style="height:78%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">M</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌿</span>
+                <div class="spectrum-bar-fill" style="height:62%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">T</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌊</span>
+                <div class="spectrum-bar-fill" style="height:48%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">W</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">💡</span>
+                <div class="spectrum-bar-fill high" style="height:85%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">T</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🔥</span>
+                <div class="spectrum-bar-fill high" style="height:95%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">F</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌿</span>
+                <div class="spectrum-bar-fill" style="height:70%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">S</span>
+              </div>
+              <div class="spectrum-col">
+                <span style="font-size:14px;">🌟</span>
+                <div class="spectrum-bar-fill high" style="height:88%;"></div>
+                <span style="font-size:10px; font-family:'Space Mono', monospace; color:var(--muted);">S</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust & Sovereignty Badges (Mental Health + Agency Grade) -->
+        <div class="trust-badges-row">
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>100% Confidential</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>Zero Cloud Telemetry</span>
+          </div>
+          <div class="trust-badge-item">
+            <span class="trust-check-icon">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </span>
+            <span>Local Sovereign Latent Space</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2586,6 +3379,30 @@
 
     </div>
   </section>
+
+  <!-- ─── Creative Agency Infinite Marquee Ticker 2 ───── -->
+  <div class="marquee-ticker-wrap" aria-hidden="true">
+    <div class="marquee-track marquee-track-reverse">
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Retina Paper Grain <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Fountain Pen Tactility <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Japanese Sumi Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Claude 3.5 Sonnet Extraction <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Deep Archival Manuscript <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Knowledge Constellations <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign Latent Space <span class="marquee-star">✦</span></span>
+      </div>
+      <div class="marquee-item-group">
+        <span class="marquee-chip">Retina Paper Grain <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Fountain Pen Tactility <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Japanese Sumi Ink <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Claude 3.5 Sonnet Extraction <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Deep Archival Manuscript <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Knowledge Constellations <span class="marquee-star">✦</span></span>
+        <span class="marquee-chip">Zero-Cloud Sovereign Latent Space <span class="marquee-star">✦</span></span>
+      </div>
+    </div>
+  </div>
 
   <!-- ─── Section 3: Atmospheric Digital Landscapes & City Views Exhibition ── -->
   <section class="memories-section" id="memories-exhibition">
@@ -2841,6 +3658,141 @@
           </div>
         </div>
       </div>
+
+      <!-- Agency-Grade Numbered Architectural Capabilities -->
+      <div class="agency-pillars-wrap">
+        <div class="agency-pillar-item" onclick="window.location.href='#simulator'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">01</span>
+            <div class="agency-pillar-info">
+              <h3>High-Dimensional Latent Geometry</h3>
+              <p>Translates messy, unstructured sentences into 384-dimensional cosine orbits where conceptual gravity pulls kindred ideas together.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#paper-studio'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">02</span>
+            <div class="agency-pillar-info">
+              <h3>Dual-Page Archival Folio Studio</h3>
+              <p>Physical penmanship meets synthetic clarity. Premium cotton paper grain, archival Japanese inks, and Claude-powered margin annotations.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#sanctuary'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">03</span>
+            <div class="agency-pillar-info">
+              <h3>Mindful Cognitive Sanctuary & Consistency</h3>
+              <p>Empathetic 5-state climate check-ins, guided breathing circles, and 7-day continuity streaks that nurture healthy reflective habits.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+
+        <div class="agency-pillar-item" onclick="window.location.href='#memories-exhibition'">
+          <div class="agency-pillar-left">
+            <span class="agency-pillar-num">04</span>
+            <div class="agency-pillar-info">
+              <h3>Atmospheric Fine-Art Resonance</h3>
+              <p>Digital landscape masterworks by Tubik Studio anchor abstract philosophical notions to visceral sensory memory beacons.</p>
+            </div>
+          </div>
+          <div class="agency-arrow-circle">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Creative Agency Style Thought Case Studies -->
+      <div style="margin-top:54px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span style="font-family:'Space Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--muted); letter-spacing:0.12em; font-weight:700;">Selected Thought Portfolios</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:28px; font-weight:700; color:var(--text-primary); margin-top:4px;">Cognitive Case Studies</h3>
+          </div>
+          <a href="mirror.html" class="dock-pill-btn" style="font-size:12px; font-weight:700; text-decoration:none;">
+            <span>Explore All in 3D Galaxy</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="agency-case-grid">
+          <!-- Case 1 -->
+          <div class="agency-case-card" onclick="openCaseStudy(0)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/norway_fjord.png" alt="Nordic Fjord Settlement" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(124,58,237,0.12); color:var(--primary);">Systems Architecture</span>
+                <h4 class="agency-case-title">Stoic Equanimity in High-Frequency Systems</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 2 -->
+          <div class="agency-case-card" onclick="openCaseStudy(1)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/rhaetian_alps.jpg" alt="Rhaetian Alps Dawn" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(16,185,129,0.12); color:#059669;">Mindful Metaphysics</span>
+                <h4 class="agency-case-title">The Alchemy of 6:15 AM Dawn Solitude</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 3 -->
+          <div class="agency-case-card" onclick="openCaseStudy(2)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/amsterdam_colors.png" alt="Amsterdam Canals" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(2,132,199,0.12); color:#0284C7;">Atmospheric Aesthetics</span>
+                <h4 class="agency-case-title">Twilight Canals & Orderly Urban Geometry</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case 4 -->
+          <div class="agency-case-card" onclick="openCaseStudy(3)">
+            <div class="agency-case-thumb-wrap">
+              <img src="img/illustrations/yosemite_falls.png" alt="Yosemite Falls" class="agency-case-thumb" />
+            </div>
+            <div class="agency-case-body">
+              <div class="agency-case-meta">
+                <span class="agency-case-badge" style="background:rgba(217,119,6,0.12); color:#D97706;">Analog Studio</span>
+                <h4 class="agency-case-title">Cotton Paper as an Anti-Distraction Shield</h4>
+              </div>
+              <div class="agency-case-action">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2946,9 +3898,10 @@
           <ul class="footer-links-list">
             <li><a href="#hero">Cognitive Planetarium</a></li>
             <li><a href="#simulator">Thought Simulator</a></li>
-            <li><a href="#paper-studio">Tactile Folio Studio <span class="footer-badge-mini">New</span></a></li>
-            <li><a href="#memories-gallery">Atmospheric Artworks</a></li>
-            <li><a href="#intelligence-suite">Intelligence Suite</a></li>
+            <li><a href="#sanctuary">Mindful Sanctuary <span class="footer-badge-mini">Serenity</span></a></li>
+            <li><a href="#paper-studio">Tactile Folio Studio</a></li>
+            <li><a href="#memories-exhibition">Atmospheric Artworks</a></li>
+            <li><a href="#intelligence-suite">Architecture Suite</a></li>
             <li><a href="mirror.html">Launch Live 3D Galaxy →</a></li>
           </ul>
         </div>
@@ -3523,6 +4476,173 @@
         if (suiteMoodDesc) suiteMoodDesc.textContent = desc;
       });
     });
+
+    // ─────────────────────────────────────────────
+    // Mindful Sanctuary & Cognitive Continuity System
+    // (Inspired by uupm.cc/demo/mental-health)
+    // ─────────────────────────────────────────────
+    const sanctuaryMoods = {
+      focused: {
+        title: "Focused 💡",
+        tag: "#FOCUS_FLOW",
+        affirmation: "Clarity is not the absence of complex thoughts, but the deliberate stillness you bring to examining them.",
+        prompt: "Deep technical architecture focus: I notice my thoughts cluster clearest when eliminating all speculative context.",
+        color: "var(--primary)"
+      },
+      grounded: {
+        title: "Grounded 🌿",
+        tag: "#EQUANIMITY",
+        affirmation: "Root your attention into the present physical moment. No idea can shake your foundation unless you permit it.",
+        prompt: "Quiet stillness: Sitting in silence before morning meetings, anchoring attention to physical breath and tea warmth.",
+        color: "#10B981"
+      },
+      reflective: {
+        title: "Reflective 🌊",
+        tag: "#CONTEMPLATION",
+        affirmation: "The thoughts you release into the constellation will return to you transformed into constellations of insight.",
+        prompt: "Contemplating the balance between building in public and protecting the sacred sanctuary of private research.",
+        color: "#0284C7"
+      },
+      overloaded: {
+        title: "Overloaded ☁️",
+        tag: "#RELEASE_BURDEN",
+        affirmation: "You do not need to solve every open question before you sleep. Unburden your mind onto paper.",
+        prompt: "Cognitive overload: Brain saturated with concurrent threads. Archiving all tasks onto archival paper to restore breathing room.",
+        color: "#64748B"
+      },
+      epiphany: {
+        title: "Epiphany 🔥",
+        tag: "#CREATIVE_SPARK",
+        affirmation: "When lightning strikes the intellect, write without editorial doubt. Capture the heat before cold logic sets in.",
+        prompt: "Breakthrough synthesis: What if vector embeddings are treated not merely as database floats, but as gravitational celestial orbits?",
+        color: "#F59E0B"
+      }
+    };
+
+    let currentSanctuaryMood = 'focused';
+    const moodBtns = document.querySelectorAll('.mood-btn');
+    const moodTitleEl = document.getElementById('active-mood-title');
+    const affirmationEl = document.getElementById('sanctuary-affirmation');
+    const sanctuaryTagEl = document.getElementById('sanctuary-tag');
+    const btnSanctuaryReflect = document.getElementById('btn-sanctuary-reflect');
+
+    moodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        moodBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const moodKey = btn.getAttribute('data-mood');
+        const data = sanctuaryMoods[moodKey];
+        if (!data) return;
+        currentSanctuaryMood = moodKey;
+
+        if (moodTitleEl) moodTitleEl.textContent = data.title;
+        if (affirmationEl) affirmationEl.textContent = `"${data.affirmation}"`;
+        if (sanctuaryTagEl) sanctuaryTagEl.textContent = data.tag;
+      });
+    });
+
+    if (btnSanctuaryReflect) {
+      btnSanctuaryReflect.addEventListener('click', () => {
+        const inputEl = document.getElementById('simulator-input');
+        const simSection = document.getElementById('simulator');
+        const runBtn = document.getElementById('btn-run-simulation');
+        const data = sanctuaryMoods[currentSanctuaryMood];
+        if (inputEl && data) {
+          inputEl.value = data.prompt;
+          if (simSection) {
+            simSection.scrollIntoView({ behavior: 'smooth' });
+          }
+          setTimeout(() => {
+            if (runBtn) runBtn.click();
+          }, 450);
+        }
+      });
+    }
+
+    // ─────────────────────────────────────────────
+    // Serenity Guided Breathing Circle
+    // ─────────────────────────────────────────────
+    const breathingOrb = document.getElementById('serenity-breathing-orb');
+    const breathingPhaseLabel = document.getElementById('breathing-phase-label');
+    const breathingSublabel = document.getElementById('breathing-sublabel');
+    let isBreathingActive = false;
+    let breathingInterval = null;
+    let breathingStep = 0;
+
+    const breathingPhases = [
+      { phase: "Breathe In", time: "4s", sub: "Deep inhalation" },
+      { phase: "Hold Breath", time: "4s", sub: "Sustain stillness" },
+      { phase: "Breathe Out", time: "4s", sub: "Gentle release" },
+      { phase: "Rest", time: "2s", sub: "Observe quiet" }
+    ];
+
+    function stepBreathing() {
+      const p = breathingPhases[breathingStep % breathingPhases.length];
+      if (breathingPhaseLabel) breathingPhaseLabel.textContent = p.phase;
+      if (breathingSublabel) breathingSublabel.textContent = `${p.sub} (${p.time})`;
+      breathingStep++;
+    }
+
+    if (breathingOrb) {
+      breathingOrb.addEventListener('click', () => {
+        isBreathingActive = !isBreathingActive;
+        if (isBreathingActive) {
+          breathingOrb.classList.add('active-breathing');
+          breathingStep = 0;
+          stepBreathing();
+          breathingInterval = setInterval(stepBreathing, 3500);
+        } else {
+          breathingOrb.classList.remove('active-breathing');
+          clearInterval(breathingInterval);
+          if (breathingPhaseLabel) breathingPhaseLabel.textContent = "Breathe In";
+          if (breathingSublabel) breathingSublabel.textContent = "Tap to Guide";
+        }
+      });
+    }
+
+    // ─────────────────────────────────────────────
+    // Interactive 7-Day Consistency Streak Checkboxes
+    // ─────────────────────────────────────────────
+    const streakCells = document.querySelectorAll('.streak-day-cell');
+    streakCells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('completed');
+        const statusEl = cell.querySelector('.streak-day-status');
+        if (statusEl) {
+          if (cell.classList.contains('completed')) {
+            statusEl.textContent = cell.classList.contains('today') ? '🌟' : '✅';
+          } else {
+            statusEl.textContent = '○';
+          }
+        }
+      });
+    });
+
+    // ─────────────────────────────────────────────
+    // Creative Agency Case Studies Opener
+    // ─────────────────────────────────────────────
+    const caseStudyPrompts = [
+      "Stoic equanimity meets distributed systems: reading ancient reflections on control while tuning fault-tolerant network topologies.",
+      "The alchemy of dawn solitude: 6:15 AM quiet coffee before any external Slack requests invade my architecture focus.",
+      "Twilight canals in Amsterdam: the rhythm of evening light across historic stone structures echoes deep modular database schemas.",
+      "Cotton paper as sanctuary: fountain pen ink on heavy Japanese archival leaves creates an impervious shield against notification fatigue."
+    ];
+
+    window.openCaseStudy = function(idx) {
+      const prompt = caseStudyPrompts[idx] || caseStudyPrompts[0];
+      const inputEl = document.getElementById('simulator-input');
+      const simSection = document.getElementById('simulator');
+      const runBtn = document.getElementById('btn-run-simulation');
+      if (inputEl) {
+        inputEl.value = prompt;
+        if (simSection) {
+          simSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        setTimeout(() => {
+          if (runBtn) runBtn.click();
+        }, 450);
+      }
+    };
 
     // ─────────────────────────────────────────────
     // Smooth Page Exit to Galaxy
