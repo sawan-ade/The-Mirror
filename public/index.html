@@ -14,7 +14,7 @@
     :root {
       --bg:             #FDFBF7;   /* Warm Alabaster Champagne */
       --card-bg:        #FFFFFF;
-      --card-glass:     rgba(255, 255, 255, 0.88);
+      --card-glass:     rgba(255, 255, 255, 0.90);
       --primary:        #7C3AED;   /* Royal violet */
       --primary-hover:  #6D28D9;
       --primary-dim:    rgba(124, 58, 237, 0.08);
@@ -35,18 +35,18 @@
       --shadow-md:      0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04);
       --shadow-lg:      0 24px 48px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
       --shadow-xl:      0 36px 80px -16px rgba(15, 23, 42, 0.16);
-      --dock-bg:        rgba(253, 251, 247, 0.85);
+      --dock-bg:        rgba(253, 251, 247, 0.88);
       --radius-sm:      8px;
       --radius-md:      14px;
       --radius-lg:      20px;
-      --radius-xl:      28px;
+      --radius-xl:      26px;
       --radius-full:    9999px;
     }
 
     body.dark-mode {
       --bg:             #08080A;   /* Deep Cosmic Abyss */
       --card-bg:        #121317;
-      --card-glass:     rgba(18, 19, 23, 0.88);
+      --card-glass:     rgba(18, 19, 23, 0.90);
       --primary:        #A8FF3E;   /* Neon Lime */
       --primary-hover:  #BBFF52;
       --primary-dim:    rgba(168, 255, 62, 0.14);
@@ -67,7 +67,7 @@
       --shadow-md:      0 12px 28px -6px rgba(0, 0, 0, 0.6);
       --shadow-lg:      0 24px 48px -12px rgba(0, 0, 0, 0.8);
       --shadow-xl:      0 36px 80px -16px rgba(0, 0, 0, 0.95);
-      --dock-bg:        rgba(8, 8, 10, 0.82);
+      --dock-bg:        rgba(8, 8, 10, 0.85);
     }
 
     html, body {
@@ -106,7 +106,7 @@
       position: fixed;
       inset: 0;
       background: url('img/cosmic-oil-canvas.jpg') center 20%/cover no-repeat;
-      opacity: 0.08;
+      opacity: 0.06;
       filter: saturate(1.15) contrast(1.05);
       z-index: 1;
       pointer-events: none;
@@ -114,7 +114,7 @@
       transition: opacity 0.35s;
     }
     body.dark-mode .cosmic-canvas-bg {
-      opacity: 0.26;
+      opacity: 0.22;
       mix-blend-mode: screen;
     }
 
@@ -219,7 +219,7 @@
       font-size: 13px;
       font-weight: 600;
     }
-    @media (max-width: 820px) {
+    @media (max-width: 840px) {
       .nav-center-links { display: none; }
       .live-pulse-badge { display: none; }
     }
@@ -305,7 +305,7 @@
       color: #0A0A0A !important;
     }
 
-    /* ─── Hero Section with Interactive Constellation ─ */
+    /* ─── Hero Section with Pristine Typography ───── */
     .hero-container {
       position: relative;
       z-index: 10;
@@ -314,31 +314,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 130px 24px 60px;
+      padding: 125px 24px 70px;
       text-align: center;
-      overflow: hidden;
     }
 
-    /* Live Interactive Mini-Galaxy Canvas */
-    #hero-constellation-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: auto;
-      cursor: crosshair;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 5;
-      max-width: 860px;
+    .hero-text-block {
+      max-width: 820px;
       margin: 0 auto;
-      pointer-events: none;
-    }
-    .hero-content > * {
-      pointer-events: auto;
     }
 
     .hero-eyebrow-pill {
@@ -364,10 +346,10 @@
       font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(52px, 8vw, 92px);
-      line-height: 1.04;
+      font-size: clamp(52px, 8vw, 88px);
+      line-height: 1.05;
       color: var(--text-primary);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       letter-spacing: -0.02em;
     }
     .hero-main-title span.accent-text {
@@ -389,7 +371,7 @@
       font-size: 18px;
       color: var(--text-secondary);
       line-height: 1.7;
-      margin-bottom: 38px;
+      margin-bottom: 34px;
       max-width: 620px;
       margin-left: auto;
       margin-right: auto;
@@ -413,7 +395,7 @@
       color: #FFFFFF !important;
       font-weight: 700;
       font-size: 16px;
-      padding: 16px 38px;
+      padding: 16px 36px;
       border-radius: var(--radius-full);
       text-decoration: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -458,33 +440,127 @@
       transform: scale(0.97) !important;
     }
 
-    /* Live Interactive Canvas Tip */
-    .hero-interactive-tip {
-      font-size: 12px;
-      font-family: 'Space Mono', monospace;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 28px;
+    /* ─── Framed Interactive Constellation Viewport ─ */
+    .hero-constellation-frame {
+      width: 100%;
+      max-width: 900px;
+      margin: 10px auto 30px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .hero-constellation-frame:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 28px 70px -14px rgba(124, 58, 237, 0.16);
+    }
+    body.dark-mode .hero-constellation-frame:hover {
+      box-shadow: 0 28px 70px -14px rgba(168, 255, 62, 0.14);
     }
 
-    /* Interactive Node Card Popover */
+    .constellation-frame-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      border-bottom: 1px solid var(--border);
+      background: var(--paper-cream);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .frame-live-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--emerald);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+    .frame-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: livePulse 1.8s infinite;
+    }
+
+    .frame-clusters-list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (max-width: 700px) {
+      .frame-clusters-list { display: none; }
+    }
+    .frame-mini-chip {
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .frame-expand-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .frame-expand-link:hover {
+      color: var(--primary-hover);
+    }
+
+    .constellation-viewport {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.02) 0%, transparent 70%);
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    #hero-constellation-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .constellation-frame-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 22px;
+      border-top: 1px solid var(--border);
+      background: var(--paper-cream);
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Popover inside Viewport */
     .hero-node-popover {
-      position: fixed;
-      z-index: 100;
-      pointer-events: auto;
+      position: absolute;
+      z-index: 50;
+      pointer-events: none;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 16px 18px;
-      max-width: 290px;
+      padding: 14px 16px;
+      max-width: 270px;
       box-shadow: var(--shadow-xl);
       backdrop-filter: blur(20px);
       display: none;
       transform: translate(-50%, -120%);
-      transition: opacity 0.18s, transform 0.18s;
+      transition: opacity 0.15s, transform 0.15s;
       text-align: left;
     }
     .hero-node-popover.active {
@@ -508,10 +584,10 @@
     }
     .popover-node-title {
       font-family: 'Playfair Display', serif;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .popover-node-quote {
       font-size: 12px;
@@ -1363,6 +1439,7 @@
     </div>
 
     <nav class="nav-center-links">
+      <a href="#constellation-preview">Planetarium</a>
       <a href="#simulator">Simulator</a>
       <a href="#paper-studio">Paper Studio</a>
       <a href="#memories-exhibition">Memories</a>
@@ -1409,12 +1486,9 @@
     </div>
   </header>
 
-  <!-- Hero Section with Interactive Constellation Canvas -->
+  <!-- Hero Section with Pristine Typography & Framed Constellation -->
   <section class="hero-container" id="hero">
-    <!-- Live Interactive Constellation Teaser Canvas -->
-    <canvas id="hero-constellation-canvas"></canvas>
-
-    <div class="hero-content">
+    <div class="hero-text-block">
       <div class="hero-eyebrow-pill">
         <svg class="icon-svg" viewBox="0 0 24 24" style="width:13px; height:13px;">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -1422,6 +1496,7 @@
         AI Thought Planetarium & Visual Memories
       </div>
 
+      <!-- Pristine headline with zero overlapping nodes -->
       <h1 class="hero-main-title">
         Your Mind, <span class="accent-text">Illuminated.</span>
       </h1>
@@ -1445,37 +1520,66 @@
           </svg>
         </a>
       </div>
+    </div>
 
-      <div class="hero-interactive-tip">
-        <span>✦ Touch or click the floating nodes to reveal thoughts</span>
+    <!-- Dedicated Luxury Constellation Viewport (Framed & Clean) -->
+    <div class="hero-constellation-frame" id="constellation-preview">
+      <div class="constellation-frame-bar">
+        <div class="frame-live-tag">
+          <span class="frame-live-dot"></span>
+          Interactive Constellation Viewport
+        </div>
+        <div class="frame-clusters-list">
+          <span class="frame-mini-chip" style="background:rgba(124,58,237,0.1); color:var(--primary);">Philosophy</span>
+          <span class="frame-mini-chip" style="background:rgba(2,132,199,0.1); color:var(--cyan);">Technology</span>
+          <span class="frame-mini-chip" style="background:rgba(225,29,72,0.1); color:var(--rose);">Inner World</span>
+          <span class="frame-mini-chip" style="background:rgba(5,150,105,0.1); color:var(--emerald);">Engineering</span>
+          <span class="frame-mini-chip" style="background:rgba(217,119,6,0.1); color:var(--amber);">Artisanal</span>
+        </div>
+        <a href="mirror.html" class="frame-expand-link">
+          <span>Full Planetarium</span>
+          <svg class="icon-svg" viewBox="0 0 24 24" style="width:12px; height:12px;">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
       </div>
 
-      <!-- Live Interactive Metrics Strip -->
-      <div class="hero-metrics-pill-strip">
-        <div class="metric-item">
-          <span class="metric-dot"></span>
-          <strong>25</strong> Thought Nodes
+      <div class="constellation-viewport">
+        <canvas id="hero-constellation-canvas"></canvas>
+
+        <!-- Node popover contained neatly inside viewport -->
+        <div class="hero-node-popover" id="hero-popover">
+          <span class="popover-cluster-badge" id="popover-cluster">Cluster</span>
+          <div class="popover-node-title" id="popover-title">Title</div>
+          <div class="popover-node-quote" id="popover-quote">"Excerpt quote"</div>
         </div>
-        <div class="metric-item">
-          <span class="metric-dot" style="background:var(--primary);"></span>
-          <strong>5</strong> Cognitive Clusters
-        </div>
-        <div class="metric-item">
-          <span class="metric-dot" style="background:var(--cyan);"></span>
-          <strong>18</strong> Months of Evolution
-        </div>
-        <div class="metric-item">
-          <span class="metric-dot" style="background:var(--amber);"></span>
-          Claude 3.5 Sonnet Engine
-        </div>
+      </div>
+
+      <div class="constellation-frame-footer">
+        <span>✦ Hover or drag thought nodes · Click to explore synaptic links</span>
+        <span>25 Thought Nodes · 5 Clusters</span>
       </div>
     </div>
 
-    <!-- Hover Node Popover -->
-    <div class="hero-node-popover" id="hero-popover">
-      <span class="popover-cluster-badge" id="popover-cluster">Cluster</span>
-      <div class="popover-node-title" id="popover-title">Title</div>
-      <div class="popover-node-quote" id="popover-quote">"Excerpt quote"</div>
+    <!-- Live Interactive Metrics Strip -->
+    <div class="hero-metrics-pill-strip">
+      <div class="metric-item">
+        <span class="metric-dot"></span>
+        <strong>25</strong> Thought Nodes
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--primary);"></span>
+        <strong>5</strong> Cognitive Clusters
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--cyan);"></span>
+        <strong>18</strong> Months of Evolution
+      </div>
+      <div class="metric-item">
+        <span class="metric-dot" style="background:var(--amber);"></span>
+        Claude 3.5 Sonnet Engine
+      </div>
     </div>
   </section>
 
@@ -1592,7 +1696,7 @@
 
           <div class="deckled-paper-slip">
             <div class="deckled-paper-quote" id="journal-quote">
-              "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge."
+              "Capture the fleeting moments. The weight of thought on paper — and the quiet patterns that emerge at sunrise."
             </div>
             <div class="deckled-paper-meta" id="journal-meta">
               Entry #42 · Heavy Cotton · Pilot Custom 823 M (Iroshizuku Tsukiyo)
@@ -1889,10 +1993,11 @@
     catPod.addEventListener('click', handleCatToggle);
 
     // ─────────────────────────────────────────────
-    // Interactive Hero Constellation Canvas (Mind Planetarium)
+    // Interactive Framed Constellation Canvas Viewport
     // ─────────────────────────────────────────────
     (function initHeroGalaxy() {
       const canvas = document.getElementById('hero-constellation-canvas');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const popover = document.getElementById('hero-popover');
       const popCluster = document.getElementById('popover-cluster');
@@ -1903,8 +2008,8 @@
         { label: 'Deep Work', cluster: 'Philosophy', color: '#7C3AED', quote: '6:15 AM sunrise block with zero interruptions.' },
         { label: 'Building in Public', cluster: 'Technology', color: '#0284C7', quote: 'Sharing incomplete work creates serendipity.' },
         { label: 'Solitude & City', cluster: 'Inner World', color: '#E11D48', quote: 'Rainy coffee alone — the quiet edge of thought.' },
-        { label: 'Systems Craft', cluster: 'Engineering', color: '#059669', quote: 'Simplicity is prerequisites for reliability.' },
-        { label: 'Fountain Pen Ink', cluster: 'Artisanal', color: '#D97706', quote: 'Tsukiyo ink flow on cotton paper.' },
+        { label: 'Systems Craft', cluster: 'Engineering', color: '#059669', quote: 'Simplicity is prerequisite for reliability.' },
+        { label: 'Fountain Pen Ink', cluster: 'Artisanal', color: '#D97706', quote: 'Tsukiyo ink flow on deckled cotton paper.' },
         { label: 'Emergent AI', cluster: 'Cognition', color: '#7C3AED', quote: 'Mapping latent patterns beyond human recall.' },
         { label: 'Distributed State', cluster: 'Engineering', color: '#059669', quote: 'Consensus algorithms mirroring philosophical agreement.' },
         { label: 'Stoic Meditation', cluster: 'Philosophy', color: '#D97706', quote: 'Impermanence as the ground for deliberate action.' },
@@ -1912,28 +2017,29 @@
         { label: 'Curated Reading', cluster: 'Creativity', color: '#E11D48', quote: 'The books that permanently alter your cognitive lens.' }
       ];
 
-      let width, height;
+      let width = 0, height = 0;
       let nodes = [];
       let mouse = { x: -1000, y: -1000 };
       let hoveredNode = null;
 
       function resize() {
-        width = canvas.width = canvas.parentElement.offsetWidth;
-        height = canvas.height = canvas.parentElement.offsetHeight;
+        width = canvas.width = canvas.parentElement.offsetWidth || 860;
+        height = canvas.height = canvas.parentElement.offsetHeight || 380;
         spawnNodes();
       }
 
       function spawnNodes() {
         nodes = heroNodes.map((n, i) => {
           const angle = (i / heroNodes.length) * Math.PI * 2;
-          const radius = Math.min(width, height) * 0.32;
+          const rx = width * 0.36;
+          const ry = height * 0.32;
           return {
             ...n,
-            x: width / 2 + Math.cos(angle) * radius + (Math.random() - 0.5) * 80,
-            y: height / 2 + Math.sin(angle) * (radius * 0.65) + (Math.random() - 0.5) * 60,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            r: 7 + Math.random() * 5,
+            x: width / 2 + Math.cos(angle) * rx + (Math.random() - 0.5) * 40,
+            y: height / 2 + Math.sin(angle) * ry + (Math.random() - 0.5) * 30,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: 7 + Math.random() * 4,
             pulsePhase: Math.random() * Math.PI * 2
           };
         });
@@ -1962,8 +2068,8 @@
           popCluster.style.color = hoveredNode.color;
           popTitle.textContent = hoveredNode.label;
           popQuote.textContent = `"${hoveredNode.quote}"`;
-          popover.style.left = (rect.left + hoveredNode.x) + 'px';
-          popover.style.top = (rect.top + hoveredNode.y) + 'px';
+          popover.style.left = hoveredNode.x + 'px';
+          popover.style.top = (hoveredNode.y - 10) + 'px';
           popover.classList.add('active');
           canvas.style.cursor = 'pointer';
         } else {
@@ -1974,28 +2080,42 @@
 
       canvas.addEventListener('mouseleave', () => {
         hoveredNode = null;
+        mouse.x = -1000;
+        mouse.y = -1000;
         popover.classList.remove('active');
       });
 
-      // Animation loop
+      let time = 0;
       function animate() {
+        time += 0.02;
         ctx.clearRect(0, 0, width, height);
         const isDark = document.body.classList.contains('dark-mode');
 
-        // Draw connections
+        // Draw connections with synaptic pulse
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const a = nodes[i];
             const b = nodes[j];
             const dist = Math.hypot(a.x - b.x, a.y - b.y);
-            if (dist < 230) {
-              const alpha = (1 - dist / 230) * (isDark ? 0.25 : 0.15);
+            if (dist < 220) {
+              const alpha = (1 - dist / 220) * (isDark ? 0.35 : 0.22);
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
               ctx.lineTo(b.x, b.y);
               ctx.strokeStyle = isDark ? `rgba(168, 255, 62, ${alpha})` : `rgba(124, 58, 237, ${alpha})`;
               ctx.lineWidth = 1;
               ctx.stroke();
+
+              // Traveling light packet
+              if (Math.sin(time * 2 + i + j) > 0.4) {
+                const pulseT = ((time * 0.4 + (i * 0.2)) % 1);
+                const px = a.x + (b.x - a.x) * pulseT;
+                const py = a.y + (b.y - a.y) * pulseT;
+                ctx.beginPath();
+                ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = isDark ? '#A8FF3E' : '#7C3AED';
+                ctx.fill();
+              }
             }
           }
         }
@@ -2006,44 +2126,44 @@
           n.y += n.vy;
           n.pulsePhase += 0.02;
 
-          // Boundary bounce
-          if (n.x < 30 || n.x > width - 30) n.vx *= -1;
+          // Boundary bounce within viewport
+          if (n.x < 36 || n.x > width - 36) n.vx *= -1;
           if (n.y < 30 || n.y > height - 30) n.vy *= -1;
 
           // Mouse gentle repel
           const dMouse = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-          if (dMouse < 90) {
+          if (dMouse < 75) {
             const angle = Math.atan2(n.y - mouse.y, n.x - mouse.x);
-            n.x += Math.cos(angle) * 1.5;
-            n.y += Math.sin(angle) * 1.5;
+            n.x += Math.cos(angle) * 1.2;
+            n.y += Math.sin(angle) * 1.2;
           }
 
           const isHov = (hoveredNode === n);
-          const r = n.r * (isHov ? 1.4 : 1) + Math.sin(n.pulsePhase) * 0.8;
+          const r = n.r * (isHov ? 1.35 : 1) + Math.sin(n.pulsePhase) * 0.7;
 
           // Outer bloom halo
-          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3);
+          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 2.8);
           glow.addColorStop(0, n.color + (isHov ? '77' : '33'));
           glow.addColorStop(1, 'rgba(0,0,0,0)');
           ctx.beginPath();
-          ctx.arc(n.x, n.y, r * 3, 0, Math.PI * 2);
+          ctx.arc(n.x, n.y, r * 2.8, 0, Math.PI * 2);
           ctx.fillStyle = glow;
           ctx.fill();
 
           // Node body
           ctx.beginPath();
           ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? n.color : n.color;
+          ctx.fillStyle = n.color;
           ctx.fill();
           ctx.strokeStyle = '#FFFFFF';
           ctx.lineWidth = 1.5;
           ctx.stroke();
 
-          // Node label
+          // Node label inside viewport
           ctx.font = `${isHov ? 700 : 600} 11px 'Plus Jakarta Sans', sans-serif`;
           ctx.fillStyle = isDark ? '#F8FAFC' : '#0F172A';
           ctx.textAlign = 'center';
-          ctx.fillText(n.label, n.x, n.y + r + 14);
+          ctx.fillText(n.label, n.x, n.y + r + 13);
         });
 
         requestAnimationFrame(animate);
