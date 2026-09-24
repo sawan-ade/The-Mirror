@@ -34,8 +34,8 @@ window.DEMO_DATA = {
       photos: [
         {
           id: "p_dw1",
-          url: "img/memory-deep-work.jpg",
-          caption: "6:15 AM sunrise focus block. Hot coffee, quiet house, no Slack — the golden four hours.",
+          url: "img/illustrations/lighthouse_coastal.png",
+          caption: "Solitary beacon cutting through sea mist. The mental horizon of uninterrupted four-hour focus.",
           date: "March 2024"
         }
       ],
@@ -97,6 +97,14 @@ window.DEMO_DATA = {
       status: "recurring",
       firstSeen: "June 2024",
       lastSeen: "August 2025",
+      photos: [
+        {
+          id: "p_bo1",
+          url: "img/illustrations/river_sunset.png",
+          caption: "Golden hour river bend. Learning that recovery cannot be rushed and stillness is a prerequisite for clarity.",
+          date: "June 2024"
+        }
+      ],
       voiceNotes: [
         {
           id: "v_bo1",
@@ -141,8 +149,8 @@ window.DEMO_DATA = {
       photos: [
         {
           id: "p_med1",
-          url: "img/memory-meditation.jpg",
-          caption: "Morning zafu corner and green tea. Sitting still for twenty minutes before the mind starts spinning.",
+          url: "img/illustrations/rhaetian_alps.jpg",
+          caption: "Rhaetian Alps sunrise vista. High-altitude perspective where trivial noise and mental clutter dissolve.",
           date: "May 2024"
         }
       ],
@@ -202,6 +210,14 @@ window.DEMO_DATA = {
       status: "active",
       firstSeen: "March 2024",
       lastSeen: "September 2025",
+      photos: [
+        {
+          id: "p_sys1",
+          url: "img/illustrations/rigi_railways.png",
+          caption: "Rigi mountain railway climbing through cloud banks — designing engineering systems that ascend cleanly above complexity.",
+          date: "May 2024"
+        }
+      ],
       sourceExcerpts: [
         "Good system design is invisible when it works and catastrophically visible when it fails.",
         "I've been thinking about the way we model our data wrong. It's not a performance issue. It's a thinking issue.",
@@ -278,8 +294,8 @@ window.DEMO_DATA = {
       photos: [
         {
           id: "p_lone1",
-          url: "img/memory-solitude.jpg",
-          caption: "Rainy evening coffee alone in the city. The contradiction between craving deep solitude and needing human presence.",
+          url: "img/illustrations/coffee_time_city.png",
+          caption: "Quiet cobblestone cafe corner at dawn. The delicate tension between craving solitude and needing urban presence.",
           date: "July 2024"
         }
       ],
@@ -318,8 +334,8 @@ window.DEMO_DATA = {
       photos: [
         {
           id: "p_wri1",
-          url: "img/paper-journal.jpg",
-          caption: "Handmade deckled paper journal & fountain pen. Finding what I believe by putting ink on textured paper.",
+          url: "img/illustrations/autumn_boat.png",
+          caption: "Rowing into autumn mist. Letting ideas drift without urgency until the right words settle onto paper.",
           date: "August 2024"
         }
       ],
@@ -403,6 +419,20 @@ window.DEMO_DATA = {
       status: "active",
       firstSeen: "July 2024",
       lastSeen: "June 2025",
+      photos: [
+        {
+          id: "p_cvr1",
+          url: "img/illustrations/amsterdam_colors.png",
+          caption: "Amsterdam canal reflections at dusk. The magnetic energy of dense urban culture vs. secluded focus.",
+          date: "July 2024"
+        },
+        {
+          id: "p_cvr2",
+          url: "img/illustrations/house_woods.png",
+          caption: "Sanctuary cabin in deep pine woods. The longing for stillness and uninterrupted thought.",
+          date: "January 2025"
+        }
+      ],
       sourceExcerpts: [
         "The city is expensive and loud and I love it. But I could ship more code from a quiet town.",
         "Is the energy of a city something I need, or just something I've gotten used to?",

@@ -1021,9 +1021,44 @@
       line-height: 1.6;
     }
 
+    .gallery-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 34px;
+      flex-wrap: wrap;
+    }
+    .gallery-filter-btn {
+      background: var(--paper-cream);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: inherit;
+    }
+    .gallery-filter-btn:hover {
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    .gallery-filter-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+    body.dark-mode .gallery-filter-btn.active {
+      color: #08080A;
+    }
+
     .exhibition-gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 26px;
     }
     .polaroid-card {
@@ -1032,16 +1067,19 @@
       border-radius: var(--radius-lg);
       padding: 12px 12px 20px;
       box-shadow: var(--shadow-md);
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s, border-color 0.28s;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s, border-color 0.28s, opacity 0.25s;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       position: relative;
     }
-    .polaroid-card:nth-child(1) { transform: rotate(-1.2deg); }
-    .polaroid-card:nth-child(2) { transform: rotate(1.4deg); }
-    .polaroid-card:nth-child(3) { transform: rotate(-0.8deg); }
-    .polaroid-card:nth-child(4) { transform: rotate(1.2deg); }
+    .polaroid-card[data-hidden="true"] {
+      display: none !important;
+    }
+    .polaroid-card:nth-child(4n+1) { transform: rotate(-1.1deg); }
+    .polaroid-card:nth-child(4n+2) { transform: rotate(1.3deg); }
+    .polaroid-card:nth-child(4n+3) { transform: rotate(-0.7deg); }
+    .polaroid-card:nth-child(4n+4) { transform: rotate(1.0deg); }
 
     .polaroid-card:hover {
       transform: translateY(-8px) scale(1.02) rotate(0deg) !important;
@@ -1266,26 +1304,54 @@
       font-weight: 700;
     }
 
-    /* Tab 4: Oil Painting Split */
+    /* Tab 4: Atmospheric Digital Landscapes & Fine Art Impasto */
     .painting-mood-preview {
       position: relative;
       border-radius: var(--radius-md);
       overflow: hidden;
-      height: 240px;
-      background: url('img/cosmic-oil-canvas.jpg') center/cover;
+      min-height: 270px;
+      background: url('img/cosmic-oil-canvas.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: var(--shadow-md);
+      transition: background 0.4s ease;
     }
     .painting-mood-overlay {
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(4px);
-      padding: 24px 34px;
+      background: rgba(15, 23, 42, 0.76);
+      backdrop-filter: blur(8px);
+      padding: 26px 36px;
       border-radius: var(--radius-md);
       color: #FFFFFF;
       text-align: center;
-      max-width: 500px;
+      max-width: 580px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .suite-mood-btn {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+      font-family: inherit;
+    }
+    .suite-mood-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .suite-mood-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+    body.dark-mode .suite-mood-btn.active {
+      color: #08080A;
     }
 
     /* ─── Lightbox Modal ──────────────────────────── */
@@ -1707,7 +1773,7 @@
     </div>
   </section>
 
-  <!-- ─── Section 3: Curated Visual Memories Exhibition ── -->
+  <!-- ─── Section 3: Atmospheric Digital Landscapes & City Views Exhibition ── -->
   <section class="memories-section" id="memories-exhibition">
     <div class="section-header-block">
       <span class="section-tag-eyebrow">
@@ -1715,64 +1781,125 @@
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
           <circle cx="12" cy="13" r="4"></circle>
         </svg>
-        Curated Visual Exhibition
+        Atmospheric Digital Artworks · Landscapes & City Views
       </span>
-      <h2 class="section-headline">Memories Anchored to Ideas</h2>
+      <h2 class="section-headline">Environments That Anchor Our Thoughts</h2>
       <p class="section-subheadline">
-        Every deep reflection happens somewhere in the real world. Click any memory below to inspect the photography and its anchored thought node.
+        Every deep reflection is shaped by the atmosphere around us. Curated digital landscapes and city views by Tubik Studio, paired with reflective journal memories.
       </p>
     </div>
 
-    <div class="exhibition-gallery-grid">
-      <!-- Card 1 -->
-      <div class="polaroid-card" data-img="img/memory-deep-work.jpg" data-title="Sunrise Deep Work Block" data-quote="6:15 AM sunrise focus block with hot coffee and zero meetings." data-tag="Philosophy & Clarity" data-aperture="35mm · f/1.8 · ISO 200">
+    <!-- Category Filter Bar -->
+    <div class="gallery-filter-bar" id="gallery-filters">
+      <button class="gallery-filter-btn active" data-filter="all">All Environments (8)</button>
+      <button class="gallery-filter-btn" data-filter="alpine">Alpine & Mountains</button>
+      <button class="gallery-filter-btn" data-filter="city">City & Architecture</button>
+      <button class="gallery-filter-btn" data-filter="coastal">Rivers & Coasts</button>
+      <button class="gallery-filter-btn" data-filter="sanctuary">Quiet Sanctuaries</button>
+    </div>
+
+    <div class="exhibition-gallery-grid" id="gallery-grid">
+      <!-- Card 1: Rhaetian Alps -->
+      <div class="polaroid-card" data-category="alpine" data-img="img/illustrations/rhaetian_alps.jpg" data-title="Rhaetian Alps Dawn" data-quote="6:15 AM high-altitude clarity. Jagged alpine peaks breaking through cloud mist — where complex system designs suddenly feel quiet and obvious." data-tag="Alpine Elevation" data-credit="Tubik Studio · Alpine Landscape" data-aperture="Alpine Elevation 2,800m">
         <div class="polaroid-image-frame">
-          <span class="card-cluster-pill">Philosophy</span>
-          <img src="img/memory-deep-work.jpg" alt="Sunrise desk focus block" loading="lazy" />
-          <span class="aperture-tag">35mm f/1.8</span>
+          <span class="card-cluster-pill">Alpine Dawn</span>
+          <img src="img/illustrations/rhaetian_alps.jpg" alt="Rhaetian Alps Dawn digital illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
         </div>
         <div class="polaroid-caption-block">
-          <div class="polaroid-title">Deep Work</div>
-          <div class="polaroid-caption">"6:15 AM sunrise focus block with hot coffee and zero meetings."</div>
+          <div class="polaroid-title">Rhaetian Alps Dawn</div>
+          <div class="polaroid-caption">"High-altitude clarity where complex system designs suddenly feel quiet and obvious."</div>
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="polaroid-card" data-img="img/memory-studio.jpg" data-title="Midnight Studio Sprint" data-quote="First 100 users logged in while the studio was silent at midnight." data-tag="Technology & Craft" data-aperture="50mm · f/1.4 · ISO 800">
+      <!-- Card 2: Amsterdam Canals -->
+      <div class="polaroid-card" data-category="city" data-img="img/illustrations/amsterdam_colors.png" data-title="Amsterdam Twilight Canals" data-quote="Warm amber windows reflecting on dark waterways. Orderly canals mirroring modular, resilient software architectures." data-tag="City Architecture" data-credit="Tubik Studio · City View" data-aperture="Canal Twilight · Amsterdam">
         <div class="polaroid-image-frame">
-          <span class="card-cluster-pill">Technology</span>
-          <img src="img/memory-studio.jpg" alt="Creative studio workspace" loading="lazy" />
-          <span class="aperture-tag">50mm f/1.4</span>
+          <span class="card-cluster-pill">City Architecture</span>
+          <img src="img/illustrations/amsterdam_colors.png" alt="Amsterdam Twilight Canals illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
         </div>
         <div class="polaroid-caption-block">
-          <div class="polaroid-title">Studio Sprint</div>
-          <div class="polaroid-caption">"First 100 users logged in while the studio was silent at midnight."</div>
+          <div class="polaroid-title">Amsterdam Canals</div>
+          <div class="polaroid-caption">"Warm amber windows reflecting on dark waterways — orderly systems in balance."</div>
         </div>
       </div>
 
-      <!-- Card 3 -->
-      <div class="polaroid-card" data-img="img/memory-solitude.jpg" data-title="Rainy Cafe Solitude" data-quote="Rainy evening coffee alone — the tension between focus and human connection." data-tag="Inner World" data-aperture="28mm · f/2.0 · ISO 400">
+      <!-- Card 3: Old Town Morning Cafe -->
+      <div class="polaroid-card" data-category="city" data-img="img/illustrations/coffee_time_city.png" data-title="Old Town Morning Cafe" data-quote="A solitary table on cobblestone streets before the city awakes. The gentle hum of urban life framing deep stream-of-consciousness writing." data-tag="Urban Solitude" data-credit="Tubik Studio · Urban Scene" data-aperture="Dawn Cafe · 06:45 AM">
         <div class="polaroid-image-frame">
-          <span class="card-cluster-pill">Inner World</span>
-          <img src="img/memory-solitude.jpg" alt="Rainy cafe window solitude" loading="lazy" />
-          <span class="aperture-tag">28mm f/2.0</span>
+          <span class="card-cluster-pill">Urban Solitude</span>
+          <img src="img/illustrations/coffee_time_city.png" alt="Old Town Morning Cafe illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
         </div>
         <div class="polaroid-caption-block">
-          <div class="polaroid-title">Solitude & City</div>
-          <div class="polaroid-caption">"Rainy evening coffee alone — the tension between focus and human connection."</div>
+          <div class="polaroid-title">Morning Cafe</div>
+          <div class="polaroid-caption">"A solitary table on cobblestone streets before the city awakes. Coffee and ink."</div>
         </div>
       </div>
 
-      <!-- Card 4 -->
-      <div class="polaroid-card" data-img="img/memory-reading.jpg" data-title="Physical Reading Stack" data-quote="Philosophy & design theory books that re-wire how I think about systems." data-tag="Creativity & Systems" data-aperture="40mm · f/2.8 · ISO 100">
+      <!-- Card 4: Nordic Fjord Settlement -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/norway_fjord.png" data-title="Nordic Fjord Settlement" data-quote="Towering granite walls sheltering tiny wooden houses. Grounding perspective against cosmic vastness and long-term craft." data-tag="Coastal Landscape" data-credit="Tubik Studio · Nordic Fjord" data-aperture="Fjord Valley · Western Norway">
         <div class="polaroid-image-frame">
-          <span class="card-cluster-pill">Creativity</span>
-          <img src="img/memory-reading.jpg" alt="Stack of hardcover books with ink notes" loading="lazy" />
-          <span class="aperture-tag">40mm f/2.8</span>
+          <span class="card-cluster-pill">Coastal Landscape</span>
+          <img src="img/illustrations/norway_fjord.png" alt="Nordic Fjord Settlement illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
         </div>
         <div class="polaroid-caption-block">
-          <div class="polaroid-title">Reading Stack</div>
-          <div class="polaroid-caption">"Philosophy & design theory books that re-wire how I think about systems."</div>
+          <div class="polaroid-title">Nordic Fjord</div>
+          <div class="polaroid-caption">"Towering granite walls sheltering tiny wooden houses — grounding perspective."</div>
+        </div>
+      </div>
+
+      <!-- Card 5: Solitary Beacon at Sea -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/lighthouse_coastal.png" data-title="Solitary Beacon at Sea" data-quote="A lone lighthouse cutting through sea mist and turbulent surf. Four-hour deep work focus when all external noise is silenced." data-tag="Maritime Solitude" data-credit="Tubik Studio · Coastal Beacon" data-aperture="North Sea Coast · Dense Fog">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Maritime Solitude</span>
+          <img src="img/illustrations/lighthouse_coastal.png" alt="Lighthouse coastal illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Solitary Beacon</div>
+          <div class="polaroid-caption">"Cutting through sea mist and turbulent surf — pure four-hour deep work focus."</div>
+        </div>
+      </div>
+
+      <!-- Card 6: Rigi Mountain Railway -->
+      <div class="polaroid-card" data-category="alpine" data-img="img/illustrations/rigi_railways.png" data-title="Rigi Mountain Railway" data-quote="Ascending above the fog line into blinding sunlight. Mechanical precision climbing through sheer natural scale." data-tag="Mountain Ascent" data-credit="Tubik Studio · Alpine Panorama" data-aperture="Mount Rigi · Elevation 1,798m">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Mountain Ascent</span>
+          <img src="img/illustrations/rigi_railways.png" alt="Rigi mountain railway illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Rigi Railway</div>
+          <div class="polaroid-caption">"Ascending above the fog line into sunlight. Mechanical precision in nature."</div>
+        </div>
+      </div>
+
+      <!-- Card 7: Golden Hour River Bend -->
+      <div class="polaroid-card" data-category="coastal" data-img="img/illustrations/river_sunset.png" data-title="Golden Hour River Bend" data-quote="Still waters reflecting lavender and amber skies. The patient, unhurried current of deliberate contemplation." data-tag="Evening Horizon" data-credit="Tubik Studio · River Sunset" data-aperture="River Basin · Golden Hour">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Evening Horizon</span>
+          <img src="img/illustrations/river_sunset.png" alt="River sunset illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">River Sunset</div>
+          <div class="polaroid-caption">"Still waters reflecting amber skies — the patient current of deliberate contemplation."</div>
+        </div>
+      </div>
+
+      <!-- Card 8: Sanctuary in the Forest -->
+      <div class="polaroid-card" data-category="sanctuary" data-img="img/illustrations/house_woods.png" data-title="Sanctuary in the Forest" data-quote="A warm light glowing inside the pine forest cabin. Deep incubation for difficult ideas that need space to breathe." data-tag="Pine Woods Sanctuary" data-credit="Tubik Studio · Forest Cabin" data-aperture="Old Growth Forest · Midnight">
+        <div class="polaroid-image-frame">
+          <span class="card-cluster-pill">Forest Sanctuary</span>
+          <img src="img/illustrations/house_woods.png" alt="Sanctuary in the Forest illustration by Tubik Studio" loading="lazy" />
+          <span class="aperture-tag">Tubik Art</span>
+        </div>
+        <div class="polaroid-caption-block">
+          <div class="polaroid-title">Forest Sanctuary</div>
+          <div class="polaroid-caption">"A warm light glowing inside the pine cabin — deep incubation for complex ideas."</div>
         </div>
       </div>
     </div>
@@ -1880,16 +2007,23 @@
         </p>
       </div>
 
-      <!-- Tab Panel 4: Cosmic Impasto -->
+      <!-- Tab Panel 4: Atmospheric Environments & Impasto -->
       <div class="suite-tab-panel" id="panel-painting">
-        <div class="painting-mood-preview">
+        <div class="painting-mood-preview" id="suite-painting-box">
           <div class="painting-mood-overlay">
-            <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin-bottom:8px;">
-              Renaissance Chiaroscuro & Impasto
+            <span style="font-family:'Space Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:var(--primary); background:rgba(0,0,0,0.45); padding:3px 9px; border-radius:4px; display:inline-block; margin-bottom:10px; border:1px solid rgba(255,255,255,0.15);">Atmospheric Canvas Environments</span>
+            <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin-bottom:8px;" id="suite-mood-title">
+              Renaissance Impasto & Tubik Digital Art
             </h3>
-            <p style="font-size:13px; line-height:1.6;">
-              Inspired by Van Gogh's Starry Night and fine art oil canvas textures. Switch seamlessly into an artistic contemplation mood inside the galaxy app.
+            <p style="font-size:13px; line-height:1.6; margin-bottom:18px; color:rgba(255,255,255,0.85);" id="suite-mood-desc">
+              Immerse your cognitive galaxy inside fine-art oil canvas textures or atmospheric Tubik digital landscapes.
             </p>
+            <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;" id="suite-mood-buttons">
+              <button class="suite-mood-btn active" data-bg="img/cosmic-oil-canvas.jpg" data-title="Van Gogh Impasto" data-desc="Fine art impasto canvas texture with rich swirling oil pigments and chiaroscuro depths.">Van Gogh Impasto</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/rhaetian_alps.jpg" data-title="Rhaetian Alps Dawn" data-desc="High-altitude alpine sunrise with misty peaks and crisp morning light breaking over valleys.">Alpine Dawn</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/amsterdam_colors.png" data-title="Amsterdam Canals" data-desc="Twilight urban canals reflecting amber streetlamps and orderly historic architecture.">Amsterdam Canals</button>
+              <button class="suite-mood-btn" data-bg="img/illustrations/norway_fjord.png" data-title="Nordic Fjord Settlement" data-desc="Deep blue fjord waters sheltered by towering rock faces and serene wooden cottages.">Nordic Fjord</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1904,10 +2038,16 @@
         <img id="lightbox-main-img" src="" alt="Memory expanded" />
       </div>
       <div class="lightbox-info">
-        <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--primary); font-weight:700; text-transform:uppercase;" id="lightbox-tag"></span>
-        <h3 style="font-family:'Playfair Display', serif; font-size:22px; margin:6px 0 10px;" id="lightbox-title"></h3>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:8px;">
+          <span style="font-family:'Space Mono', monospace; font-size:11px; color:var(--primary); font-weight:700; text-transform:uppercase;" id="lightbox-tag"></span>
+          <span style="font-family:'Space Mono', monospace; font-size:10px; color:var(--muted); background:var(--paper-cream); padding:3px 8px; border-radius:4px; border:1px solid var(--border);" id="lightbox-credit">Tubik Studio Digital Illustration</span>
+        </div>
+        <h3 style="font-family:'Playfair Display', serif; font-size:24px; margin:6px 0 10px;" id="lightbox-title"></h3>
         <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; font-style:italic;" id="lightbox-quote"></p>
-        <div style="font-family:'Space Mono', monospace; font-size:11px; color:var(--muted); margin-top:10px;" id="lightbox-aperture"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid var(--border); flex-wrap:wrap; gap:10px;">
+          <div style="font-family:'Space Mono', monospace; font-size:11px; color:var(--muted);" id="lightbox-aperture"></div>
+          <a href="mirror.html" style="font-size:12px; color:var(--primary); font-weight:700; text-decoration:none; display:flex; align-items:center; gap:4px;">Anchor in Thought Galaxy →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -2282,6 +2422,35 @@
     }
 
     // ─────────────────────────────────────────────
+    // Atmospheric Landscapes & City Views Gallery Filtering
+    // ─────────────────────────────────────────────
+    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+    const galleryCards = document.querySelectorAll('.polaroid-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        galleryCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.removeAttribute('data-hidden');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = '';
+            }, 60);
+          } else {
+            card.setAttribute('data-hidden', 'true');
+          }
+        });
+      });
+    });
+
+    // ─────────────────────────────────────────────
     // Photo Lightbox Exhibition
     // ─────────────────────────────────────────────
     const lightbox = document.getElementById('home-lightbox');
@@ -2289,15 +2458,17 @@
     const lbTitle = document.getElementById('lightbox-title');
     const lbQuote = document.getElementById('lightbox-quote');
     const lbTag = document.getElementById('lightbox-tag');
+    const lbCredit = document.getElementById('lightbox-credit');
     const lbAperture = document.getElementById('lightbox-aperture');
     const btnCloseLb = document.getElementById('btn-close-lightbox');
 
-    document.querySelectorAll('.polaroid-card').forEach(card => {
+    galleryCards.forEach(card => {
       card.addEventListener('click', () => {
         lbImg.src = card.getAttribute('data-img');
         lbTitle.textContent = card.getAttribute('data-title');
         lbQuote.textContent = `"${card.getAttribute('data-quote')}"`;
         lbTag.textContent = card.getAttribute('data-tag');
+        if (lbCredit) lbCredit.textContent = card.getAttribute('data-credit') || 'Tubik Studio Digital Art';
         lbAperture.textContent = card.getAttribute('data-aperture');
         lightbox.classList.add('active');
       });
@@ -2306,6 +2477,30 @@
     btnCloseLb.addEventListener('click', () => lightbox.classList.remove('active'));
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+
+    // ─────────────────────────────────────────────
+    // Suite Tab 4: Mood Canvas Switcher
+    // ─────────────────────────────────────────────
+    const suitePaintingBox = document.getElementById('suite-painting-box');
+    const suiteMoodTitle = document.getElementById('suite-mood-title');
+    const suiteMoodDesc = document.getElementById('suite-mood-desc');
+    const suiteMoodBtns = document.querySelectorAll('.suite-mood-btn');
+
+    suiteMoodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        suiteMoodBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const bg = btn.getAttribute('data-bg');
+        const title = btn.getAttribute('data-title');
+        const desc = btn.getAttribute('data-desc');
+
+        if (suitePaintingBox) {
+          suitePaintingBox.style.backgroundImage = `url('${bg}')`;
+        }
+        if (suiteMoodTitle) suiteMoodTitle.textContent = title;
+        if (suiteMoodDesc) suiteMoodDesc.textContent = desc;
+      });
     });
 
     // ─────────────────────────────────────────────

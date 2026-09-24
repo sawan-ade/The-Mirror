@@ -293,10 +293,16 @@ class Inspector {
     if (sampleBtn) {
       sampleBtn.addEventListener('click', () => {
         const presets = [
-          { url: 'img/memory-deep-work.jpg', caption: 'Quiet early morning block with coffee and fresh thoughts.' },
-          { url: 'img/memory-startup.jpg', caption: 'Whiteboard roadmap and system architectural sketches.' },
-          { url: 'img/memory-meditation.jpg', caption: 'Mindfulness space and calm morning sunlight.' },
-          { url: 'img/memory-reading.jpg', caption: 'Philosophy books and handwritten reflection notes.' }
+          { url: 'img/illustrations/rhaetian_alps.jpg', caption: 'Rhaetian Alps sunrise vista — high-altitude clarity where trivial noise fades away.' },
+          { url: 'img/illustrations/amsterdam_colors.png', caption: 'Amsterdam twilight canals — orderly urban systems mirroring structured architecture.' },
+          { url: 'img/illustrations/coffee_time_city.png', caption: 'Old town morning cafe — quiet stream-of-consciousness writing in a notebook.' },
+          { url: 'img/illustrations/lighthouse_coastal.png', caption: 'Solitary beacon in ocean mist — four-hour deep work focus.' },
+          { url: 'img/illustrations/norway_fjord.png', caption: 'Nordic fjord settlement — grounding scale against cosmic vastness.' },
+          { url: 'img/illustrations/rigi_railways.png', caption: 'Rigi mountain railway climbing through clouds — structural engineering elegance.' },
+          { url: 'img/illustrations/river_sunset.png', caption: 'Golden hour river bend — unhurried flow of deliberate thought.' },
+          { url: 'img/illustrations/autumn_boat.png', caption: 'Rowboat on autumn water — letting ideas drift until words settle.' },
+          { url: 'img/illustrations/house_woods.png', caption: 'Sanctuary cabin in pine forest — quiet incubation space.' },
+          { url: 'img/illustrations/sakura_blossom.png', caption: 'Cherry blossom canopy around citadel — ephemeral craft and patience.' }
         ];
         const pick = presets[Math.floor(Math.random() * presets.length)];
         const newPhoto = {
