@@ -190,21 +190,23 @@ class MirrorApp {
 
     if (labelEl) labelEl.textContent = node.label;
     if (metaEl) {
-      const photoText = (node.photos && node.photos.length) ? ` · 📸 ${node.photos.length} memory` : '';
-      metaEl.textContent = `${node.mentions || 1} mentions · ${node.status || 'Active'}${photoText}`;
+      const clusterObj = this.graphData?.clusters?.find(c => c.id === node.cluster);
+      const clusterName = clusterObj?.label || node.cluster || 'Core';
+      const photoText = (node.photos && node.photos.length) ? ` · 📸 ${node.photos.length} visual memory` : '';
+      metaEl.innerHTML = `<span class="tooltip-cluster-pill" style="color:${node.color}; font-weight:700;">${clusterName}</span> · ${node.mentions || 1} mentions${photoText}<div style="margin-top:4px; font-size:10px; color:var(--text-muted); opacity:0.85;">✦ Click to inspect concept</div>`;
     }
 
-    if (node.photos && node.photos.length > 0 && thumbWrap && thumbImg) {
+    if (node.photos && node.photos.length > 0 && node.photos[0].url && thumbWrap && thumbImg) {
       thumbImg.src = node.photos[0].url;
       thumbWrap.style.display = 'block';
     } else if (thumbWrap) {
       thumbWrap.style.display = 'none';
     }
 
-    const pad = 16;
-    const tooltipW = 200;
+    const pad = 18;
+    const tooltipW = 230;
     const posX = (x + tooltipW + pad > window.innerWidth) ? (x - tooltipW - pad) : (x + pad);
-    const posY = Math.max(10, Math.min(window.innerHeight - 80, y - 20));
+    const posY = Math.max(16, Math.min(window.innerHeight - 110, y - 30));
 
     this.tooltip.style.left = `${posX}px`;
     this.tooltip.style.top = `${posY}px`;
@@ -217,19 +219,40 @@ class MirrorApp {
     if (!legend) return;
     legend.innerHTML = '';
 
+    // "All" filter pill
+    const allItem = document.createElement('div');
+    allItem.className = 'legend-item active';
+    allItem.id = 'legend-all';
+    allItem.innerHTML = `
+      <div class="legend-dot" style="background:#7C3AED; box-shadow:0 0 8px rgba(124,58,237,0.5);"></div>
+      <span>All Clusters (${this.graphData.nodes?.length || 0})</span>
+    `;
+    allItem.addEventListener('click', () => {
+      document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+      allItem.classList.add('active');
+      this.galaxy.resetView();
+      this.clearMode();
+    });
+    legend.appendChild(allItem);
+
     this.graphData.clusters.forEach(c => {
       const color = this.clusterColorByKey(c.colorKey);
+      const count = (this.graphData.nodes || []).filter(n => n.cluster === c.id).length;
       const item = document.createElement('div');
       item.className = 'legend-item';
       item.innerHTML = `
         <div class="legend-dot" style="background:${color}; box-shadow:0 0 8px ${color}60;"></div>
-        <span>${c.label}</span>
+        <span>${c.label} (${count})</span>
       `;
       item.addEventListener('click', () => {
-        const nodeIds = (this.graphData.nodes || [])
-          .filter(n => n.cluster === c.id)
-          .map(n => n.id);
-        this.galaxy.setHighlight('cluster', nodeIds, []);
+        document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        if (typeof this.galaxy.focusCluster === 'function') {
+          this.galaxy.focusCluster(c.id);
+        } else {
+          const nodeIds = (this.graphData.nodes || []).filter(n => n.cluster === c.id).map(n => n.id);
+          this.galaxy.setHighlight('cluster', nodeIds, []);
+        }
         this.setMode(`${c.label} cluster`);
       });
       legend.appendChild(item);
@@ -744,6 +767,33 @@ class MirrorApp {
     const btnMemories = document.getElementById('btn-memories');
     if (btnMemories) {
       btnMemories.addEventListener('click', () => this.openMemoriesGallery());
+    }
+
+    // 🔭 Floating Viewport Controls (Zoom In, Zoom Out, Fit All)
+    const btnZoomIn = document.getElementById('ctrl-zoom-in');
+    const btnZoomOut = document.getElementById('ctrl-zoom-out');
+    const btnResetView = document.getElementById('ctrl-reset-view');
+
+    if (btnZoomIn) {
+      btnZoomIn.addEventListener('click', () => {
+        if (this.galaxy) this.galaxy.zoomIn();
+      });
+    }
+    if (btnZoomOut) {
+      btnZoomOut.addEventListener('click', () => {
+        if (this.galaxy) this.galaxy.zoomOut();
+      });
+    }
+    if (btnResetView) {
+      btnResetView.addEventListener('click', () => {
+        if (this.galaxy) {
+          this.galaxy.resetView();
+          document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active'));
+          const allItem = document.getElementById('legend-all');
+          if (allItem) allItem.classList.add('active');
+          this.clearMode();
+        }
+      });
     }
 
     // 📅 Timeline drawer
